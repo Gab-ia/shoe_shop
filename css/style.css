@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@600&display=swap');
+
+:root {
+  --couleur-1: #50514F;
+  --couleur-2: #56A3A6;
+  --couleur-3: #FF785A;
+  --couleur-4: #FFFCFF;
+
+  --font-principale: 'Poppins', sans-serif;
+  --font-secondaire: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+body {
+  font-family: var(--font-principale);
+  background-color: var(--couleur-4);
+  color: var(--couleur-1);
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-secondaire);
+  color: var(--couleur-1);
+}
+
+.connexion_client_section {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.connexion_client_section h1 {
+  text-align: left;
+}
+
+.connexion_client_form {
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.connexion_client_form .connexion_client_button {
+  float: right;
+}
+
+input[type="email"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.connexion_client_button {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+  font-family: var(--font-principale);
+}
