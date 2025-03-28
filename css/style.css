@@ -29,7 +29,11 @@ h3 {
   max-width: 400px;
   margin: 50px auto;
   padding: 20px;
-  text-align: center;
+}
+
+.connexion_client_section img {
+  width: 60px;
+  color: var(--couleur-1);
 }
 
 .connexion_client_section h1 {
@@ -45,7 +49,7 @@ h3 {
   float: right;
 }
 
-input[type="email"] {
+input[type="email"], input[type="password"], input[type="text"] {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -63,4 +67,9 @@ input[type="email"] {
   cursor: pointer;
   margin-top: 10px;
   font-family: var(--font-principale);
+}
+
+.connexion_client_password {
+  position: relative;
+  margin-top: 10px;
 }
