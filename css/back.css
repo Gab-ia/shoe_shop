@@ -90,7 +90,7 @@ header {
     background-color: var(--couleur-4);
     color: var(--couleur-3);
     border-radius: 5px;
-    padding: 10px;
+    padding: 5px 10px;
 }
 
 .gestionnaire_btn:hover {
@@ -100,12 +100,27 @@ header {
 }
 
 .gestionnaire_form {
+    padding: 10px 20px;
     display: none;
     flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .active_form {
     display: flex;
+}
+
+.form_input {
+    padding: 5px;
+    width: 50%;
+    margin-bottom: 10px;
+}
+
+
+.form_label {
+    margin: 10px;
+    width: 30px;
 }
 
 /* List */

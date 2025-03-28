@@ -28,25 +28,33 @@
 
             <div class="gestionnaire_main">
                 <form id="gestionnaire_stock" class="gestionnaire_form active_form">
-                    <label>Nom</label>
-                    <input type="text" id="">
+                    <label for="stock_nom" class="form_label">Nom</label>
+                    <input type="text" id="stock_nom" class="form_input">
 
-                    <label>Prix</label>
-                    <input type="text" id="">
+                    <label for="" class="form_label">Prix</label>
+                    <input type="text" id="" class="form_input">
 
-                    <label>Marque</label>
-                    <input type="text" id="">
+                    <label for="" class="form_label">Marque</label>
+                    <select id="" class="form_input">
+                        <option value="">marque1</option>
+                        <option value="">marque2</option>
+                        <option value="" >marque3</option>
+                    </select>
 
-                    <label>Genre</label>
-                    <input type="text" id="">
+                    <label for="" class="form_label">Genre</label>
+                    <select id="" class="form_input">
+                        <option value="">Homme</option>
+                        <option value="">Femme</option>
+                        <option value="" >Enfant</option>
+                    </select>
 
-                    <label>Taille</label>
-                    <input type="text" id="">
+                    <label for="" class="form_label">Taille</label>
+                    <input type="text" id="" class="form_input">
 
-                    <label>Image</label>
-                    <input type="file" id="">
+                    <label for="" class="form_label">Image</label>
+                    <input type="file" id="" class="form_input">
 
-                    <input type="submit" id="">
+                    <input type="submit" id="" value="/SAVE /MODIFY">
                 </form>
 
             </div>
