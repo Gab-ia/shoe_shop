@@ -56,8 +56,17 @@ h3 {
   float: right;
 }
 
-input[type="email"], input[type="password"], input[type="text"] {
+input[type="email"], input[type="password"], input[type="text"], input[type="prenom"], input[type="id"] {
   width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: var(--font-principale);
+}
+
+input[type="nom"] {
+  width: 90%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
