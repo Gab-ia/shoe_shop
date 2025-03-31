@@ -38,11 +38,18 @@ h3 {
 
 .connexion_client_section h1 {
   text-align: left;
+  font-size: 28px;
 }
 
 .connexion_client_form {
   text-align: left;
   margin-bottom: 15px;
+}
+
+.connexion_client_creercompte{
+  font-size: 13px;
+  text-align: end;
+  margin: 5px;
 }
 
 .connexion_client_form .connexion_client_button {
@@ -55,6 +62,7 @@ input[type="email"], input[type="password"], input[type="text"] {
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 1rem;
+  font-family: var(--font-principale);
 }
 
 .connexion_client_button {

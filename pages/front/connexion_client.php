@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Connexion</title>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -17,7 +17,7 @@
 
     <form class="connexion_client_form">
       <div>
-        <input type="email" id="email" name="email" placeholder="Email" required>
+        <input type="email" id="email" name="email" placeholder="Identifiant ou e-mail" required>
       </div>
 
       <div class="connexion_client_password">
@@ -27,11 +27,17 @@
           <i class="fa fa-eye" id="toggleIcon"></i>
         </span>
       </div>
+
+      <p class="connexion_client_creercompte">
+        <a href="">Créer un compte</a>
+      </p>
+
       <p>
-        En continuant, tu acceptes les <a href="#">conditions d’utilisation</a> et tu confirmes avoir lu la <a
+        En te connectant, tu acceptes les <a href="">conditions d’utilisation</a> et tu confirmes avoir lu la <a
           href="#">politique de confidentialité</a>.
       </p>
-      <button type="submit" class="connexion_client_button">Continuer</button>
+      
+      <button type="submit" class="connexion_client_button">Se connecter</button>
     </form>
   </section>
 
