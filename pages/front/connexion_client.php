@@ -11,7 +11,7 @@
 
 <body>
   <section class="connexion_client_section">
-    <img src="/shoe_shop/img/logo-nike.svg" alt="">
+    <img src="/img/logo-nike.svg" alt="">
 
     <h1>Saisis ton identifiant ou ton adresse e-mail et ton mot de passe pour te connecter</h1>
 
@@ -41,7 +41,7 @@
     </form>
   </section>
 
-  <script src="/shoe_shop/js/script_password.js"></script>
+  <script src="/js/script_password.js"></script>
 </body>
 
 </html>
