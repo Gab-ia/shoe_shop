@@ -29,9 +29,9 @@
 
             <div class="gestionnaire_head">
                 <h2 class="section_title">Gestionnaire</h2>
-                <button id="stock" onclick="show_form()" class="gestionnaire_btn active_gestionnnaire_btn">Stock</button>
-                <button id="employee" class="gestionnaire_btn">Employés</button>
-                <button id="client" class="gestionnaire_btn">Clients</button>
+                <button id="stock" onclick="show_page('stock')" class="gestionnaire_btn active_gestionnnaire_btn">Stock</button>
+                <button id="employee" onclick="show_page('employee')" class="gestionnaire_btn">Employés</button>
+                <button id="client" onclick="show_page('client')" class="gestionnaire_btn">Clients</button>
             </div>
 
             <div class="gestionnaire_main">
@@ -79,6 +79,9 @@
                 <label for="employee_nom" class="form_label">Nom</label>
                 <input type="text" id="employee_nom" class="form_input">
 
+                <label for="employee_nom" class="form_label">Prénom</label>
+                <input type="text" id="employee_nom" class="form_input">
+
                 <label for="employee_identifiant" class="form_label">Identifiant</label>
                 <input type="text" id="employee_identifiant" class="form_input">
 
@@ -116,7 +119,9 @@
         <section id="list" class="list">
 
             <div class="list_head">
-                <h2 id="list_title_stock" class="list_title">Liste du stock</h2>
+                <h2 id="list_title_stock" class="list_title active_list_title">Liste du stock</h2>
+                <h2 id="list_title_employee" class="list_title">Liste des employés</h2>
+                <h2 id="list_title_client" class="list_title">Liste des clients</h2>
             </div>
 
             <div class="list_main">
@@ -127,22 +132,6 @@
                     <p class="list_info">Homme</p>
                     <p class="list_info">42</p>
                     <p class="list_info">nike_jordan_1.png</p>
-                </div>
-                <div class="list_item">
-                    <p class="list_info">nom</p>
-                    <p class="list_info">prix</p>
-                    <p class="list_info">marque</p>
-                    <p class="list_info">genre</p>
-                    <p class="list_info">taille</p>
-                    <p class="list_info">image</p>
-                </div>
-                <div class="list_item">
-                    <p class="list_info">nom</p>
-                    <p class="list_info">prix</p>
-                    <p class="list_info">marque</p>
-                    <p class="list_info">genre</p>
-                    <p class="list_info">taille</p>
-                    <p class="list_info">image</p>
                 </div>
                 <div class="list_item">
                     <p class="list_info">nom</p>

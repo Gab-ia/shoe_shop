@@ -189,6 +189,11 @@ header {
 .list_title {
     color: var(--couleur-1);
     margin: 0px;
+    display: none;
+}
+
+.active_list_title {
+    display: flex;
 }
 
 .list_item {
