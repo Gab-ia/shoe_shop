@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@600&display=swap');
+
+:root {
+  --couleur-1: #50514F;
+  --couleur-2: #56A3A6;
+  --couleur-3: #FF785A;
+  --couleur-4: #FFFCFF;
+
+  --font-principale: 'Poppins', sans-serif;
+  --font-secondaire: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+body {
+  font-family: var(--font-principale);
+  background-color: var(--couleur-1);
+  color: var(--couleur-4);
+  margin: 0;
+  padding: 0;
+}
+
+header {
+
+background-color: var(--couleur-4);
+position: absolute;
+width: 100%;
+height: 20%;
+
+}
+
+
+footer {
+
+  background-color: var(--couleur-4);
+  position: absolute;
+  width: 100%;
+  height: 20%;
+
+
+
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-secondaire);
+  color: var(--couleur-4);
+}
