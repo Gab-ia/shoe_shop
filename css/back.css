@@ -1,5 +1,5 @@
 :root {
-    --couleur-1: #50514F;
+    --couleur-1: #383838;
     --couleur-2: #56A3A6;
     --couleur-3: #FF785A;
     --couleur-4: #FFFCFF;
@@ -22,14 +22,13 @@ h1, h2, h3 {
 }
 main {
     display: flex;
-    align-items: center;
     justify-content: center;
 }
 
 /* header */
 
 header {
-    background-color: var(--couleur-3);
+    background-color: var(--couleur-1);
     display: flex;
     align-items: center;
     padding:20px 50px;
@@ -44,6 +43,7 @@ header {
 .header_logo {
     height: 60px;
     text-align: center;
+    fill: var(--couleur-4);
 }
 
 .header_connexion {
@@ -53,12 +53,9 @@ header {
 
 .header_connexion_logo {
     fill: white;
-    width: 40px;
-    height: 40px;
-}
-
-.header_connexion_text {
-    color: white;
+    padding-right: 30px;
+    width: 20px;
+    height: 20px;
 }
 
 /* Gestionnaire */
@@ -66,37 +63,45 @@ header {
 .gestionnaire {
     width: 45%;
     margin: 20px;
-    border: 2px solid var(--couleur-1);
     border-radius: 5px;
 }
 
 .section_title {
-    color: var(--couleur-4);
+    color: var(--couleur-1);
     margin: 0px;
 }
 
 .gestionnaire_head {
-    background-color: #50514F;
-    color: white;
+    background-color: var(--couleur-4);
+    color: var(--couleur-1);
     display: flex;
     flex-direction: row;
     align-items: center;
     padding: 10px;
+    height: 5em;
 }
 
 .gestionnaire_btn {
     font-size: 20px;
     margin-left: 50px;
-    background-color: var(--couleur-4);
-    color: var(--couleur-3);
+    background-color: var(--couleur-1);
+    color: var(--couleur-4);
     border-radius: 5px;
     padding: 5px 10px;
 }
 
 .gestionnaire_btn:hover {
-    border-bottom:var(--couleur-3);
-    background-color: var(--couleur-3);
+    background-color: #6eb2b4a8;
     color: black;
+}
+
+.active_gestionnnaire_btn {
+    background-color: #6eb2b4a8;
+    color: black;
+}
+
+.gestionnaire_main {
+    display: flex;
 }
 
 .gestionnaire_form {
@@ -105,6 +110,7 @@ header {
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    width: 80%;
 }
 
 .active_form {
@@ -113,26 +119,97 @@ header {
 
 .form_input {
     padding: 5px;
-    width: 50%;
+    width: 100%;
     margin-bottom: 10px;
 }
 
+.form_image_input {
+    padding: 5px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.form_input:hover {
+    background-color: #6eb2b4a8;
+}
+
+.form_select {
+    width: 102%;
+}
 
 .form_label {
     margin: 10px;
-    width: 30px;
+    width: 100%;
 }
 
-/* List */
+.form_box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.image_visualizer {
+    background-color: #d8d8d8;
+    width: 15em;
+    height: 15em;
+}
+
+.form_validation_btn {
+    font-size: 20px;
+    margin-left: 50px;
+    background-color: var(--couleur-1);
+    color: var(--couleur-4);
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.form_validation_btn:hover {
+    background-color: #6eb2b4a8;
+    color: black;
+}
+
+/* Listing */
 
 .list {
     width: 45%;
     margin: 20px;
-    border: 2px solid var(--couleur-1);
     border-radius: 5px;
-    display: none;
 }
 
-.active_list {
+.list_head {
+    background-color: var(--couleur-4);
+    color: var(--couleur-1);
+    padding: 10px;
+    height: 5em;
     display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.list_title {
+    color: var(--couleur-1);
+    margin: 0px;
+}
+
+.list_item {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid var(--couleur-1);
+}
+
+.list_info {
+    padding: 10px;
+    margin: 5px;
+}
+
+.list_item:nth-child(even) {
+    background-color: #ffffff;
+}
+
+.list_item:nth-child(odd) {
+    background-color: #d8d8d8;
+}
+
+.list_item:hover {
+    background-color: #6eb2b4a8;
 }
