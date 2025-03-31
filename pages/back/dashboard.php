@@ -36,7 +36,7 @@
 
             <div class="gestionnaire_main">
 
-                <form id="gestionnaire_stock" class="gestionnaire_form">
+                <form id="gestionnaire_stock" class="gestionnaire_form active_form">
 
                     <label for="stock_nom" class="form_label">Nom</label>
                     <input type="text" id="stock_nom" class="form_input">
@@ -92,7 +92,7 @@
 
             </form>
 
-            <form id="gestionnaire_client" class="gestionnaire_form active_form">
+            <form id="gestionnaire_client" class="gestionnaire_form">
 
                 <label for="client_nom" class="form_label">Nom</label>
                 <input type="text" id="client_nom" class="form_input">
