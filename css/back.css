@@ -1,0 +1,11 @@
+:root {
+    --couleur-1: #50514F;
+    --couleur-2: #56A3A6;
+    --couleur-3: #FF785A;
+    --couleur-4: #FFFCFF;
+}
+
+header {
+    background-color: var(--couleur-3);
+    color: var(--couleur-4);
+}
