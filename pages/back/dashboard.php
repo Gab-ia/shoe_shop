@@ -1,3 +1,8 @@
+<?php 
+    include '../../connexion.php';
+    include 'functionDB.php';
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -24,6 +29,7 @@
 
     <main>
         <!-- Interface de gestion -->
+
 
         <section class="gestionnaire">
 
@@ -61,6 +67,9 @@
                     <label for="stock_taille" class="form_label">Taille</label>
                     <input type="text" id="stock_taille" class="form_input">
 
+                    <label for="stock_description" class="form_label">Description</label>
+                    <textarea rows="3" id="stock_description" class="form_input"></textarea>
+
                     <div class="form_box">
                         <div>
                             <label for="stock_image" class="form_label">Image</label>
@@ -80,7 +89,7 @@
                 <input type="text" id="employee_nom" class="form_input">
 
                 <label for="employee_nom" class="form_label">Prénom</label>
-                <input type="text" id="employee_nom" class="form_input">
+                <input type="text" id="employee_prenom" class="form_input">
 
                 <label for="employee_identifiant" class="form_label">Identifiant</label>
                 <input type="text" id="employee_identifiant" class="form_input">
@@ -97,8 +106,8 @@
                 <label for="client_nom" class="form_label">Nom</label>
                 <input type="text" id="client_nom" class="form_input">
 
-                <label for="client_nom" class="form_label">Prénom</label>
-                <input type="text" id="client_nom" class="form_input">
+                <label for="client_prenom" class="form_label">Prénom</label>
+                <input type="text" id="client_prenom" class="form_input">
 
                 <label for="client_mail" class="form_label">Mail</label>
                 <input type="text" id="client_mail" class="form_input">
@@ -176,7 +185,7 @@
                     <a href="" class="list_delete_btn"><svg class="list_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"/></svg>Supprimer</a>
                 </div>
             </div>
-
+<!--
             <div class="modal-content">
                 <div class="modaltop">
                     <span class="close" onclick="closeModal(\'modal-' . $department['id'] . '\')">&times;</span>
@@ -188,6 +197,14 @@
                     <a class="btn btn-secondary" onclick="closeModal(\'modal-' . $department['id'] . '\')">Annuler</a>
                 </div>
             </div>
+                    -->
+            <?php 
+                $shoes = getAllShoes($db);
+                foreach($shoes as $shoe) {
+                    echo '<h1>' . $shoe['nom'] . '</h1>' ;
+                }
+            ?>
+
         </section>
     </main>
 
