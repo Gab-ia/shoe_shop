@@ -4,7 +4,7 @@ require_once '../../connexion.php';
 $pdo = $db;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = isset($_POST['email']) ? trim($_POST['email']) : '';
+    $mail = isset($_POST['mail']) ? trim($_POST['mail']) : '';
     $nom = isset($_POST['nom']) ? trim($_POST['nom']) : '';
     $prenom = isset($_POST['prenom']) ? trim($_POST['prenom']) : '';
     $identifiant = isset($_POST['identifiant']) ? trim($_POST['identifiant']) : '';
@@ -18,9 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     try {
-        $sql_verif = "SELECT id_client FROM client WHERE email = :email OR identifiant = :identifiant LIMIT 1";
+        $sql_verif = "SELECT id FROM clients WHERE mail = :mail OR identifiant = :identifiant LIMIT 1";
         $stmt_verif = $pdo->prepare($sql_verif);
-        $stmt_verif->bindParam(':email', $email);
+        $stmt_verif->bindParam(':mail', $mail);
         $stmt_verif->bindParam(':identifiant', $identifiant);
         $stmt_verif->execute();
 
@@ -37,12 +37,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $sql_insert = "INSERT INTO client (prenom, nom, email, identifiant, mdp)
-                       VALUES (:prenom, :nom, :email, :identifiant, :mdp)";
+        $sql_insert = "INSERT INTO clients (prenom, nom, mail, identifiant, mdp)
+                       VALUES (:prenom, :nom, :mail, :identifiant, :mdp)";
         $stmt_insert = $pdo->prepare($sql_insert);
         $stmt_insert->bindParam(':prenom', $prenom);
         $stmt_insert->bindParam(':nom', $nom);
-        $stmt_insert->bindParam(':email', $email);
+        $stmt_insert->bindParam(':mail', $mail);
         $stmt_insert->bindParam(':identifiant', $identifiant);
         $stmt_insert->bindParam(':mdp', $hashedPassword);
         $stmt_insert->execute();
