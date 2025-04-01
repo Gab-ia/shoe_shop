@@ -1,11 +1,267 @@
 :root {
-    --couleur-1: #50514F;
+    --couleur-1: #383838;
     --couleur-2: #56A3A6;
     --couleur-3: #FF785A;
     --couleur-4: #FFFCFF;
+  
+    --font-principale: 'Poppins', sans-serif;
+    --font-secondaire: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+  
+body {
+    font-family: var(--font-principale);
+    background-color: var(--couleur-4);
+    color: var(--couleur-1);
+    margin: 0;
+    padding: 0;
+}
+  
+h1, h2, h3 {
+    font-family: var(--font-secondaire);
+    color: var(--couleur-1);
+}
+main {
+    display: flex;
+    justify-content: center;
 }
 
+/* header */
+
 header {
-    background-color: var(--couleur-3);
+    background-color: var(--couleur-1);
+    display: flex;
+    align-items: center;
+    padding:20px 50px;
+    justify-content: space-between;
+}
+
+.header_title {
+    font-size: 20px;
     color: var(--couleur-4);
+}
+
+.header_logo {
+    height: 60px;
+    text-align: center;
+    fill: var(--couleur-4);
+}
+
+.header_connexion {
+    display: flex;
+    flex-direction: row;
+}
+
+.header_connexion_logo {
+    fill: white;
+    padding-right: 30px;
+    width: 20px;
+    height: 20px;
+}
+
+/* Gestionnaire */
+
+.gestionnaire {
+    width: 30%;
+    margin: 20px;
+    border-radius: 5px;
+}
+
+.section_title {
+    color: var(--couleur-1);
+    margin: 0px;
+}
+
+.gestionnaire_head {
+    background-color: var(--couleur-4);
+    color: var(--couleur-1);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    height: 5em;
+}
+
+.gestionnaire_btn {
+    font-size: 20px;
+    margin-left: 25px;
+    background-color: var(--couleur-1);
+    color: var(--couleur-4);
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.gestionnaire_btn:hover {
+    background-color: #6eb2b4a8;
+    color: black;
+}
+
+.active_gestionnnaire_btn {
+    background-color: #6eb2b4a8;
+    color: black;
+}
+
+.gestionnaire_main {
+    display: flex;
+}
+
+.gestionnaire_form {
+    padding: 10px 20px;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 80%;
+}
+
+.active_form {
+    display: flex;
+}
+
+.form_input {
+    padding: 5px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.form_image_input {
+    padding: 5px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.form_input:hover {
+    background-color: #6eb2b4a8;
+}
+
+.form_select {
+    width: 102%;
+}
+
+.form_label {
+    margin: 10px;
+    width: 100%;
+}
+
+.form_box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.image_visualizer {
+    background-color: #d8d8d8;
+    width: 15em;
+    height: 15em;
+}
+
+.form_validation_btn {
+    font-size: 20px;
+    margin-left: 50px;
+    background-color: var(--couleur-1);
+    color: var(--couleur-4);
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.form_validation_btn:hover {
+    background-color: #6eb2b4a8;
+    color: black;
+}
+
+/* Listing */
+
+.list {
+    width: 65%;
+    margin: 20px;
+    border-radius: 5px;
+}
+
+.list_head {
+    background-color: var(--couleur-4);
+    color: var(--couleur-1);
+    padding: 10px;
+    height: 5em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.list_title {
+    color: var(--couleur-1);
+    margin: 0px;
+    display: none;
+}
+
+.active_list_title {
+    display: flex;
+}
+
+.list_item {
+    height: 4em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid var(--couleur-1);
+}
+
+.list_info {
+    padding: 10px;
+    margin: 2px;
+}
+
+.list_item:nth-child(even) {
+    background-color: #ffffff;
+}
+
+.list_item:nth-child(odd) {
+    background-color: #d8d8d8;
+}
+
+.list_item:hover {
+    background-color: #6eb2b4a8;
+}
+
+.list_icon {
+    fill: white;
+    width: 20px;
+    padding: 5px;
+}
+
+.list_modify_btn {
+    margin: 2px;
+    height: 2em;
+    text-decoration: none;
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    background-color: #1f609f;
+}
+
+.list_delete_btn {
+    margin: 2px;
+    height: 2em;
+    text-decoration: none;
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    background-color: #b31231;
+}
+
+.list_modify_btn:hover {
+    background-color: white;
+    color: #1f609f;
+    transition: 0.5s ease;
+}
+.list_delete_btn:hover {
+    background-color: white;
+    color: #b31231;
+    transition: 0.5s ease;
+}
+
+.size8 {
+    width: calc(100%/8);
 }
