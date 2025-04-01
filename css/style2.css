@@ -189,3 +189,18 @@ font-size: 20px;
 border: solid 1px var(--couleur-2);
  }
 
+ aside{
+display: flex;
+flex-direction: row;
+float: right;
+
+ }
+
+
+aside img {
+
+width:360px;
+height:360px;
+padding: 0 50px;
+
+}

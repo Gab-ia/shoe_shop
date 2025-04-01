@@ -1,3 +1,9 @@
+<?php include 'connection.php'; ?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,6 +58,50 @@
 
 </header>
  
+<aside>
+
+<div>
+
+
+</div>
+
+
+
+<div>
+
+
+
+
+
+</div>
+
+
+
+<div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</aside>
 
 
 <nav id ="menu">
@@ -106,6 +156,8 @@
 
 
  </nav>
+
+
 
 
 
