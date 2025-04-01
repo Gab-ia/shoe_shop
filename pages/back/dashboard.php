@@ -197,13 +197,8 @@
                     <a class="btn btn-secondary" onclick="closeModal(\'modal-' . $department['id'] . '\')">Annuler</a>
                 </div>
             </div>
-                    -->
-            <?php 
-                $shoes = getAllShoes($db);
-                foreach($shoes as $shoe) {
-                    echo '<h1>' . $shoe['nom'] . '</h1>' ;
-                }
-            ?>
+-->
+
 
         </section>
     </main>
