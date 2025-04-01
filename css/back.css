@@ -192,8 +192,16 @@ header {
     display: none;
 }
 
+.list_main {
+    display: none;
+}
+
 .active_list_title {
     display: flex;
+}
+
+.active_list {
+    display: block;
 }
 
 .list_item {

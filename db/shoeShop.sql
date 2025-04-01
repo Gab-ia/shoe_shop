@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `admins`
+-- Structure de la table `employees`
 --
 
-CREATE TABLE `admins` (
+CREATE TABLE `employees` (
   `id` int NOT NULL,
   `prenom` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `nom` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -36,10 +36,10 @@ CREATE TABLE `admins` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `admins`
+-- Déchargement des données de la table `employees`
 --
 
-INSERT INTO `admins` (`id`, `prenom`, `nom`, `identifiant`, `mdp`) VALUES
+INSERT INTO `employees` (`id`, `prenom`, `nom`, `identifiant`, `mdp`) VALUES
 (1, 'Jean ', 'Dufour', 'j.dufour', '1234');
 
 -- --------------------------------------------------------
@@ -99,9 +99,9 @@ INSERT INTO `shoes` (`id`, `nom`, `prix`, `marque`, `taille`, `descript`, `genre
 --
 
 --
--- Index pour la table `admins`
+-- Index pour la table `employees`
 --
-ALTER TABLE `admins`
+ALTER TABLE `employees`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -121,9 +121,9 @@ ALTER TABLE `shoes`
 --
 
 --
--- AUTO_INCREMENT pour la table `admins`
+-- AUTO_INCREMENT pour la table `employees`
 --
-ALTER TABLE `admins`
+ALTER TABLE `employees`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
