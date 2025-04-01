@@ -56,7 +56,7 @@ h3 {
   float: right;
 }
 
-input[type="email"], input[type="password"], input[type="text"], input[type="prenom"], input[type="id"] {
+input[type="email"], input[type="password"], input[type="id"] {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -65,8 +65,26 @@ input[type="email"], input[type="password"], input[type="text"], input[type="pre
   font-family: var(--font-principale);
 }
 
-input[type="nom"] {
+.nom {
   width: 90%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: var(--font-principale);
+}
+
+.prenom {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: var(--font-principale);
+}
+
+.identifiant {
+  width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
