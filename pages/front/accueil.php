@@ -6,7 +6,7 @@
     <title>shoe_shop</title>
     <link rel="stylesheet" href="/css/style2.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<script type= "text/javascript" src= 'accueil.js'> </script>
+<script type= "text/javascript" src= '/js/accueil.js'> </script>
     
 </head>
 
