@@ -43,10 +43,29 @@
 
             <div class="gestionnaire_main">
 
-                <form id="gestionnaire_stock" class="gestionnaire_form active_form">
+                <form id="gestionnaire_stock" method="post" action="functionShoes.php" class="gestionnaire_form active_form">
+
+                    <?php 
+                        if (!empty($_GET["action"]) and $_GET["action"] == "editer") {
+                            $titre = "Modifier";
+                            $shoesData = getShoesById($db, $_GET['id']);
+                        } else {
+                            $titre = "Ajouter";
+                            $shoesData['nom']= "";
+                            $shoesData['id']= 'none';
+                            $shoesData['prix']= '';
+                            $shoesData['marque']= '';
+                            $shoesData['taille']= '';
+                            $shoesData['descript']= '';
+                            $shoesData['genre']= '';
+                            $shoesData['image']= '';
+                        }
+                    ?>
+
+                    <input type="hidden" name="id" value="<?php echo $shoes['id'] ?>">
 
                     <label for="stock_nom" class="form_label">Nom</label>
-                    <input type="text" id="stock_nom" class="form_input">
+                    <input type="text" id="stock_nom" class="form_input">    
 
                     <label for="stock_prix" class="form_label">Prix</label>
                     <input type="text" id="stock_prix" class="form_input">
@@ -77,7 +96,7 @@
                             <input type="file" id="stock_image" onchange="show_image()" class="form_image_input">
                             <div id="image_visualizer" class="image_visualizer"></div>
                         </div>
-                        <input type="submit" id="form_validation_stock" class="form_validation_btn" value="/SAVE /MODIFY">
+                        <input type="submit" id="form_validation_stock" class="form_validation_btn" value="<?php $titre ?>">
                     </div>
 
                 </form>
@@ -139,7 +158,7 @@
                     foreach($getShoes as $shoes) {
                         echo '<div class="list_item">
                                 <p class="list_info size8">'. $shoes['nom'] . '</p>
-                                <p class="size8 list_info">'. $shoes['prix'] . '</p>
+                                <p class="size8 list_info">'. $shoes['prix'] . ' €</p>
                                 <p class="size8 list_info">'. $shoes['marque'] . '</p>
                                 <p class="size8 list_info">'. $shoes['genre'] . '</p>
                                 <p class="size8 list_info">'. $shoes['taille'] . '</p>
@@ -150,7 +169,6 @@
                     }
                 ?>
             </div>
-
 
             <div id="list_client" class="list_main">
                 <?php 
@@ -167,7 +185,6 @@
                     }
                 ?>
             </div>
-
 
             <div id="list_employee" class="list_main">
                 <?php 

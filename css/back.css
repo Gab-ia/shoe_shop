@@ -262,11 +262,13 @@ header {
 .list_modify_btn:hover {
     background-color: white;
     color: #1f609f;
+    border:1px solid #1f609f;
     transition: 0.5s ease;
 }
 .list_delete_btn:hover {
     background-color: white;
     color: #b31231;
+    border: 1px solid #b31231;
     transition: 0.5s ease;
 }
 
