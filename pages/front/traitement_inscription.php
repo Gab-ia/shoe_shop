@@ -1,5 +1,7 @@
 <?php
 session_start();
+require_once '../../connexion.php';
+$pdo = $db;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = isset($_POST['email']) ? trim($_POST['email']) : '';
@@ -15,26 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    $host = 'localhost';
-    $dbname = 'shoe_shop';
-    $db_user = 'root';
-    $db_password = '';
-
     try {
-        $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8";
-        $pdo = new PDO($dsn, $db_user, $db_password);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    } catch (PDOException $e) {
-        $_SESSION['message'] = "Erreur de connexion à la base de données : " . $e->getMessage();
-        header("Location: creation_compte_client.php");
-        exit;
-    }
-
-    try {
-        $sql_verif = "SELECT id_client 
-                  FROM client 
-                  WHERE email = :email OR identifiant = :identifiant
-                  LIMIT 1";
+        $sql_verif = "SELECT id_client FROM client WHERE email = :email OR identifiant = :identifiant LIMIT 1";
         $stmt_verif = $pdo->prepare($sql_verif);
         $stmt_verif->bindParam(':email', $email);
         $stmt_verif->bindParam(':identifiant', $identifiant);
@@ -54,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $sql_insert = "INSERT INTO client (prenom, nom, email, identifiant, mdp)
-                   VALUES (:prenom, :nom, :email, :identifiant, :mdp)";
+                       VALUES (:prenom, :nom, :email, :identifiant, :mdp)";
         $stmt_insert = $pdo->prepare($sql_insert);
         $stmt_insert->bindParam(':prenom', $prenom);
         $stmt_insert->bindParam(':nom', $nom);

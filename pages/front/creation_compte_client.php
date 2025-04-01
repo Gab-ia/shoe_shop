@@ -57,10 +57,6 @@ if (isset($_SESSION['message'])) {
       <div class="connexion_client_password" style="position: relative;">
         <input class="password" type="password" id="password_confirm" name="password_confirm" placeholder="Confirmer le mot de passe"
           required>
-        <span class="toggle-password" onclick="togglePasswordVisibility()"
-          style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">
-          <i class="fa fa-eye" id="toggleIcon"></i>
-        </span>
       </div>
 
       <p class="connexion_client_creercompte">J'ai déjà un compte, <a href="/">se connecter</a></p>
