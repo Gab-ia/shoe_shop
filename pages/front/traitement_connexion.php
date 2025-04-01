@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (password_verify($password, $user['mdp'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_name'] = $user['prenom'];
-            header("Location: /shoe_shop/pages/front/accueil.php");
+            header("Location: /pages/front/accueil.php");
             exit;
         } else {
             $_SESSION['message'] = "Identifiant ou mot de passe incorrect.";

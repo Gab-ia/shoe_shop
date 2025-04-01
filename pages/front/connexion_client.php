@@ -8,13 +8,13 @@ session_start();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Connexion</title>
-  <link rel="stylesheet" href="/shoe_shop/css/style.css">
+  <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
   <section class="connexion_client_section">
-    <img src="/shoe_shop/img/logo-nike.svg" alt="Logo">
+    <img src="/img/logo-nike.svg" alt="Logo">
     <h1>Saisis ton identifiant ou ton adresse e-mail et ton mot de passe pour te connecter</h1>
     <form class="connexion_client_form" action="traitement_connexion.php" method="post">
       <div>
@@ -43,7 +43,7 @@ session_start();
       <button type="submit" class="connexion_client_button">Se connecter</button>
     </form>
   </section>
-  <script src="/shoe_shop/js/script_password.js"></script>
+  <script src="/js/script_password.js"></script>
 </body>
 
 </html>
