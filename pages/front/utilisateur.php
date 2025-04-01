@@ -2,7 +2,7 @@
 session_start(); // Démarre la session
 
 // Inclure le fichier de connexion à la base de données
-include "connexion.php" ;
+include "connexion.php";
 
 // Vérifier si l'utilisateur est connecté
 if (isset($_SESSION['user_id'])) {
@@ -20,6 +20,16 @@ if (isset($_SESSION['user_id'])) {
         // Si l'utilisateur n'est pas trouvé, afficher "Utilisateur"
         $nom_utilisateur = "Utilisateur";
     }
+
+    // Requête SQL pour récupérer l'historique des achats de l'utilisateur avec le nom et prix des produits
+    $stmt_commandes = $pdo->prepare("
+        SELECT co.id AS commande_id, s.nom, s.prix, co.statut 
+        FROM commandes co
+        JOIN shoes s ON co.produit_id = s.id
+        WHERE co.client_id = ?
+    ");
+    $stmt_commandes->execute([$user_id]);
+    $commandes = $stmt_commandes->fetchAll(PDO::FETCH_ASSOC);
 } else {
     // Si l'utilisateur n'est pas connecté, afficher "Visiteur"
     $nom_utilisateur = "Visiteur";
@@ -54,23 +64,38 @@ if (isset($_SESSION['user_id'])) {
       </ul>
     </nav>
 
+    <!-- Section Historique d'achat -->
     <section id="historique" class="user_section">
       <h2>Historique d'achat</h2>
       <ul class="purchase_history">
-        <ul>Commande #12345 - Sneakers Jordan 1 - <span>Livrée</span></ul>
-        <ul>Commande #67890 - Sneakers Jordan 2 - <span>En cours</span></ul>
+        <?php foreach ($commandes as $commande): ?>
+          <li>
+            Commande #<?php echo $commande['commande_id']; ?> - 
+            <?php echo htmlspecialchars($commande['nom']); ?> - 
+            <?php echo htmlspecialchars($commande['prix']); ?> € - 
+            <span><?php echo htmlspecialchars($commande['statut']); ?></span>
+          </li>
+        <?php endforeach; ?>
       </ul>
     </section>
 
+    <!-- Section Favoris -->
     <section id="favoris" class="user_section">
       <h2>Mes favoris</h2>
       <ul class="favorite_list">
-        <?php foreach ($shoes as $shoe): ?>
-            <li>
-                <img src="/img/shoes/<?php echo htmlspecialchars($shoe['image']); ?>" alt="<?php echo htmlspecialchars($shoe['nom']); ?>" width="50">
-                <?php echo htmlspecialchars($shoe['nom']); ?> - <?php echo htmlspecialchars($shoe['prix']); ?> €
-                <button>Retirer</button>
-            </li>
+        <?php
+        // Récupérer les produits favoris de l'utilisateur (exemple simple pour l'affichage)
+        $stmt_favoris = $pdo->prepare("SELECT * FROM shoes WHERE id IN (SELECT produit_id FROM favoris WHERE client_id = ?)");
+        $stmt_favoris->execute([$user_id]);
+        $shoes = $stmt_favoris->fetchAll(PDO::FETCH_ASSOC);
+        
+        foreach ($shoes as $shoe):
+        ?>
+          <li>
+            <img src="/img/shoes/<?php echo htmlspecialchars($shoe['image']); ?>" alt="<?php echo htmlspecialchars($shoe['nom']); ?>" width="50">
+            <?php echo htmlspecialchars($shoe['nom']); ?> - <?php echo htmlspecialchars($shoe['prix']); ?> €
+            <button>Retirer</button>
+          </li>
         <?php endforeach; ?>
       </ul>
     </section>
