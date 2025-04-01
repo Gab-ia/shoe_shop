@@ -19,7 +19,7 @@ if (isset($_SESSION['message'])) {
 
 <body>
   <section class="connexion_client_section">
-    <img src="/shoe_shop/img/logo-nike.svg" alt="Logo Nike">
+    <img src="/img/logo-nike.svg" alt="Logo Nike">
     <h1>Créer mon compte</h1>
 
     <?php if (!empty($message)): ?>
@@ -71,7 +71,7 @@ if (isset($_SESSION['message'])) {
     </form>
   </section>
 
-  <script src="/shoe_shop/js/script_password.js"></script>
+  <script src="/js/script_password.js"></script>
 </body>
 
 </html>
