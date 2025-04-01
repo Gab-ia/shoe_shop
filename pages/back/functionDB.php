@@ -10,9 +10,9 @@ function getAllShoes($db) {
     }
 }
 
-function createShoes ($db, $id, $nom, $prix, $marque, $taille, $genre, $descript) {
+function createShoes ($db, $id, $nom, $prix, $marque, $taille, $genre, $descript, $img) {
     try {
-        $insert = $db->prepare('INSERT INTO chaussure SET prenom = :prenom, nom = :nom, prix = :prix, marque = :marque, taille = :taille, genre = :genre, descript = :descript');
+        $insert = $db->prepare('INSERT INTO chaussure SET prenom = :prenom, nom = :nom, prix = :prix, marque = :marque, taille = :taille, genre = :genre, descript = :descript, img = :img');
         $insert->bindValue(':prenom',trim(htmlspecialchars($first_name)), PDO::PARAM_STR);
         $insert->bindValue(':nom',trim(htmlspecialchars($last_name)), PDO::PARAM_STR);
         $insert->bindValue(':prix',trim(htmlspecialchars($last_name)), PDO::PARAM_STR);
