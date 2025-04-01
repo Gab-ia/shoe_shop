@@ -61,7 +61,7 @@ header {
 /* Gestionnaire */
 
 .gestionnaire {
-    width: 45%;
+    width: 30%;
     margin: 20px;
     border-radius: 5px;
 }
@@ -83,7 +83,7 @@ header {
 
 .gestionnaire_btn {
     font-size: 20px;
-    margin-left: 50px;
+    margin-left: 25px;
     background-color: var(--couleur-1);
     color: var(--couleur-4);
     border-radius: 5px;
@@ -171,7 +171,7 @@ header {
 /* Listing */
 
 .list {
-    width: 45%;
+    width: 65%;
     margin: 20px;
     border-radius: 5px;
 }
@@ -197,14 +197,16 @@ header {
 }
 
 .list_item {
+    height: 4em;
     display: flex;
     flex-direction: row;
+    align-items: center;
     border: 1px solid var(--couleur-1);
 }
 
 .list_info {
     padding: 10px;
-    margin: 5px;
+    margin: 2px;
 }
 
 .list_item:nth-child(even) {
@@ -217,4 +219,49 @@ header {
 
 .list_item:hover {
     background-color: #6eb2b4a8;
+}
+
+.list_icon {
+    fill: white;
+    width: 20px;
+    padding: 5px;
+}
+
+.list_modify_btn {
+    margin: 2px;
+    height: 2em;
+    text-decoration: none;
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    background-color: #1f609f;
+}
+
+.list_delete_btn {
+    margin: 2px;
+    height: 2em;
+    text-decoration: none;
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    background-color: #b31231;
+}
+
+.list_modify_btn:hover {
+    background-color: white;
+    color: #1f609f;
+    transition: 0.5s ease;
+}
+.list_delete_btn:hover {
+    background-color: white;
+    color: #b31231;
+    transition: 0.5s ease;
+}
+
+.size8 {
+    width: calc(100%/8);
 }
