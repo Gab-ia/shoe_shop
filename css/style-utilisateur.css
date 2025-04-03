@@ -11,8 +11,8 @@
 }
 
 body {
+
   font-family: var(--font-principale);
-  background-color: var(--couleur-4);
   color: var(--couleur-1);
   margin: 0;
   padding: 0;
@@ -46,7 +46,7 @@ h3 {
   margin-bottom: 15px;
 }
 
-.connexion_client_creercompte{
+.connexion_client_creercompte {
   font-size: 13px;
   text-align: end;
   margin: 5px;
@@ -56,16 +56,12 @@ h3 {
   float: right;
 }
 
-input[type="email"], input[type="id"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-family: var(--font-principale);
-}
-
-.password {
+input[type="email"],
+input[type="id"],
+.password,
+.nom,
+.prenom,
+.identifiant {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -76,29 +72,6 @@ input[type="email"], input[type="id"] {
 
 .nom {
   width: 90%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-family: var(--font-principale);
-}
-
-.prenom {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-family: var(--font-principale);
-}
-
-.identifiant {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-family: var(--font-principale);
 }
 
 .connexion_client_button {
@@ -110,7 +83,6 @@ input[type="email"], input[type="id"] {
   font-size: 1rem;
   cursor: pointer;
   margin-top: 10px;
-  font-family: var(--font-principale);
 }
 
 .connexion_client_password {
@@ -118,40 +90,80 @@ input[type="email"], input[type="id"] {
   margin-top: 10px;
 }
 
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-  }
-  
-  .user_account_section {
-    text-align: center;
-  }
-  
-  .user_nav ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    gap: 20px; /* Ajuste l'espace entre les éléments */
-  }
-  
-  .user_nav ul li {
-    display: inline-block;
-  }
-  
-  .user_nav ul li a {
-    text-decoration: none;
-    color: var(--couleur-1);
-    font-weight: bold;
-    padding: 10px 15px;
-  }
+.user_account_section {
+  text-align: center;
+}
 
-  .welcome_message {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: var(--couleur-1);
-    margin-top: 10px;
-  }
+.user_nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  /* Ajuste l'espace entre les éléments */
+}
+
+.user_nav ul li {
+  display: inline-block;
+}
+
+.user_nav ul li a {
+  text-decoration: none;
+  color: var(--couleur-1);
+  font-weight: bold;
+  padding: 10px 15px;
+}
+
+.welcome_message {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--couleur-1);
+  margin-top: 10px;
+}
+
+/* header */
+
+/* Ajout de Flexbox pour le header */
+header {
+  display: flex;
+  justify-content:space-around;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: var(--couleur-3);
+}
+
+/* Pour les éléments du menu de navigation */
+header div {
+  display: flex;
+  align-items: center;
+}
+
+header ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+header ul li {
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+
+/* Pour les icônes */
+header .icones {
+  display: flex;
+  align-items: center;
+}
+
+.size-logo {
+  width: 125.125px; /* Définit la largeur exacte de l'image */
+  height: auto; /* Conserve les proportions de l'image */
+}
+
+.logo {
+  width: auto;
+  height: auto;
+  display: inline-block; /* Assure que l'élément prend uniquement la place nécessaire */
+}
