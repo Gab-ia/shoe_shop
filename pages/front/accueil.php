@@ -13,6 +13,22 @@
     <link rel="stylesheet" href="/css/style2.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <script type= "text/javascript" src= 'accueil.js'> </script>
+
+<?php 
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+$serveur = "localhost";
+$utilisateur = "samir2";  
+$motdepasse = "Samb89";       
+$base = "shoe_shop"; 
+
+
+
+
+
+?>
     
 </head>
 
@@ -60,36 +76,63 @@
  
 <aside>
 
-<div>
+
+
+
+
+
+<div class="chaussures">
+
+<?php  
+                        
+                        
+                        $connect = new mysqli($serveur, $utilisateur, $motdepasse, $base);
+
+                         $sql = "SELECT * FROM shoes ";
+                         $result = $connect -> query($sql); 
+                             
+                             
+                         if ($result->num_rows > 0) {
+
+                           
+                            while ($ligne = $result->fetch_assoc()) {
+                                 
+                                 echo '
+                                
+                                 <ul>
+                                
+                            
+                                <li style ="color: var(--couleur-1);  background-color: var(--couleur-4);  padding-top: 10px; padding-bottom: 30px;">
+                                '. $ligne['nom'] .' <br> <br>
+                                <img src="/img/shoes/jordan-1.webp" style= "width: 280px; height: 280px; " alt=""/> 
+                                <br> '. $ligne['prix'] .' 
+                                </li> </br>
+                                
+
+
+                                 </ul>
+                               
+                                 
+                                 ';
+
+                         
+                             }
+
+
+                         } else {
+                                 
+                             echo "Aucun résultat trouvé.";
+                             
+                         };
+                     
+
+
+                 ?>
+
+
 
 
 </div>
-
-
-
-<div>
-
-
-
-
-
-</div>
-
-
-
-<div>
-
-
-
-
-</div>
-
-
-
-
-
-
-
 
 
 
@@ -102,6 +145,9 @@
 
 
 </aside>
+
+
+
 
 
 <nav id ="menu">
