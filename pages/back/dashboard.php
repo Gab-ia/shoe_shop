@@ -9,7 +9,7 @@
     
     if (!empty($_POST["Ajouter"]) and !empty($_POST["nom"]) and !empty($_POST["prix"]) and !empty($_POST["marque"]) and !empty($_POST["taille"]) and !empty($_POST["genre"]) and !empty($_POST["descript"]) and !empty($_FILES['image-nom']["name"]) > 0) {
         
-        if (!empty($_POST['data-image']) && !empty($_POST['image-nom'])) {
+        if (!empty($_POST['data-image']) && !empty($_FILES['image']['name'])) {
             $imageData = $_POST['data-image'];
             $imageName = $_FILES['image']['name'];
             $imageData = str_replace('data:image/png;base64,', '', $imageData);
@@ -21,19 +21,19 @@
               $newImage .= '.jpg';
             }
             imagejpeg($image, './img/shoes/' . $newImage);
-            imagedestroy($image);
+            
         } else {
             setFlash("erreur image", "error");
         }
 
-        if(createShoes ($db, $_POST["nom"], $_POST["prix"], $_POST["marque"], $_POST["taille"], $_POST["genre"], $_POST["descript"], $_FILES['image-nom']["name"] ,$_POST["id"])) {
+        if(createShoes ($db, $_POST["nom"], $_POST["prix"], $_POST["marque"], $_POST["taille"], $_POST["genre"], $_POST["descript"], $_FILES['image-nom']['name'])) {
             setFlash("Chaussures ajoutées avec succès", "success" );
+            imagedestroy($image);
         } else {
-            setFlash("Une erreur s'est produite, veuillez réessayer", "error");
+            setFlash("Une erreur est survenue, veuillez réessayer", "error");
         }
+        header("Location: dashboard.php");
         exit();
-    } else if (empty($_FILES['image-nom']["name"])) {
-        setFlash("zut", "error");
     }
 ?>
 

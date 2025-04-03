@@ -10,7 +10,7 @@ function getAllShoes($db) {
     }
 }
 
-function createShoes ($db,  $nom, $prix, $marque, $taille, $genre, $descript, $img, $id) {
+function createShoes ($db,  $nom, $prix, $marque, $taille, $genre, $descript, $img) {
     try {
         $insert = $db->prepare('INSERT INTO shoes SET nom = :nom, prix = :prix, marque = :marque, taille = :taille, genre = :genre, descript = :descript, img = :img, id = :id');
         $insert->bindValue(':nom',trim(htmlspecialchars($nom)), PDO::PARAM_STR);
@@ -20,7 +20,6 @@ function createShoes ($db,  $nom, $prix, $marque, $taille, $genre, $descript, $i
         $insert->bindValue(':genre',trim(htmlspecialchars($genre)), PDO::PARAM_STR);
         $insert->bindValue(':img',trim(htmlspecialchars($img)), PDO::PARAM_STR);
         $insert->bindValue(':descript',trim(htmlspecialchars($descript)), PDO::PARAM_STR);
-        $insert->bindValue(':id',trim(htmlspecialchars($id)), PDO::PARAM_INT);
         $insert->execute();
         $insert_id = $db->lastInsertId();
         return $db->lastInsertId();
