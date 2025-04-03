@@ -20,8 +20,7 @@
     <nav class="user_nav">
       <ul>
         <li><a href="/pages/front/accueil.php">Accueil</a></li>
-        <li><a href="#historique">Historique d'achat</a></li>
-        <li><a href="#favoris">Mes favoris</a></li>
+        <li><a href="#nouveauté">Nouveaux Arrivages</a></li>
         <li><a href="/logout.php">Déconnexion</a></li>
       </ul>
     </nav>
@@ -30,7 +29,7 @@
   <section class="user_account_section">
 
     <!-- Message de bienvenue -->
-    <p class="welcome_message">Bienvenue sur votre profil, Isaac <?php echo htmlspecialchars($nom_utilisateur); ?> !</p>
+    <p class="welcome-message">Bienvenue sur votre profil, Isaac <?php echo htmlspecialchars($nom_utilisateur); ?> !</p>
 
     <!-- Section Historique d'achat -->
     <section id="historique" class="user_section">

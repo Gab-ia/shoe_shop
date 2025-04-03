@@ -313,3 +313,11 @@ footer .logo img {
   max-width: 125px;
   /* Logo limité à cette taille */
 }
+
+.welcome-message {
+  font-size: 48px; /* Augmente la taille */
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+  color: #333; /* Facultatif : couleur du texte */
+}
