@@ -7,7 +7,7 @@
 
 
     
-    if (!empty($_POST["Ajouter"]) and !empty($_POST["nom"]) and !empty($_POST["prix"]) and !empty($_POST["marque"]) and !empty($_POST["taille"]) and !empty($_POST["genre"]) and !empty($_POST["descript"]) and !empty($_FILES['image']["name"]) > 0) {
+    if (!empty($_POST["Ajouter"]) and !empty($_POST["nom"]) and !empty($_POST["prix"]) and !empty($_POST["marque"]) and !empty($_POST["taille"]) and !empty($_POST["genre"]) and !empty($_POST["descript"]) and !empty($_FILES['image-nom']["name"]) > 0) {
         
         if (!empty($_POST['data-image']) && !empty($_POST['image-nom'])) {
             $imageData = $_POST['data-image'];
@@ -26,13 +26,13 @@
             setFlash("erreur image", "error");
         }
 
-        if(createShoes ($db, $_POST["nom"], $_POST["prix"], $_POST["marque"], $_POST["taille"], $_POST["genre"], $_POST["descript"],$_POST['image-nom'] ,$_POST["id"])) {
+        if(createShoes ($db, $_POST["nom"], $_POST["prix"], $_POST["marque"], $_POST["taille"], $_POST["genre"], $_POST["descript"], $_FILES['image-nom']["name"] ,$_POST["id"])) {
             setFlash("Chaussures ajoutées avec succès", "success" );
         } else {
             setFlash("Une erreur s'est produite, veuillez réessayer", "error");
         }
         exit();
-    } else if (empty($_FILES['image'])) {
+    } else if (empty($_FILES['image-nom']["name"])) {
         setFlash("zut", "error");
     }
 ?>
@@ -78,13 +78,6 @@
                 <button id="employee" onclick="show_page('employee')" class="gestionnaire_btn">Employés</button>
                 <button id="client" onclick="show_page('client')" class="gestionnaire_btn">Clients</button>
             </div>
-            <?php
-            echo '<pre>';
-            print_r($_FILES);  // Affiche le contenu de $_FILES
-            echo '</pre>';
-            exit();  // Arrête l'exécution du script pour que tu puisses voir les résultats
-            
-            ?>
 
             <div class="gestionnaire_main">
 
