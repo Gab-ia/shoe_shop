@@ -11,32 +11,11 @@
 
 <body>
 
-<header>
+  <header>
     <div class="logo">
-        <!-- Remplacer le logo SVG par une image -->
-        <img src="/img/logo-shoe.png" alt="Logo Shoe" class="size-logo">
+      <!-- Remplacer le logo SVG par une image -->
+      <img src="/img/logo-shoe.png" alt="Logo Shoe" class="size-logo">
     </div>
-
-    <div>
-        <ul>
-            <li><a href="" class="lien" style="text-decoration:none; color:var(--couleur-1);" onclick="afficheMenu()">HOMME</a></li>
-            <li><a href="" class="lien" style="text-decoration:none; color:var(--couleur-1);" onclick="afficheMenu()">FEMME</a></li>
-            <li><a href="" class="lien" style="text-decoration:none; color:var(--couleur-1);" onclick="afficheMenu()">ENFANT</a></li>
-        </ul>
-    </div>
-
-    <div class="icones">
-        <a href=""> <i class="fa-regular fa-heart icone"></i> </a>
-        <a href=""> <i class="fa-solid fa-user icone"></i> </a>
-    </div>
-</header>
-
-
-  <section class="user_account_section">
-    <h1>Mon Compte</h1>
-
-    <!-- Message de bienvenue -->
-    <p class="welcome_message">Bienvenue, <?php echo htmlspecialchars($nom_utilisateur); ?> !</p>
 
     <nav class="user_nav">
       <ul>
@@ -46,6 +25,17 @@
         <li><a href="/logout.php">Déconnexion</a></li>
       </ul>
     </nav>
+
+  </header>
+
+
+  <section class="user_account_section">
+    <h1>Mon Compte</h1>
+
+    <!-- Message de bienvenue -->
+    <p class="welcome_message">Bienvenue, <?php echo htmlspecialchars($nom_utilisateur); ?> !</p>
+
+
 
     <!-- Section Historique d'achat -->
     <section id="historique" class="user_section">
@@ -58,12 +48,12 @@
               <?php echo htmlspecialchars($commande['nom']); ?> -
               <?php echo htmlspecialchars($commande['prix']); ?> € -
               <span><?php echo htmlspecialchars($commande['statut']); ?></span>
-            </li>
+          </li>
           <?php endforeach; ?>
         <?php else: ?>
-          <li>Aucune commande trouvée.</li>
+          <ul>Aucune commande trouvée.</ul>
         <?php endif; ?>
-      </ul>
+        </ul>
     </section>
 
     <!-- Section Favoris -->
@@ -76,12 +66,12 @@
               <img src="/img/shoes/<?php echo htmlspecialchars($shoe['image']); ?>" alt="<?php echo htmlspecialchars($shoe['nom']); ?>" width="50">
               <?php echo htmlspecialchars($shoe['nom']); ?> - <?php echo htmlspecialchars($shoe['prix']); ?> €
               <button>Retirer</button>
-            </li>
+          </li>
           <?php endforeach; ?>
         <?php else: ?>
-          <li>Aucun favori enregistré.</li>
+          <ul>Aucun favori enregistré.</ul>
         <?php endif; ?>
-      </ul>
+        </ul>
     </section>
   </section>
 </body>

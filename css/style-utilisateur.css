@@ -11,16 +11,13 @@
 }
 
 body {
-
   font-family: var(--font-principale);
   color: var(--couleur-1);
   margin: 0;
   padding: 0;
 }
 
-h1,
-h2,
-h3 {
+h1, h2, h3 {
   font-family: var(--font-secondaire);
   color: var(--couleur-1);
 }
@@ -56,12 +53,7 @@ h3 {
   float: right;
 }
 
-input[type="email"],
-input[type="id"],
-.password,
-.nom,
-.prenom,
-.identifiant {
+input[type="email"], input[type="id"], .password, .nom, .prenom, .identifiant {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -100,7 +92,6 @@ input[type="id"],
   display: flex;
   justify-content: center;
   gap: 20px;
-  /* Ajuste l'espace entre les éléments */
 }
 
 .user_nav ul li {
@@ -126,16 +117,17 @@ input[type="id"],
 /* Ajout de Flexbox pour le header */
 header {
   display: flex;
-  justify-content:space-around;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   padding: 10px 20px;
   background-color: var(--couleur-3);
 }
 
-/* Pour les éléments du menu de navigation */
-header div {
-  display: flex;
-  align-items: center;
+header .logo img {
+  width: 100%;
+  height: auto;
+  max-width: 125px; /* Logo limité à cette taille */
 }
 
 header ul {
@@ -143,6 +135,7 @@ header ul {
   list-style: none;
   margin: 0;
   padding: 0;
+  justify-content: center;
 }
 
 header ul li {
@@ -150,20 +143,70 @@ header ul li {
   margin-left: 20px;
 }
 
-
-/* Pour les icônes */
 header .icones {
   display: flex;
   align-items: center;
 }
 
+/* Logo */
 .size-logo {
-  width: 125.125px; /* Définit la largeur exacte de l'image */
-  height: auto; /* Conserve les proportions de l'image */
+  width: 300px; /* Définition fixe de la largeur */
+  height: auto;
 }
 
 .logo {
   width: auto;
   height: auto;
-  display: inline-block; /* Assure que l'élément prend uniquement la place nécessaire */
+  display: inline-block;
+}
+
+/* Media Queries */
+
+/* Pour les grands écrans (PC) */
+@media (min-width: 1024px) {
+  .connexion_client_section {
+    max-width: 500px;
+  }
+
+  .user_account_section {
+    max-width: 80%;
+    margin: auto;
+  }
+}
+
+
+
+/* Pour les téléphones (moins de 790px) */
+@media (max-width: 790px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .logo img {
+    max-width: 100px; /* Réduire la taille du logo sur mobile */
+  }
+
+  .user_nav ul {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .user_nav ul li {
+    margin: 10px 0;
+    font-size: 14px;
+  }
+
+  .user_account_section {
+    padding: 15px;
+  }
+
+  .purchase_history li, .favorite_list li {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  button {
+    font-size: 14px;
+  }
 }
