@@ -30,10 +30,10 @@
 
 
   <section class="user_account_section">
-    <h1>Mon Compte</h1>
+    
 
     <!-- Message de bienvenue -->
-    <p class="welcome_message">Bienvenue, <?php echo htmlspecialchars($nom_utilisateur); ?> !</p>
+    <p class="welcome_message">Bienvenue sur votre profil, Isaac <?php echo htmlspecialchars($nom_utilisateur); ?> !</p>
 
 
 
