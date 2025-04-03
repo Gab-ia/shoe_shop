@@ -10,12 +10,11 @@ function getAllShoes($db) {
     }
 }
 
-function createShoes ($db, $prenom,  $nom, $prix, $marque, $taille, $genre, $descript, $img, $id) {
+function createShoes ($db,  $nom, $prix, $marque, $taille, $genre, $descript, $img, $id) {
     try {
-        $insert = $db->prepare('INSERT INTO shoes SET prenom = :prenom, nom = :nom, prix = :prix, marque = :marque, taille = :taille, genre = :genre, descript = :descript, img = :img, id = :id');
-        $insert->bindValue(':prenom',trim(htmlspecialchars($prenom)), PDO::PARAM_STR);
+        $insert = $db->prepare('INSERT INTO shoes SET nom = :nom, prix = :prix, marque = :marque, taille = :taille, genre = :genre, descript = :descript, img = :img, id = :id');
         $insert->bindValue(':nom',trim(htmlspecialchars($nom)), PDO::PARAM_STR);
-        $insert->bindValue(':prix',trim(htmlspecialchars($prix)), PDO::PARAM_FLOAT);
+        $insert->bindValue(':prix',(float)trim(htmlspecialchars($prix)), PDO::PARAM_STR);
         $insert->bindValue(':marque',trim(htmlspecialchars($marque)), PDO::PARAM_STR);
         $insert->bindValue(':taille',trim(htmlspecialchars($taille)), PDO::PARAM_INT);
         $insert->bindValue(':genre',trim(htmlspecialchars($genre)), PDO::PARAM_STR);
@@ -30,10 +29,9 @@ function createShoes ($db, $prenom,  $nom, $prix, $marque, $taille, $genre, $des
     }
 }
 
-function updateShoes ($db, $prenom,  $nom, $prix, $marque, $taille, $genre, $descript, $img, $id) {
+function updateShoes ($db, $nom, $prix, $marque, $taille, $genre, $descript, $img, $id) {
     try {
-        $update = $db->prepare('update shoes SET prenom = :prenom, nom = :nom, prix = :prix, marque = :marque, taille = :taille, genre = :genre, descript = :descript, img = :img where id = :id');
-        $update->bindValue(':prenom',trim(htmlspecialchars($prenom)), PDO::PARAM_STR);
+        $update = $db->prepare('update shoes SET nom = :nom, prix = :prix, marque = :marque, taille = :taille, genre = :genre, descript = :descript, img = :img where id = :id');
         $update->bindValue(':nom',trim(htmlspecialchars($nom)), PDO::PARAM_STR);
         $update->bindValue(':prix',trim(htmlspecialchars($prix)), PDO::PARAM_FLOAT);
         $update->bindValue(':marque',trim(htmlspecialchars($marque)), PDO::PARAM_STR);
@@ -69,17 +67,6 @@ function getShoesById($db, $id) {
     }
 }
 
-
-if (!empty($_POST["Enregistrer"]) and !empty($_POST["name"]) > 0) {
-    if(createDepartment($db, $_POST["name"])) {
-        setFlash("Service enregistré avec succès", "success" );
-    } else {
-        setFlash("Une erreur s'est produite, veuillez réessayer", "error");
-    }
-    header("Location: services.php");
-    exit();
-}
-
 if (!empty($_POST["Editer"]) and !empty($_POST["name"]) > 0 and !empty($_POST["id"])) {
     if(updateDepartment($db, $_POST["id"], $_POST["name"])) {
         setFlash("Service modifié avec succès", "success" );
@@ -103,3 +90,4 @@ if (!empty($_GET["id"]) and !empty($_GET["action"]) and $_GET["action"] == "supp
 }
 
 $getShoes = getAllShoes($db);
+$uploadDir = "/img/shoes";

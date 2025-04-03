@@ -3,6 +3,38 @@
     include 'functionShoes.php';
     include 'functionClients.php';
     include 'functionEmployees.php';
+    include '../../composants/back/flash.php';
+
+
+    
+    if (!empty($_POST["Ajouter"]) and !empty($_POST["nom"]) and !empty($_POST["prix"]) and !empty($_POST["marque"]) and !empty($_POST["taille"]) and !empty($_POST["genre"]) and !empty($_POST["descript"]) and !empty($_FILES['image']["name"]) > 0) {
+        
+        if (!empty($_POST['data-image']) && !empty($_POST['image-nom'])) {
+            $imageData = $_POST['data-image'];
+            $imageName = $_FILES['image']['name'];
+            $imageData = str_replace('data:image/png;base64,', '', $imageData);
+            $imageData = str_replace(' ', '+', $imageData);
+            $decodedImage = base64_decode($imageData);
+            $image = imagecreatefromstring($decodedImage);
+            $newImage = pathinfo($imageName, PATHINFO_FILENAME);
+            if (strpos($imageName, '.jpg') === false && strpos($imageName, '.jpeg') === false) {
+              $newImage .= '.jpg';
+            }
+            imagejpeg($image, './img/shoes/' . $newImage);
+            imagedestroy($image);
+        } else {
+            setFlash("erreur image", "error");
+        }
+
+        if(createShoes ($db, $_POST["nom"], $_POST["prix"], $_POST["marque"], $_POST["taille"], $_POST["genre"], $_POST["descript"],$_POST['image-nom'] ,$_POST["id"])) {
+            setFlash("Chaussures ajoutées avec succès", "success" );
+        } else {
+            setFlash("Une erreur s'est produite, veuillez réessayer", "error");
+        }
+        exit();
+    } else if (empty($_FILES['image'])) {
+        setFlash("zut", "error");
+    }
 ?>
 
 <!DOCTYPE html>
@@ -29,6 +61,12 @@
         </a>
     </header>
 
+    <div class="alertDiv">
+        <?php
+            displayFlash();
+        ?>
+    </div>
+
     <main>
         <!-- Interface de gestion -->
 
@@ -40,10 +78,17 @@
                 <button id="employee" onclick="show_page('employee')" class="gestionnaire_btn">Employés</button>
                 <button id="client" onclick="show_page('client')" class="gestionnaire_btn">Clients</button>
             </div>
+            <?php
+            echo '<pre>';
+            print_r($_FILES);  // Affiche le contenu de $_FILES
+            echo '</pre>';
+            exit();  // Arrête l'exécution du script pour que tu puisses voir les résultats
+            
+            ?>
 
             <div class="gestionnaire_main">
 
-                <form id="gestionnaire_stock" method="post" action="functionShoes.php" class="gestionnaire_form active_form">
+                <form id="gestionnaire_stock" method="post" enctype="multipart/form-data" action="dashboard.php" class="gestionnaire_form active_form">
 
                     <?php 
                         if (!empty($_GET["action"]) and $_GET["action"] == "editer") {
@@ -62,44 +107,45 @@
                         }
                     ?>
 
-                    <input type="hidden" name="id" value="<?php echo $shoes['id'] ?>">
+                    <input type="hidden" name="id" value="<?php echo $shoesData['id'] ?>">
 
                     <label for="stock_nom" class="form_label">Nom</label>
-                    <input type="text" id="stock_nom" class="form_input">    
+                    <input type="text" id="stock_nom" name="nom" class="form_input" value="<?php echo $shoesData['nom'] ?>">    
 
                     <label for="stock_prix" class="form_label">Prix</label>
-                    <input type="text" id="stock_prix" class="form_input">
+                    <input type="text" id="stock_prix" name="prix" class="form_input" value="<?php echo $shoesData['prix'] ?>">
 
                     <label for="stock_marque" class="form_label">Marque</label>
-                    <select id="stock_marque" class="form_input form_select">
+                    <select id="stock_marque" name="marque" class="form_input form_select" value="<?php echo $shoesData['marque'] ?>">
                         <option value="/JORDAN">marque1</option>
                         <option value="/MARQUE2">marque2</option>
                         <option value="/MARQUE3" >marque3</option>
                     </select>
 
                     <label for="stock_genre" class="form_label">Genre</label>
-                    <select id="stock_genre" class="form_input form_select">
-                        <option value="">Homme</option>
-                        <option value="">Femme</option>
-                        <option value="" >Enfant</option>
+                    <select id="stock_genre" name="genre" class="form_input form_select" value="<?php echo $shoesData['genre'] ?>">
+                        <option value="homme">Homme</option>
+                        <option value="femme">Femme</option>
+                        <option value="enfant">Enfant</option>
                     </select>
 
                     <label for="stock_taille" class="form_label">Taille</label>
-                    <input type="text" id="stock_taille" class="form_input">
+                    <input type="text" id="stock_taille" name="taille" class="form_input" value="<?php echo $shoesData['taille'] ?>">
 
                     <label for="stock_description" class="form_label">Description</label>
-                    <textarea rows="3" id="stock_description" class="form_input"></textarea>
+                    <textarea rows="3" id="stock_description" name="descript" class="form_input" value="<?php echo $shoesData['descript'] ?>"></textarea>
 
                     <div class="form_box">
                         <div>
                             <label for="stock_image" class="form_label">Image</label>
-                            <input type="file" id="stock_image" onchange="show_image()" class="form_image_input">
-                            <div id="image_visualizer" class="image_visualizer"></div>
+                            <input type="file" id="stock_image" name="image-nom" onchange="show_image()" class="form_image_input">
+                            <div id="image_visualizer" data-image="data-image" class="image_visualizer"></div>
                         </div>
-                        <input type="submit" id="form_validation_stock" class="form_validation_btn" value="<?php $titre ?>">
+                        <input type="submit" id="form_validation_stock" class="form_validation_btn" name="<?php echo $titre ?>" value="<?php echo $titre ?>">
                     </div>
 
                 </form>
+     
 
             </div>
 

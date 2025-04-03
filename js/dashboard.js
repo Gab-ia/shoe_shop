@@ -36,6 +36,8 @@ function show_image() {
         image.style.width = '15em';
         image.style.height = 'auto';
         image.style.maxHeight = '15em';
+        image_visualizer.dataset.image = imageURL;
+        image_visualizer.dataset.nom = image;
     });
 
     reader.readAsDataURL(file);

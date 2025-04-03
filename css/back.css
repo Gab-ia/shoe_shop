@@ -275,3 +275,56 @@ header {
 .size8 {
     width: calc(100%/8);
 }
+
+/* Flash */
+
+.alert {
+    box-sizing: border-box;
+    position: relative;
+    padding: 1rem;
+    border-radius: 0.375rem;
+    width: 71%;
+    margin: 10px;
+}
+
+.alertDiv {
+    display: flex;
+    justify-content: center;
+}
+
+.alert-dismissible {
+    padding-right: 3rem;
+}
+
+.alert-success {
+    color: #0a3622;
+    background-color: #d1e7dd;
+    border: #a3cfbb;
+}
+
+.alert-danger {
+    color: #58151c;
+    background-color:#f8d7da;
+    border: #f1aeb5;
+}
+
+.alert-warning {
+    color: #664d03;
+    background-color: #fff3cd;
+    border:#ffe69c;
+}
+
+.alert-info {
+    color: #055160;
+    background-color: #cff4fc;
+    border: #9eeaf9;
+}
+
+.fade-out {
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+}
+
+.fade-out.hidden {
+    opacity: 0;
+}
