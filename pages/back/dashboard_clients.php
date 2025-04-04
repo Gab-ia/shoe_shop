@@ -2,48 +2,16 @@
     include '../../connexion.php';
     include 'functionClients.php';
     include '../../composants/back/flash.php';
-    
-    if (!empty($_POST["Ajouter"]) and !empty($_POST["nom"]) and !empty($_POST["prix"]) and !empty($_POST["marque"]) and !empty($_POST["taille"]) and !empty($_POST["genre"]) and !empty($_POST["descript"]) and !empty($_FILES['image-nom']["name"]) > 0) {
-        
-        $imageName = $_FILES['image-nom']['name'];
-        
-        if(createShoes($db, $_POST["nom"], $_POST["prix"], $_POST["marque"], $_POST["taille"], $_POST["genre"], $_POST["descript"], $imageName)) {
 
-            setFlash("Chaussures ajoutées avec succès", "success" );
-
-            if (!empty($_FILES['image-nom']['name'])) {
-                $imageName = $_FILES['image-nom']['name'];
-                $imageTmp = imagecreatefromjpeg($_FILES['image-nom']['tmp_name']);
-                $uploadDir =realpath(__DIR__ . '/../../img/shoes') . '/';
-                $uploadFile = $uploadDir . $imageName;
-
-                imagejpeg($imageTmp, $uploadFile, 90);
-                imagedestroy($imageTmp);
-
-                setFlash("yeah !", "success" );
-
-            } else {
-                setFlash("oh no", "error");
-            }
-
-        } else {
-            setFlash($_POST["descript"], "error");
-        }
-
-        header("Location: dashboard.php");
-        exit();
-    }
-
-    if (!empty($_POST["modifier"]) and !empty($_POST["nom"]) and !empty($_POST["prix"]) and !empty($_POST["marque"]) and !empty($_POST["taille"]) and !empty($_POST["genre"]) and !empty($_POST["descript"]) and !empty($_FILES['image-nom']["name"]) > 0 and !empty($_POST["id"])) {
-        if(updateShoes($db, $_POST["nom"], $_POST["prix"], $_POST["marque"], $_POST["taille"], $_POST["genre"], $_POST["descript"], !empty($_FILES['image-nom']["name"]))) {
-            setFlash("Service modifié avec succès", "success" );
+    if (!empty($_GET["id"]) and !empty($_GET["action"]) and $_GET["action"] == "Supprimer" and $_GET["id"] > 0) {
+        if(deleteClients($db, $_GET["id"])) {
+            setFlash("Client supprimé avec succès", "success" );
         } else {
             setFlash("Une erreur s'est produite, veuillez réessayer", "error");
         }
-        header("Location: dashboard.php");
+        header("Location: dashboard_clients.php");
         exit();
     }
-
 ?>
 
 <!DOCTYPE html>
@@ -81,36 +49,11 @@
 
         <section class="gestionnaire">
 
-        <div class="gestionnaire_head">
+            <div class="gestionnaire_head">
                 <h2 class="section_title">Gestionnaire</h2>
                 <a id="stock"  href="dashboard.php" class="gestionnaire_btn">Stock</a>
                 <a id="employee" href="dashboard_employees.php" class="gestionnaire_btn">Employés</a>
                 <a id="client" href="dashboard_clients.php" class="gestionnaire_btn active_gestionnnaire_btn">Clients</a>
-            </div>
-
-            <div class="gestionnaire_main">
-
-                <form id="gestionnaire_client" class="gestionnaire_form">
-
-                    <label for="client_nom" class="form_label">Nom</label>
-                    <input type="text" id="client_nom" class="form_input">
-
-                    <label for="client_prenom" class="form_label">Prénom</label>
-                    <input type="text" id="client_prenom" class="form_input">
-
-                    <label for="client_mail" class="form_label">Mail</label>
-                    <input type="text" id="client_mail" class="form_input">
-
-                    <label for="client_identifiant" class="form_label">Identifiant</label>
-                    <input type="text" id="client_identifiant" class="form_input">
-
-                    <label for="client_mdp" class="form_label">Mot de passe</label>
-                    <input type="text" id="client_mdp" class="form_input">
-
-                    <input type="submit" id="form_validation_client" class="form_validation_btn" value="/SAVE /MODIFY">
-
-                </form>
-
             </div>
 
         </section>
@@ -127,13 +70,24 @@
                     foreach($getClients as $clients) {
                         echo '<div class="list_item">
                                 <p class="list_info size8">'. $clients['nom'] . '</p>
-                                <p class="size8 list_info">'. $clients['prenom'] . '</p>
-                                <p class="size8 list_info">'. $clients['mail'] . '</p>
-                                <p class="size8 list_info">'. $clients['identifiant'] . '</p>
-                                <p class="size8 list_info">'. $clients['mdp'] . '</p>
-                                <a href="" class=" list_modify_btn"><svg class="list_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160L0 416c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-96c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 64z"/></svg>Modifier</a>
-                                <a href="" class=" list_delete_btn"><svg class="list_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"/></svg>Supprimer</a>
-                            </div>'; 
+                                <p class="size6 list_info">'. $clients['prenom'] . '</p>
+                                <p class="size6 list_info">'. $clients['mail'] . '</p>
+                                <p class="size6 list_info">'. $clients['identifiant'] . '</p>
+                                <a  class=" list_delete_btn" onclick="showModal(\'modal-' . $clients['id'] . '\')"><svg class="list_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"/></svg>Supprimer</a>
+                            </div>
+                            <div id="modal-' . $clients['id'] . '" class="modal" >
+                                <div class="modal-content">
+                                    <div class="modaltop">
+                                        <span class="close" onclick="closeModal(\'modal-' . $clients['id'] . '\')">&times;</span>
+                                        <h2>Confirmation</h2>
+                                    </div>
+                                    <p class="modaltxt" id="modalText">Êtes-vous sûr de vouloir supprimer le compte de ' . $clients["nom"] . ' ' . $clients['prenom'] . '?</p>
+                                    <div class="modalconfirm">
+                                        <a id="" href="dashboard_clients.php?action=Supprimer&id=' . $clients['id'] . '" class="list_delete_btn">Supprimer</a>&nbsp;
+                                        <a class="list_cancel_btn" onclick="closeModal(\'modal-' . $clients['id'] . '\')">Annuler</a>
+                                    </div>
+                                </div>
+                            </div>';
                     }
                 ?>
             </div>

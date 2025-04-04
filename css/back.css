@@ -89,6 +89,7 @@ header {
     color: var(--couleur-4);
     border-radius: 5px;
     padding: 5px 10px;
+    transition: 0.5s ease;
 }
 
 .gestionnaire_btn:hover {
@@ -158,6 +159,7 @@ header {
     color: var(--couleur-4);
     border-radius: 5px;
     padding: 5px 10px;
+    transition: 0.5s ease;
 }
 
 .form_validation_btn:hover {
@@ -213,6 +215,8 @@ header {
     background-color: #6eb2b4a8;
 }
 
+
+
 .list_icon {
     fill: white;
     width: 20px;
@@ -241,6 +245,18 @@ header {
     display: flex;
     align-items: center;
     background-color: #b31231;
+    cursor: pointer;
+}
+
+.list_cancel_btn {
+    margin: 2px;
+    height: 2em;
+    text-decoration: none;
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+    display: flex;
+    align-items: center;
 }
 
 .list_modify_btn:hover {
@@ -249,6 +265,7 @@ header {
     border:1px solid #1f609f;
     transition: 0.5s ease;
 }
+
 .list_delete_btn:hover {
     background-color: white;
     color: #b31231;
@@ -256,8 +273,20 @@ header {
     transition: 0.5s ease;
 }
 
+.list_modify_btn:hover .list_icon{
+    fill: #1f609f;
+}
+
+.list_delete_btn:hover .list_icon{
+    fill: #b31231;
+}
+
 .size8 {
     width: calc(100%/8);
+}
+
+.size6 {
+    width: calc(100%/6);
 }
 
 /* Flash */
@@ -311,4 +340,46 @@ header {
 
 .fade-out.hidden {
     opacity: 0;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    border: 1px solid #888;
+    width: 30% !important;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.modaltop{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: solid 1px #ccc;
+}
+.modaltxt{
+    text-align: left;
+    padding: 15px;
+    border-bottom: solid 1px #ccc;
+}
+.modalconfirm{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row-reverse;
+    align-items: center;
+    padding: 15px;
 }
