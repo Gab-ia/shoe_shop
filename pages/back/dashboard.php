@@ -11,7 +11,7 @@
         
         $imageName = $_FILES['image-nom']['name'];
         
-        if(createShoes ($db, $_POST["nom"], $_POST["prix"], $_POST["marque"], $_POST["taille"], $_POST["genre"], $_POST["descript"], $imageName)) {
+        if(createShoes($db, $_POST["nom"], $_POST["prix"], $_POST["marque"], $_POST["taille"], $_POST["genre"], $_POST["descript"], $imageName)) {
 
             setFlash("Chaussures ajoutées avec succès", "success" );
 
@@ -31,7 +31,7 @@
             }
 
         } else {
-            setFlash($_POST["prix"], "error");
+            setFlash($_POST["descript"], "error");
         }
 
         header("Location: dashboard.php");
