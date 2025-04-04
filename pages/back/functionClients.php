@@ -1,15 +1,23 @@
 <?php 
 
-function getAllClients($db) {
+function getAllClients($db, $sort = 'nom', $order = 'asc') {
     try {
-        $query = $db->prepare('SELECT * FROM clients');
+        $validFields = ['nom', 'prenom', 'mail', 'identifiant', 'id'];
+        if (!in_array($sort, $validFields)) {
+            $sort = 'id';
+        }
+
+        if ($order !== 'asc' && $order !== 'desc') {
+            $order = 'asc';
+        }
+
+        $query = $db->prepare("SELECT * FROM clients ORDER BY $sort $order");
         $query->execute();
         return $query->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         return false;
     }
 }
-
 
 function deleteClients($db, $id) {
     try {
@@ -32,4 +40,3 @@ function getClientsById($db, $id) {
     }
 }
 
-$getClients = getAllClients($db);
