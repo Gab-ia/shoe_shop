@@ -54,7 +54,9 @@ $base = "shoe_shop";
 
 
 <div>
- <ul>
+ 
+<ul>
+
 <li><a href="" class="lien" style="text-decoration:none; color:var(--couleur-1);" onclick="afficheMenu()">HOMME</a></li>
 <li><a href="" class="lien" style="text-decoration:none; color:var(--couleur-1);" onclick="afficheMenu()">FEMME</a></li>
 <li><a href="" class="lien" style="text-decoration:none; color:var(--couleur-1);" onclick="afficheMenu()">ENFANT</a></li>
@@ -74,12 +76,62 @@ $base = "shoe_shop";
 
 </header>
  
+
+
+
+<div class="diapo">
+
+
+
+
+
+
+
+
+
+
+
+<div class ="desc">
+
+<img class ="slide" src="/img/shoes/jordan-1.webp" alt="">
+
+<div style=" background: linear-gradient(45deg, var(--couleur-1)85%, yellow 15%); padding: 0 60px;"> 
+<p style =" font-size: 30px; position: absolute; top: 210px; right: 385px; color: var(--couleur-1); transform: rotate(45deg); font-style: bold;"> NOUVEAUTE </p>
+
+<p style ="float: left;">
+<h2>JORDAN 1</h2>
+
+The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from 
+"de Finibus Bonorum et Malorum" by Cicero are also reproduced 
+in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
+
+
+
+</p>
+
+<input style ="background-color: var(--couleur-4); font-size: 25px; border: solid 2px var(--couleur-4);" type="button" value ="En savoir plus">
+
+
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
 <aside>
-
-
-
-
-
 
 <div class="chaussures">
 
@@ -102,10 +154,11 @@ $base = "shoe_shop";
                                  <ul>
                                 
                             
-                                <li style ="color: var(--couleur-1);  background-color: var(--couleur-4);  padding-top: 10px; padding-bottom: 30px;">
-                                '. $ligne['nom'] .' <br> <br>
-                                <img src="/img/shoes/jordan-1.webp" style= "width: 280px; height: 280px; " alt=""/> 
-                                <br> '. $ligne['prix'] .' 
+                                <li style ="color: var(--couleur-4);  background: linear-gradient(0deg, white 85%, var(--couleur-3) 15% );  
+                                padding-top: 10px; padding-bottom: 10px; box-shadow: 5px 5px 5px black;">
+                               '. $ligne['nom'] .' <br> <br>
+                                <img src="/img/shoes/jordan-1.webp" style= "width: 280px; height: 280px;" alt=""/> 
+                                <br> <p style= "color: var(--couleur-1);"> '. $ligne['prix'] .' </p>
                                 </li> </br>
                                 
 
@@ -133,15 +186,6 @@ $base = "shoe_shop";
 
 
 </div>
-
-
-
-
-
-
-
-
-
 
 
 </aside>
@@ -237,9 +281,7 @@ height="12px" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome
 <li><a href="" style="text-decoration:none; color:var(--couleur-1);">Conditions</a></li>
 <li><a href="" style="text-decoration:none; color:var(--couleur-1);">A propos</a></li>
 <li><a href="" style="text-decoration:none; color:var(--couleur-1);">Newsletter</a></li> 
-<li><a href="" style="text-decoration:none; color:var(--couleur-1);">Conditions</a></li>
-<li><a href="" style="text-decoration:none; color:var(--couleur-1);">A propos</a></li>
-<li><a href="" style="text-decoration:none; color:var(--couleur-1);">Newsletter</a></li>
+
 
 </ul>
 
