@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.1deb3
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le : jeu. 03 avr. 2025 à 14:38
--- Version du serveur : 10.4.32-MariaDB
--- Version de PHP : 8.2.12
+-- Host: localhost:3306
+-- Generation Time: Apr 04, 2025 at 07:32 AM
+-- Server version: 8.0.41-0ubuntu0.24.04.1
+-- PHP Version: 8.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,26 +18,26 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `shoe_shop`
+-- Database: `Shoe-shop`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `clients`
+-- Table structure for table `clients`
 --
 
 CREATE TABLE `clients` (
-  `id` int(11) NOT NULL,
-  `prenom` varchar(80) NOT NULL,
-  `nom` varchar(80) NOT NULL,
-  `mail` varchar(80) NOT NULL,
-  `identifiant` varchar(80) NOT NULL,
-  `mdp` varchar(80) NOT NULL
+  `id` int NOT NULL,
+  `prenom` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nom` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mail` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `identifiant` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mdp` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `clients`
+-- Dumping data for table `clients`
 --
 
 INSERT INTO `clients` (`id`, `prenom`, `nom`, `mail`, `identifiant`, `mdp`) VALUES
@@ -48,19 +48,19 @@ INSERT INTO `clients` (`id`, `prenom`, `nom`, `mail`, `identifiant`, `mdp`) VALU
 -- --------------------------------------------------------
 
 --
--- Structure de la table `employees`
+-- Table structure for table `employees`
 --
 
 CREATE TABLE `employees` (
-  `id` int(11) NOT NULL,
-  `prenom` varchar(80) NOT NULL,
-  `nom` varchar(80) NOT NULL,
-  `identifiant` varchar(80) NOT NULL,
-  `mdp` varchar(80) NOT NULL
+  `id` int NOT NULL,
+  `prenom` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nom` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `identifiant` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mdp` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `employees`
+-- Dumping data for table `employees`
 --
 
 INSERT INTO `employees` (`id`, `prenom`, `nom`, `identifiant`, `mdp`) VALUES
@@ -70,22 +70,22 @@ INSERT INTO `employees` (`id`, `prenom`, `nom`, `identifiant`, `mdp`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `shoes`
+-- Table structure for table `shoes`
 --
 
 CREATE TABLE `shoes` (
-  `id` int(11) NOT NULL,
-  `nom` varchar(80) NOT NULL,
+  `id` int NOT NULL,
+  `nom` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
   `prix` float NOT NULL,
-  `marque` varchar(80) NOT NULL,
-  `taille` int(11) NOT NULL,
-  `descript` text NOT NULL,
-  `genre` varchar(80) NOT NULL,
-  `image` varchar(80) DEFAULT NULL
+  `marque` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `taille` int NOT NULL,
+  `descript` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `genre` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(80) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `shoes`
+-- Dumping data for table `shoes`
 --
 
 INSERT INTO `shoes` (`id`, `nom`, `prix`, `marque`, `taille`, `descript`, `genre`, `image`) VALUES
@@ -103,51 +103,52 @@ INSERT INTO `shoes` (`id`, `nom`, `prix`, `marque`, `taille`, `descript`, `genre
 (12, 'Low Black Supreme', 205, 'Nike Air Force 1', 42, 'Après de longues semaines d’attente et plusieurs teasing, Nike et Supreme dévoilent une nouvelle collaboration sneakers sur un modèle emblématique : la Air Force 1.\r\n\r\nLa Nike Air Force 1 Low Black Supreme présente une empeigne des plus simples, entièrement recouverte de cuir noir, assortie avec les autres éléments à l’instar des lacets, de la semelle et du swoosh qui est apposé ton-sur-ton. Le box logo Supreme rouge sur l’arrière de la semelle apporte la touche finale.', 'Homme', 'nike-2.webp'),
 (13, 'Low NOCTA Drake Foam Pink', 205, 'Nike Air Force 1', 36, 'Après le succès de la première édition de la AF1 Drake dans une version White, Nike et NOCTA remettent le couvert avec un coloris Pink Foam.\r\n\r\nLa Nike Air Force 1 Low NOCTA Drake Foam Pink se pare d\'une base en cuir rose, accompagnée d\'éléments ton-sur-ton comme le Swoosh, les oeillets, les lacets. Une midsole translucide rosée vient sublimer l\'ensemble.', 'Femme', 'nike-3.webp'),
 (14, 'Low Valentine\'s Day', 195, 'Nike Air Force 1', 40, 'Cette année pour la Saint-Valentin, Nike voit les choses en grand avec une nouvelle version glamour de la lowtop tendance ! \r\n\r\nLa Nike Air Force 1 Low Valentine\'s Day (2023) affiche une base en cuir blanc qui laisse apparaître des superpositions de cuir rouge brillant. Sur les côtés, un swoosh rose doté de petits coeurs gravés, apporte une touche colorée à l\'ensemble. Le tout se laisse sublimer par une semelle crème à l\'outsole assortie qui finalise le design.\r\n\r\nDévoilée aux côtés d\'une Uptempo, l\'édition spéciale de la Air Force 1 saura en faire chavirer plus d\'un(e) ! ', 'Femme', 'nike-4.webp'),
-(15, 'Low Off-White \"The Ten\"', 3800, 'Nike Air Force 1', 35, 'Élaborée en 1982 à destination du Basketball, la Nike Air Force 1, est selon certaines sources, la chaussure la plus vendue de l’histoire de Nike. Ce qui est sûr, c’est qu’avec près de 1 700 corlorway différents depuis 1982, la Nike Air Force 1 est l’une des silhouettes les plus emblématiques de Nike.\r\n\r\nEncore une fois, Virgil a su respecter l’histoire, tout en apportant son regard novateur. On retrouve sur cette Nike Air Force One x Off-White le fameux « AIR » sur une semelle translucide, tandis que l’upper est réalisé en toile et mailles. Ce modèle est probablement l’une des plus grandes réussites de la collection « Ghosting » sortie en novembre 2017.', 'Enfant', 'nike-5.webp');
+(15, 'Low Off-White \"The Ten\"', 3800, 'Nike Air Force 1', 35, 'Élaborée en 1982 à destination du Basketball, la Nike Air Force 1, est selon certaines sources, la chaussure la plus vendue de l’histoire de Nike. Ce qui est sûr, c’est qu’avec près de 1 700 corlorway différents depuis 1982, la Nike Air Force 1 est l’une des silhouettes les plus emblématiques de Nike.\r\n\r\nEncore une fois, Virgil a su respecter l’histoire, tout en apportant son regard novateur. On retrouve sur cette Nike Air Force One x Off-White le fameux « AIR » sur une semelle translucide, tandis que l’upper est réalisé en toile et mailles. Ce modèle est probablement l’une des plus grandes réussites de la collection « Ghosting » sortie en novembre 2017.', 'Enfant', 'nike-5.webp'),
+(16, 'FWOGGY WOGGY SAYS HI CHUNKY TRAINERS', 119.95, 'Koi Footwear', 37, 'Plus tendance que jamais, les baskets à plateforme sont un incontournable de toute garde-robe. Chez Koi, nous vous proposons la meilleure gamme de baskets à plateforme véganes. Elles vous permettront de vous démarquer (littéralement) tout en restant au top de votre style, sans vous ruiner.\r\n\r\nDes baskets à plateforme pour toutes les occasions', 'Femme', 'Fwoggy Woggy.webp');
 
 --
--- Index pour les tables déchargées
+-- Indexes for dumped tables
 --
 
 --
--- Index pour la table `clients`
+-- Indexes for table `clients`
 --
 ALTER TABLE `clients`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `employees`
+-- Indexes for table `employees`
 --
 ALTER TABLE `employees`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `shoes`
+-- Indexes for table `shoes`
 --
 ALTER TABLE `shoes`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT pour les tables déchargées
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pour la table `clients`
+-- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT pour la table `employees`
+-- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT pour la table `shoes`
+-- AUTO_INCREMENT for table `shoes`
 --
 ALTER TABLE `shoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
