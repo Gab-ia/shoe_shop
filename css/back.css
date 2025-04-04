@@ -82,6 +82,7 @@ header {
 }
 
 .gestionnaire_btn {
+    text-decoration: none;
     font-size: 20px;
     margin-left: 25px;
     background-color: var(--couleur-1);
@@ -106,15 +107,11 @@ header {
 
 .gestionnaire_form {
     padding: 10px 20px;
-    display: none;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
     width: 80%;
-}
-
-.active_form {
-    display: flex;
 }
 
 .form_input {
@@ -189,19 +186,6 @@ header {
 .list_title {
     color: var(--couleur-1);
     margin: 0px;
-    display: none;
-}
-
-.list_main {
-    display: none;
-}
-
-.active_list_title {
-    display: flex;
-}
-
-.active_list {
-    display: block;
 }
 
 .list_item {
@@ -262,14 +246,69 @@ header {
 .list_modify_btn:hover {
     background-color: white;
     color: #1f609f;
+    border:1px solid #1f609f;
     transition: 0.5s ease;
 }
 .list_delete_btn:hover {
     background-color: white;
     color: #b31231;
+    border: 1px solid #b31231;
     transition: 0.5s ease;
 }
 
 .size8 {
     width: calc(100%/8);
+}
+
+/* Flash */
+
+.alert {
+    box-sizing: border-box;
+    position: relative;
+    padding: 1rem;
+    border-radius: 0.375rem;
+    width: 71%;
+    margin: 10px;
+}
+
+.alertDiv {
+    display: flex;
+    justify-content: center;
+}
+
+.alert-dismissible {
+    padding-right: 3rem;
+}
+
+.alert-success {
+    color: #0a3622;
+    background-color: #d1e7dd;
+    border: #a3cfbb;
+}
+
+.alert-danger {
+    color: #58151c;
+    background-color:#f8d7da;
+    border: #f1aeb5;
+}
+
+.alert-warning {
+    color: #664d03;
+    background-color: #fff3cd;
+    border:#ffe69c;
+}
+
+.alert-info {
+    color: #055160;
+    background-color: #cff4fc;
+    border: #9eeaf9;
+}
+
+.fade-out {
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+}
+
+.fade-out.hidden {
+    opacity: 0;
 }
