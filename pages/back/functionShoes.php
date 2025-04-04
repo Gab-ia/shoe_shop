@@ -30,7 +30,7 @@ function createShoes ($db, $nom, $prix, $marque, $taille, $genre, $descript, $im
 
 function updateShoes ($db, $nom, $prix, $marque, $taille, $genre, $descript, $img, $id) {
     try {
-        $update = $db->prepare('update shoes SET nom = :nom, prix = :prix, marque = :marque, taille = :taille, genre = :genre, descript = :descript, img = :img where id = :id');
+        $update = $db->prepare('update shoes SET nom = :nom, prix = :prix, marque = :marque, taille = :taille, genre = :genre, descript = :descript, image = :image where id = :id');
         $update->bindValue(':nom',trim(htmlspecialchars($nom)), PDO::PARAM_STR);
         $update->bindValue(':prix',trim(htmlspecialchars($prix)), PDO::PARAM_FLOAT);
         $update->bindValue(':marque',trim(htmlspecialchars($marque)), PDO::PARAM_STR);
@@ -66,15 +66,6 @@ function getShoesById($db, $id) {
     }
 }
 
-if (!empty($_POST["Editer"]) and !empty($_POST["name"]) > 0 and !empty($_POST["id"])) {
-    if(updateDepartment($db, $_POST["id"], $_POST["name"])) {
-        setFlash("Service modifié avec succès", "success" );
-    } else {
-        setFlash("Une erreur s'est produite, veuillez réessayer", "error");
-    }
-    header("Location: services.php");
-    exit();
-}
 
 if (!empty($_GET["id"]) and !empty($_GET["action"]) and $_GET["action"] == "supprimer" and $_GET["id"] > 0) {
     if(deleteDepartment($db, $_GET["id"])) {
