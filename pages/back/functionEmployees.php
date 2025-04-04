@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 function getAllEmployees($db) {
     try {
@@ -10,37 +10,35 @@ function getAllEmployees($db) {
     }
 }
 
-function createEmployees ($db, $prenom,  $nom, $identifiant, $mdp, $id) {
+function createEmployees($db, $prenom, $nom, $identifiant, $mdp) {
     try {
-        $insert = $db->prepare('INSERT INTO employees SET prenom = :prenom, nom = :nom, identifiant = :identifiant, mdp = :mdp, id = :id');
-        $insert->bindValue(':prenom',trim(htmlspecialchars($prenom)), PDO::PARAM_STR);
-        $insert->bindValue(':nom',trim(htmlspecialchars($nom)), PDO::PARAM_STR);
-        $insert->bindValue(':identifiant',trim(htmlspecialchars($identifiant)), PDO::PARAM_STR);
-        $insert->bindValue(':mdp',trim(htmlspecialchars($mdp)), PDO::PARAM_STR);
-        $insert->bindValue(':id',trim(htmlspecialchars($id)), PDO::PARAM_INT);
+        $insert = $db->prepare('INSERT INTO employees SET prenom = :prenom, nom = :nom, identifiant = :identifiant, mdp = :mdp');
+        $insert->bindValue(':prenom', trim(htmlspecialchars($prenom)), PDO::PARAM_STR);
+        $insert->bindValue(':nom', trim(htmlspecialchars($nom)), PDO::PARAM_STR);
+        $insert->bindValue(':identifiant', trim(htmlspecialchars($identifiant)), PDO::PARAM_STR);
+        $insert->bindValue(':mdp', trim(htmlspecialchars($mdp)), PDO::PARAM_STR);
         $insert->execute();
-        $insert_id = $db->lastInsertId();
         return $db->lastInsertId();
     } catch (PDOException $e) {
         return false;
     }
 }
 
-function updateEmployees ($db, $prenom,  $nom, $identifiant, $mdp, $id) {
+function updateEmployees($db, $prenom, $nom, $identifiant, $mdp, $id) {
     try {
-        $update = $db->prepare('update employees SET prenom = :prenom, nom = :nom, identifiant = :identifiant, mdp = :mdp where id = :id');
-        $update->bindValue(':prenom',trim(htmlspecialchars($prenom)), PDO::PARAM_STR);
-        $update->bindValue(':nom',trim(htmlspecialchars($nom)), PDO::PARAM_STR);
-        $update->bindValue(':identifiant',trim(htmlspecialchars($identifiant)), PDO::PARAM_STR);
-        $update->bindValue(':mdp',trim(htmlspecialchars($mdp)), PDO::PARAM_STR);
-        $update->bindValue(':id',trim(htmlspecialchars($id)), PDO::PARAM_INT);
+        $update = $db->prepare('UPDATE employees SET prenom = :prenom, nom = :nom, identifiant = :identifiant, mdp = :mdp WHERE id = :id');
+        $update->bindValue(':prenom', trim(htmlspecialchars($prenom)), PDO::PARAM_STR);
+        $update->bindValue(':nom', trim(htmlspecialchars($nom)), PDO::PARAM_STR);
+        $update->bindValue(':identifiant', trim(htmlspecialchars($identifiant)), PDO::PARAM_STR);
+        $update->bindValue(':mdp', trim(htmlspecialchars($mdp)), PDO::PARAM_STR);
+        $update->bindValue(':id', trim(htmlspecialchars($id)), PDO::PARAM_INT);
         return $update->execute();
     } catch (PDOException $e) {
         return false;
     }
 }
 
-function deleteEmployees ($db, $id) {
+function deleteEmployees($db, $id) {
     try {
         $delete = $db->prepare('DELETE FROM employees WHERE id = :id');
         $delete->bindValue(':id', $id, PDO::PARAM_INT);
@@ -61,37 +59,44 @@ function getEmployeesById($db, $id) {
     }
 }
 
-
-if (!empty($_POST["Enregistrer"]) and !empty($_POST["name"]) > 0) {
-    if(createDepartment($db, $_POST["name"])) {
-        setFlash("Service enregistré avec succès", "success" );
+if (!empty($_POST["Enregistrer"]) && !empty($_POST["prenom"]) && !empty($_POST["nom"])) {
+    if (createEmployees($db, $_POST["prenom"], $_POST["nom"], $_POST["identifiant"], $_POST["mdp"])) {
+        setFlash("Employé enregistré avec succès", "success");
     } else {
         setFlash("Une erreur s'est produite, veuillez réessayer", "error");
     }
-    header("Location: services.php");
+    header("Location: employees.php");
     exit();
 }
 
-if (!empty($_POST["Editer"]) and !empty($_POST["name"]) > 0 and !empty($_POST["id"])) {
-    if(updateDepartment($db, $_POST["id"], $_POST["name"])) {
-        setFlash("Service modifié avec succès", "success" );
+if (!empty($_POST["Editer"]) && !empty($_POST["prenom"]) && !empty($_POST["nom"]) && !empty($_POST["id"])) {
+    if (updateEmployees($db, $_POST["prenom"], $_POST["nom"], $_POST["identifiant"], $_POST["mdp"], $_POST["id"])) {
+        setFlash("Employé modifié avec succès", "success");
     } else {
         setFlash("Une erreur s'est produite, veuillez réessayer", "error");
     }
-    header("Location: services.php");
+    header("Location: employees.php");
     exit();
 }
 
-if (!empty($_GET["id"]) and !empty($_GET["action"]) and $_GET["action"] == "supprimer" and $_GET["id"] > 0) {
-    if(deleteDepartment($db, $_GET["id"])) {
-        setFlash("Service supprimé avec succès", "success" );
+if (!empty($_GET["id"]) && !empty($_GET["action"]) && $_GET["action"] == "supprimer" && $_GET["id"] > 0) {
+    if (deleteEmployees($db, $_GET["id"])) {
+        setFlash("Employé supprimé avec succès", "success");
     } else {
         setFlash("Une erreur s'est produite, veuillez réessayer", "error");
     }
-    header("Location: services.php");
+    header("Location: employees.php");
     exit();
 } else {
-    $departmentData = null;
+    $employeeData = null;
+}
+
+function getEmployees($db) {
+    // Effectuer une requête pour récupérer tous les employés
+    $sql = "SELECT * FROM employees"; // Remplacez "employees" par le nom de votre table d'employés
+    $stmt = $db->query($sql); // Utilisation d'une requête simple pour récupérer les données
+    
+    return $stmt->fetchAll(PDO::FETCH_ASSOC); // Retourner toutes les lignes sous forme de tableau associatif
 }
 
 $getEmployees = getAllEmployees($db);

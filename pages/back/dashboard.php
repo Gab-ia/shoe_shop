@@ -1,7 +1,6 @@
 <?php 
     include '../../connexion.php';
     include 'functionShoes.php';
-    include '../../composants/back/flash.php';
     
     if (!empty($_POST["Ajouter"]) and !empty($_POST["nom"]) and !empty($_POST["prix"]) and !empty($_POST["marque"]) and !empty($_POST["taille"]) and !empty($_POST["genre"]) and !empty($_POST["descript"]) and !empty($_FILES['image-nom']["name"]) > 0) {
         
@@ -34,15 +33,34 @@
         exit();
     }
 
-    if (!empty($_POST["modifier"]) and !empty($_POST["nom"]) and !empty($_POST["prix"]) and !empty($_POST["marque"]) and !empty($_POST["taille"]) and !empty($_POST["genre"]) and !empty($_POST["descript"]) and !empty($_FILES['image-nom']["name"]) > 0 and !empty($_POST["id"])) {
-        if(updateShoes($db, $_POST["nom"], $_POST["prix"], $_POST["marque"], $_POST["taille"], $_POST["genre"], $_POST["descript"], !empty($_FILES['image-nom']["name"]))) {
-            setFlash("Service modifié avec succès", "success" );
+    if (!empty($_POST["Ajouter"]) && !empty($_POST["nom"]) && !empty($_POST["prix"]) && !empty($_POST["marque"]) && !empty($_POST["taille"]) && !empty($_POST["genre"]) && !empty($_POST["descript"]) && !empty($_FILES['image-nom']["name"])) {
+        $imageName = $_FILES['image-nom']['name'];
+        
+        if(createShoes($db, $_POST["nom"], $_POST["prix"], $_POST["marque"], $_POST["taille"], $_POST["genre"], $_POST["descript"], $imageName)) {
+            setFlash("Chaussures ajoutées avec succès", "success");
+    
+            if (!empty($_FILES['image-nom']['name']) && $_FILES['image-nom']['error'] === 0) {
+                $imageTmp = $_FILES['image-nom']['tmp_name'];
+                $imageType = mime_content_type($imageTmp);
+                
+                if ($imageType == 'image/jpeg') {
+                    $imageTmp = imagecreatefromjpeg($imageTmp);
+                    $uploadDir = realpath(__DIR__ . '/../../img/shoes') . '/';
+                    $uploadFile = $uploadDir . $imageName;
+                    imagejpeg($imageTmp, $uploadFile, 90);
+                    imagedestroy($imageTmp);
+                    setFlash("Image téléchargée avec succès", "success");
+                } else {
+                    setFlash("Le fichier n'est pas une image JPEG.", "error");
+                }
+            }
         } else {
-            setFlash("Une erreur s'est produite, veuillez réessayer", "error");
+            setFlash("Erreur lors de l'ajout des chaussures.", "error");
         }
         header("Location: dashboard.php");
         exit();
     }
+    
 
 ?>
 

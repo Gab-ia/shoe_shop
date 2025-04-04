@@ -1,46 +1,24 @@
 <?php 
     include '../../connexion.php';
     include 'functionEmployees.php';
-    include '../../composants/back/flash.php';
     
-    if (!empty($_POST["Ajouter"]) and !empty($_POST["nom"]) and !empty($_POST["prix"]) and !empty($_POST["marque"]) and !empty($_POST["taille"]) and !empty($_POST["genre"]) and !empty($_POST["descript"]) and !empty($_FILES['image-nom']["name"]) > 0) {
-        
-        $imageName = $_FILES['image-nom']['name'];
-        
-        if(createShoes($db, $_POST["nom"], $_POST["prix"], $_POST["marque"], $_POST["taille"], $_POST["genre"], $_POST["descript"], $imageName)) {
-
-            setFlash("Chaussures ajoutées avec succès", "success" );
-
-            if (!empty($_FILES['image-nom']['name'])) {
-                $imageName = $_FILES['image-nom']['name'];
-                $imageTmp = imagecreatefromjpeg($_FILES['image-nom']['tmp_name']);
-                $uploadDir =realpath(__DIR__ . '/../../img/shoes') . '/';
-                $uploadFile = $uploadDir . $imageName;
-
-                imagejpeg($imageTmp, $uploadFile, 90);
-                imagedestroy($imageTmp);
-
-                setFlash("yeah !", "success" );
-
-            } else {
-                setFlash("oh no", "error");
-            }
-
-        } else {
-            setFlash($_POST["descript"], "error");
-        }
-
-        header("Location: dashboard.php");
-        exit();
-    }
-
-    if (!empty($_POST["modifier"]) and !empty($_POST["nom"]) and !empty($_POST["prix"]) and !empty($_POST["marque"]) and !empty($_POST["taille"]) and !empty($_POST["genre"]) and !empty($_POST["descript"]) and !empty($_FILES['image-nom']["name"]) > 0 and !empty($_POST["id"])) {
-        if(updateShoes($db, $_POST["nom"], $_POST["prix"], $_POST["marque"], $_POST["taille"], $_POST["genre"], $_POST["descript"], !empty($_FILES['image-nom']["name"]))) {
-            setFlash("Service modifié avec succès", "success" );
+    if (!empty($_POST["Ajouter"]) and !empty($_POST["nom"]) and !empty($_POST["prenom"]) and !empty($_POST["identifiant"]) and !empty($_POST["mdp"])) {
+        if(createEmployees($db, $_POST["nom"], $_POST["prenom"], $_POST["identifiant"], $_POST["mdp"])) {
+            setFlash("Employé ajouté avec succès", "success");
         } else {
             setFlash("Une erreur s'est produite, veuillez réessayer", "error");
         }
-        header("Location: dashboard.php");
+        header("Location: dashboard_employees.php");
+        exit();
+    }
+
+    if (!empty($_POST["modifier"]) and !empty($_POST["nom"]) and !empty($_POST["prenom"]) and !empty($_POST["identifiant"]) and !empty($_POST["mdp"]) and !empty($_POST["id"])) {
+        if(updateEmployees($db, $_POST["nom"], $_POST["prenom"], $_POST["identifiant"], $_POST["mdp"], $_POST["id"])) {
+            setFlash("Employé modifié avec succès", "success");
+        } else {
+            setFlash("Une erreur s'est produite, veuillez réessayer", "error");
+        }
+        header("Location: dashboard_employees.php");
         exit();
     }
 
@@ -57,7 +35,7 @@
 <body>
     <header>
         <h1 class="header_title">Bienvenue, /USER </h1>
-        <svg class="header_logo"version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 300 162" width="300px"
+        <svg class="header_logo" version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 300 162" width="300px"
             height="168px" class="size-logo"><path class="couleur-logo" d="M90,85.9l29.2-78.6H99.9L86.5,41.4l3-34.1H69.2L40.1,85.9h18.8l14.3-38.1l-2.5,37.1L90,85.9z M112.7,85.9
             l29.2-78.6h-18.3L93.9,85.9H112.7z M165.6,81l-1-39.5l27.7-32.1L165.6,81z M300,53.3l-93.9,24.2l2.5-7.4h-19.8l6.4-18.8H212L217,37
             l-16.8,1l5.9-15.8h16.3l5.4-14.3H175l-19.3,22.7l9.4-23.2h-18.8l-29.2,78.6h19.3l12.4-33.6v33.6h24.7L85,109.1
@@ -78,9 +56,7 @@
 
     <main>
         <!-- Interface de gestion -->
-
         <section class="gestionnaire">
-
             <div class="gestionnaire_head">
                 <h2 class="section_title">Gestionnaire</h2>
                 <a id="stock"  href="dashboard.php" class="gestionnaire_btn">Stock</a>
@@ -89,25 +65,22 @@
             </div>
 
             <div class="gestionnaire_main">
-    
-                <form id="gestionnaire_employee" class="gestionnaire_form">
+                <form id="gestionnaire_employee" class="gestionnaire_form" method="POST">
 
                     <label for="employee_nom" class="form_label">Nom</label>
-                    <input type="text" id="employee_nom" class="form_input">
+                    <input type="text" id="employee_nom" name="nom" class="form_input">
 
-                    <label for="employee_nom" class="form_label">Prénom</label>
-                    <input type="text" id="employee_prenom" class="form_input">
+                    <label for="employee_prenom" class="form_label">Prénom</label>
+                    <input type="text" id="employee_prenom" name="prenom" class="form_input">
 
                     <label for="employee_identifiant" class="form_label">Identifiant</label>
-                    <input type="text" id="employee_identifiant" class="form_input">
+                    <input type="text" id="employee_identifiant" name="identifiant" class="form_input">
 
                     <label for="employee_mdp" class="form_label">Mot de passe</label>
-                    <input type="text" id="employee_mdp" class="form_input">
+                    <input type="password" id="employee_mdp" name="mdp" class="form_input">
 
-                    <input type="submit" id="form_validation_employee" class="form_validation_btn" value="/SAVE /MODIFY">
-
+                    <input type="submit" name="Ajouter" id="form_validation_employee" class="form_validation_btn" value="Enregistrer">
                 </form>
-
             </div>
 
         </section>
@@ -120,50 +93,27 @@
             </div>
 
             <div id="list_employee" class="list_main">
-                <?php 
-                    foreach($getEmployees as $employees) {
-                        echo '<div class="list_item">
-                                <p class="list_info size8">'. $employees['nom'] . '</p>
-                                <p class="size8 list_info">'. $employees['prenom'] . '</p>
-                                <p class="size8 list_info">'. $employees['identifiant'] . '</p>
-                                <p class="size8 list_info">'. $employees['mdp'] . '</p>
-                                <a href="" class=" list_modify_btn"><svg class="list_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160L0 416c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-96c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 64z"/></svg>Modifier</a>
-                                <a href="" class=" list_delete_btn"><svg class="list_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"/></svg>Supprimer</a>
-                            </div>'; 
-                    }
-                ?>
-            </div>
+    <?php 
+        // Appeler la fonction getEmployees pour récupérer la liste des employés
+        $getEmployees = getEmployees($db); 
 
-<!--
-            
-                <div class="list_item">
-                    <p class="list_info size8">Nike Jordan 1</p>
-                    <p class="size8 list_info">2 563 €</p>
-                    <p class="size8 list_info">Jordan</p>
-                    <p class="size8 list_info">Homme</p>
-                    <p class="size8 list_info">42</p>
-                    <p class="size8 list_info">nike_jordan_1.png</p>
-                    <a href="" class=" list_modify_btn"><svg class="list_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160L0 416c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-96c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 64z"/></svg>Modifier</a>
-                    <a href="" class=" list_delete_btn"><svg class="list_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"/></svg>Supprimer</a>
-                </div>
-            
--->
-
-<!--
-            <div class="modal-content">
-                <div class="modaltop">
-                    <span class="close" onclick="closeModal(\'modal-' . $department['id'] . '\')">&times;</span>
-                    <h2>Confirmation</h2>
-                </div>
-                <p class="modaltxt" id="modalText">Êtes-vous sûr de vouloir supprimer le département ' . $department["name"] . '?</p>
-                <div class="modalconfirm">
-                    <a id="" href="services.php?action=supprimer&id=' . $department['id'] . '" class="btn delete">Supprimer</a>&nbsp;
-                    <a class="btn btn-secondary" onclick="closeModal(\'modal-' . $department['id'] . '\')">Annuler</a>
-                </div>
-            </div>
--->
-
-
+        // Vérifier si des employés sont retournés
+        if ($getEmployees) {
+            foreach($getEmployees as $employee) {
+                echo '<div class="list_item">
+                        <p class="list_info size8">'. htmlspecialchars($employee['nom']) . '</p>
+                        <p class="size8 list_info">'. htmlspecialchars($employee['prenom']) . '</p>
+                        <p class="size8 list_info">'. htmlspecialchars($employee['identifiant']) . '</p>
+                        <p class="size8 list_info">'. htmlspecialchars($employee['mdp']) . '</p>
+                        <a href="edit_employee.php?id='.$employee['id'].'" class="list_modify_btn">Modifier</a>
+                        <a href="delete_employee.php?id='.$employee['id'].'" class="list_delete_btn">Supprimer</a>
+                    </div>'; 
+            }
+        } else {
+            echo '<p>Aucun employé trouvé.</p>';
+        }
+    ?>
+</div>
         </section>
     </main>
 
