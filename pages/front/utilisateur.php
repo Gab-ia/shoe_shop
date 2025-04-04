@@ -1,3 +1,42 @@
+<?php
+session_start(); // Démarre la session
+
+// Inclure le fichier de connexion à la base de données
+include "connexion.php";
+
+// Vérifier si l'utilisateur est connecté
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    
+    // Requête SQL pour récupérer l'utilisateur par ID
+    $stmt = $pdo->prepare("SELECT * FROM clients WHERE id = ?");
+    $stmt->execute([$user_id]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    if ($user) {
+        // Afficher le prénom de l'utilisateur pour le message personnalisé
+        $nom_utilisateur = $user['prenom'];
+    } else {
+        // Si l'utilisateur n'est pas trouvé, afficher "Utilisateur"
+        $nom_utilisateur = "Utilisateur";
+    }
+
+    // Requête SQL pour récupérer l'historique des achats de l'utilisateur avec le nom et prix des produits
+    $stmt_commandes = $pdo->prepare("
+        SELECT co.id AS commande_id, s.nom, s.prix, co.statut 
+        FROM commandes co
+        JOIN shoes s ON co.produit_id = s.id
+        WHERE co.client_id = ?
+    ");
+    $stmt_commandes->execute([$user_id]);
+    $commandes = $stmt_commandes->fetchAll(PDO::FETCH_ASSOC);
+} else {
+    // Si l'utilisateur n'est pas connecté, afficher "Visiteur"
+    $nom_utilisateur = "Visiteur";
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -29,7 +68,7 @@
   <section class="user_account_section">
 
     <!-- Message de bienvenue -->
-    <p class="welcome-message">Bienvenue sur votre profil, Isaac <?php echo htmlspecialchars($nom_utilisateur); ?> !</p>
+    <p class="welcome-message">Bienvenue sur votre profil, <?php echo htmlspecialchars($nom_utilisateur); ?> !</p>
 
     <!-- Section Historique d'achat -->
     <section id="historique" class="user_section">
