@@ -133,7 +133,14 @@ in their exact original form, accompanied by English versions from the 1914 tran
 
 <aside>
 
+
+
+
 <div class="chaussures">
+
+
+
+
 
 <?php  
                         
@@ -158,7 +165,7 @@ in their exact original form, accompanied by English versions from the 1914 tran
                                 padding-top: 10px; padding-bottom: 10px; box-shadow: 5px 5px 5px black;">
                                '. $ligne['nom'] .' <br> <br>
                                 <img src="/img/shoes/jordan-1.webp" style= "width: 280px; height: 280px;" alt=""/> 
-                                <br> <p style= "color: var(--couleur-1);"> '. $ligne['prix'] .' </p>
+                                <br> <p style= "color: var(--couleur-1); "> '. $ligne['prix'] .' </p>
                                 </li> </br>
                                 
 
@@ -195,6 +202,7 @@ in their exact original form, accompanied by English versions from the 1914 tran
 
 
 <nav id ="menu">
+<form action="accueil.php" method="post">
 
 <h1> &nbsp; Genre <hr> </h1>
 
@@ -235,12 +243,42 @@ in their exact original form, accompanied by English versions from the 1914 tran
 
 <ul>
 
-<li> <input type="checkbox" name="" id=""> Croissant </li>
-<li> <input type="checkbox" name="" id=""> Décroissant </li>
+<li> <input type="checkbox" name="asc"> Croissant </li>
+<li> <input type="checkbox" name="des"> Décroissant </li>
 
 
 </ul>
 
+<input type="submit" name="submit" value="soumettre">
+
+
+
+</form>
+
+<?php 
+
+if(isset($_POST['submit'])) {
+
+
+
+if(isset($_POST['asc'])){
+
+
+
+
+
+
+}
+
+
+
+}
+
+
+
+
+
+?>
 
 
 
