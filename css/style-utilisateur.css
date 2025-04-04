@@ -1,0 +1,323 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@600&display=swap');
+
+:root {
+  --couleur-1: #50514F;
+  --couleur-2: #56A3A6;
+  --couleur-3: #FF785A;
+  --couleur-4: #FFFCFF;
+
+  --font-principale: 'Poppins', sans-serif;
+  --font-secondaire: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+body {
+  font-family: var(--font-principale);
+  color: var(--couleur-1);
+  margin: 0;
+  padding: 0;
+  background-color: var(--couleur-4);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-secondaire);
+  color: var(--couleur-1);
+}
+
+.connexion_client_section {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+.connexion_client_section img {
+  width: 60px;
+  color: var(--couleur-1);
+}
+
+.connexion_client_section h1 {
+  text-align: left;
+  font-size: 28px;
+}
+
+.connexion_client_form {
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.connexion_client_creercompte {
+  font-size: 13px;
+  text-align: end;
+  margin: 5px;
+}
+
+.connexion_client_form .connexion_client_button {
+  float: right;
+}
+
+input[type="email"],
+input[type="id"],
+.password,
+.nom,
+.prenom,
+.identifiant {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: var(--font-principale);
+}
+
+.nom {
+  width: 90%;
+}
+
+.connexion_client_button {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.connexion_client_password {
+  position: relative;
+  margin-top: 10px;
+}
+
+.user_account_section {
+  text-align: center;
+}
+
+.user_nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.user_nav ul li {
+  display: inline-block;
+}
+
+.user_nav ul li a {
+  text-decoration: none;
+  color: var(--couleur-1);
+  font-weight: bold;
+  padding: 10px 15px;
+}
+
+.welcome_message {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--couleur-1);
+  margin-top: 10px;
+}
+
+/* header */
+
+/* Ajout de Flexbox pour le header */
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: var(--couleur-3);
+}
+
+header .logo img {
+  width: 100%;
+  height: auto;
+  max-width: 125px;
+  /* Logo limité à cette taille */
+}
+
+header ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+}
+
+header ul li {
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+header .icones {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: auto;
+  height: auto;
+  display: inline-block;
+}
+
+/* Media Queries */
+
+/* Pour les grands écrans (PC) */
+@media (min-width: 1024px) {
+  .connexion_client_section {
+    max-width: 500px;
+  }
+
+  .user_account_section {
+    max-width: 80%;
+    margin: auto;
+  }
+}
+
+
+
+/* Pour les téléphones (moins de 790px) */
+@media (max-width: 790px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .logo img {
+    max-width: 100px;
+    /* Réduire la taille du logo sur mobile */
+  }
+
+  .user_nav ul {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .user_nav ul li {
+    margin: 10px 0;
+    font-size: 14px;
+  }
+
+  .user_account_section {
+    padding: 15px;
+  }
+
+  .purchase_history li,
+  .favorite_list li {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  button {
+    font-size: 14px;
+  }
+}
+
+.user_account_section ul {
+  display: inline-block;
+  margin-right: 40px;
+}
+
+
+
+/* */
+
+
+.avantages-membres {
+  background-color: var(--couleur-4);
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  /* Cache les éléments qui sortent du carrousel */
+}
+
+.avantages-wrapper {
+  display: flex;
+  animation: scroll-left 15s linear infinite;
+}
+
+.avantage-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 30px;
+  text-align: center;
+  font-size: 16px;
+  color: var(--couleur-1);
+}
+
+.avantage-item i {
+  font-size: 30px;
+  margin-right: 10px;
+  color: var(--couleur-3);
+}
+
+.avantage-item p {
+  font-weight: bold;
+}
+
+/* Animation pour faire défiler les éléments */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(120%);
+  }
+
+  100% {
+    transform: translateX(-120%);
+  }
+}
+
+/* Media Queries pour adapter à différents écrans */
+@media (max-width: 1024px) {
+  .avantage-item {
+    font-size: 14px;
+  }
+
+  .avantage-item i {
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 600px) {
+  .avantage-item {
+    font-size: 12px;
+    margin: 0 15px;
+  }
+
+  .avantage-item i {
+    font-size: 20px;
+  }
+}
+
+
+footer {
+  position: fixed;
+  background-color: var(--couleur-3);
+  width: 100%;
+  height: 15%;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px 0;
+}
+
+footer .logo img {
+  width: 100%;
+  height: auto;
+  max-width: 125px;
+  /* Logo limité à cette taille */
+}
+
+.welcome-message {
+  font-size: 48px; /* Augmente la taille */
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+  color: #333; /* Facultatif : couleur du texte */
+}
