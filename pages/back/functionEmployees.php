@@ -1,16 +1,27 @@
 <?php
-// functionEmployees.php
-
 /**
  * Récupère la liste de tous les employés.
  *
  * @param PDO $db
  * @return array
  */
-function getEmployees($db)
-{
-    $stmt = $db->query("SELECT * FROM employees ORDER BY id DESC");
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+function getEmployees($db, $sort = 'nom', $order = 'asc') {
+    try {
+        $validFields = ['nom', 'prenom', 'identifiant', 'id'];
+        if (!in_array($sort, $validFields)) {
+            $sort = 'id';
+        }
+
+        if ($order !== 'asc' && $order !== 'desc') {
+            $order = 'asc';
+        }
+
+        $query = $db->prepare("SELECT * FROM employees ORDER BY $sort $order");
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        return false;
+    }
 }
 
 /**
