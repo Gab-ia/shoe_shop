@@ -9,32 +9,35 @@
     
     if (!empty($_POST["Ajouter"]) and !empty($_POST["nom"]) and !empty($_POST["prix"]) and !empty($_POST["marque"]) and !empty($_POST["taille"]) and !empty($_POST["genre"]) and !empty($_POST["descript"]) and !empty($_FILES['image-nom']["name"]) > 0) {
         
-        if (!empty($_POST['data-image']) && !empty($_FILES['image']['name'])) {
-            $imageData = $_POST['data-image'];
-            $imageName = $_FILES['image']['name'];
-            $imageData = str_replace('data:image/png;base64,', '', $imageData);
-            $imageData = str_replace(' ', '+', $imageData);
-            $decodedImage = base64_decode($imageData);
-            $image = imagecreatefromstring($decodedImage);
-            $newImage = pathinfo($imageName, PATHINFO_FILENAME);
-            if (strpos($imageName, '.jpg') === false && strpos($imageName, '.jpeg') === false) {
-              $newImage .= '.jpg';
+        $imageName = $_FILES['image-nom']['name'];
+        
+        if(createShoes ($db, $_POST["nom"], $_POST["prix"], $_POST["marque"], $_POST["taille"], $_POST["genre"], $_POST["descript"], $imageName)) {
+
+            setFlash("Chaussures ajoutées avec succès", "success" );
+
+            if (!empty($_FILES['image-nom']['name'])) {
+                $imageName = $_FILES['image-nom']['name'];
+                $imageTmp = imagecreatefromjpeg($_FILES['image-nom']['tmp_name']);
+                $uploadDir =realpath(__DIR__ . '/../../img/shoes') . '/';
+                $uploadFile = $uploadDir . $imageName;
+
+                imagejpeg($imageTmp, $uploadFile, 90);
+                imagedestroy($imageTmp);
+
+                setFlash("yeah !", "success" );
+
+            } else {
+                setFlash("oh no", "error");
             }
-            imagejpeg($image, './img/shoes/' . $newImage);
-            
+
         } else {
-            setFlash("erreur image", "error");
+            setFlash($_POST["prix"], "error");
         }
 
-        if(createShoes ($db, $_POST["nom"], $_POST["prix"], $_POST["marque"], $_POST["taille"], $_POST["genre"], $_POST["descript"], $_FILES['image-nom']['name'])) {
-            setFlash("Chaussures ajoutées avec succès", "success" );
-            imagedestroy($image);
-        } else {
-            setFlash("Une erreur est survenue, veuillez réessayer", "error");
-        }
         header("Location: dashboard.php");
         exit();
     }
+
 ?>
 
 <!DOCTYPE html>
@@ -109,11 +112,7 @@
                     <input type="text" id="stock_prix" name="prix" class="form_input" value="<?php echo $shoesData['prix'] ?>">
 
                     <label for="stock_marque" class="form_label">Marque</label>
-                    <select id="stock_marque" name="marque" class="form_input form_select" value="<?php echo $shoesData['marque'] ?>">
-                        <option value="/JORDAN">marque1</option>
-                        <option value="/MARQUE2">marque2</option>
-                        <option value="/MARQUE3" >marque3</option>
-                    </select>
+                    <input type="text" id="stock_marque" name="marque" class="form_input form_select" value="<?php echo $shoesData['marque'] ?>">
 
                     <label for="stock_genre" class="form_label">Genre</label>
                     <select id="stock_genre" name="genre" class="form_input form_select" value="<?php echo $shoesData['genre'] ?>">
@@ -132,6 +131,7 @@
                         <div>
                             <label for="stock_image" class="form_label">Image</label>
                             <input type="file" id="stock_image" name="image-nom" onchange="show_image()" class="form_image_input">
+                            <input type="hidden" name="image-data" class="hidden-image-data" />
                             <div id="image_visualizer" data-image="data-image" class="image_visualizer"></div>
                         </div>
                         <input type="submit" id="form_validation_stock" class="form_validation_btn" name="<?php echo $titre ?>" value="<?php echo $titre ?>">
