@@ -29,7 +29,7 @@ if (isset($_SESSION['message'])) {
     <form class="connexion_client_form" method="post" action="traitement_inscription.php">
 
       <div>
-        <input type="email" id="email" name="email" placeholder="E-mail" required>
+        <input type="email" id="email" name="mail" placeholder="E-mail" required>
       </div>
 
       <div style="padding: 10px 0; display: flex; gap: 10px;">

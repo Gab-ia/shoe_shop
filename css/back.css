@@ -82,12 +82,14 @@ header {
 }
 
 .gestionnaire_btn {
+    text-decoration: none;
     font-size: 20px;
     margin-left: 25px;
     background-color: var(--couleur-1);
     color: var(--couleur-4);
     border-radius: 5px;
     padding: 5px 10px;
+    transition: 0.5s ease;
 }
 
 .gestionnaire_btn:hover {
@@ -106,15 +108,11 @@ header {
 
 .gestionnaire_form {
     padding: 10px 20px;
-    display: none;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
     width: 80%;
-}
-
-.active_form {
-    display: flex;
 }
 
 .form_input {
@@ -161,6 +159,7 @@ header {
     color: var(--couleur-4);
     border-radius: 5px;
     padding: 5px 10px;
+    transition: 0.5s ease;
 }
 
 .form_validation_btn:hover {
@@ -189,19 +188,15 @@ header {
 .list_title {
     color: var(--couleur-1);
     margin: 0px;
-    display: none;
 }
 
-.list_main {
-    display: none;
-}
-
-.active_list_title {
+.list_item_filter {
+    background-color: #6eb2b4a8;
+    height: 4em;
     display: flex;
-}
-
-.active_list {
-    display: block;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid var(--couleur-1);
 }
 
 .list_item {
@@ -215,6 +210,27 @@ header {
 .list_info {
     padding: 10px;
     margin: 2px;
+    text-align: center;
+}
+
+.list_info_filter {
+    text-decoration: none;
+    color: var(--couleur-1);
+    padding: 10px;
+    margin: 2px;
+    display: flex;
+    align-items: center;
+}
+
+.list_icon_filter_active {
+    fill: white !important;
+}
+
+.list_icon_filter {
+    fill: var(--couleur-1);
+    width: 15px;
+    margin: 5px;
+    padding: 5px;
 }
 
 .list_item:nth-child(even) {
@@ -228,6 +244,8 @@ header {
 .list_item:hover {
     background-color: #6eb2b4a8;
 }
+
+
 
 .list_icon {
     fill: white;
@@ -257,19 +275,145 @@ header {
     display: flex;
     align-items: center;
     background-color: #b31231;
+    cursor: pointer;
+}
+
+.list_cancel_btn {
+    margin: 2px;
+    height: 2em;
+    text-decoration: none;
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+    display: flex;
+    align-items: center;
 }
 
 .list_modify_btn:hover {
     background-color: white;
     color: #1f609f;
+    border:1px solid #1f609f;
     transition: 0.5s ease;
 }
+
 .list_delete_btn:hover {
     background-color: white;
     color: #b31231;
+    border: 1px solid #b31231;
     transition: 0.5s ease;
+}
+
+.list_modify_btn:hover .list_icon{
+    fill: #1f609f;
+}
+
+.list_delete_btn:hover .list_icon{
+    fill: #b31231;
 }
 
 .size8 {
     width: calc(100%/8);
+}
+
+.size6 {
+    width: calc(100%/6);
+}
+
+.size4 {
+    width: calc(100%/4);
+}
+
+/* Flash */
+
+.alert {
+    box-sizing: border-box;
+    position: relative;
+    padding: 1rem;
+    border-radius: 0.375rem;
+    width: 71%;
+    margin: 10px;
+}
+
+.alertDiv {
+    display: flex;
+    justify-content: center;
+}
+
+.alert-dismissible {
+    padding-right: 3rem;
+}
+
+.alert-success {
+    color: #0a3622;
+    background-color: #d1e7dd;
+    border: #a3cfbb;
+}
+
+.alert-danger {
+    color: #58151c;
+    background-color:#f8d7da;
+    border: #f1aeb5;
+}
+
+.alert-warning {
+    color: #664d03;
+    background-color: #fff3cd;
+    border:#ffe69c;
+}
+
+.alert-info {
+    color: #055160;
+    background-color: #cff4fc;
+    border: #9eeaf9;
+}
+
+.fade-out {
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+}
+
+.fade-out.hidden {
+    opacity: 0;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    border: 1px solid #888;
+    width: 30% !important;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.modaltop{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: solid 1px #ccc;
+}
+.modaltxt{
+    text-align: left;
+    padding: 15px;
+    border-bottom: solid 1px #ccc;
+}
+.modalconfirm{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row-reverse;
+    align-items: center;
+    padding: 15px;
 }

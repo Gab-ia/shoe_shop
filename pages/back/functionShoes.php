@@ -1,8 +1,17 @@
 <?php 
 
-function getAllShoes($db) {
+function getAllShoes($db, $sort = 'nom', $order = 'asc') {
     try {
-        $query = $db->prepare('SELECT * FROM shoes');
+        $validFields = ['nom', 'prix', 'marque', 'taille', 'genre', 'id'];
+        if (!in_array($sort, $validFields)) {
+            $sort = 'id';
+        }
+
+        if ($order !== 'asc' && $order !== 'desc') {
+            $order = 'asc';
+        }
+
+        $query = $db->prepare("SELECT * FROM shoes ORDER BY $sort $order");
         $query->execute();
         return $query->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
@@ -10,18 +19,16 @@ function getAllShoes($db) {
     }
 }
 
-function createShoes ($db, $prenom,  $nom, $prix, $marque, $taille, $genre, $descript, $img, $id) {
+function createShoes ($db, $nom, $prix, $marque, $taille, $genre, $descript, $img) {
     try {
-        $insert = $db->prepare('INSERT INTO shoes SET prenom = :prenom, nom = :nom, prix = :prix, marque = :marque, taille = :taille, genre = :genre, descript = :descript, img = :img, id = :id');
-        $insert->bindValue(':prenom',trim(htmlspecialchars($prenom)), PDO::PARAM_STR);
+        $insert = $db->prepare('INSERT INTO shoes SET nom = :nom, prix = :prix, marque = :marque, taille = :taille, genre = :genre, descript = :descript, image = :image');
         $insert->bindValue(':nom',trim(htmlspecialchars($nom)), PDO::PARAM_STR);
-        $insert->bindValue(':prix',trim(htmlspecialchars($prix)), PDO::PARAM_FLOAT);
+        $insert->bindValue(':prix',(float)trim(htmlspecialchars($prix)), PDO::PARAM_STR);
         $insert->bindValue(':marque',trim(htmlspecialchars($marque)), PDO::PARAM_STR);
         $insert->bindValue(':taille',trim(htmlspecialchars($taille)), PDO::PARAM_INT);
         $insert->bindValue(':genre',trim(htmlspecialchars($genre)), PDO::PARAM_STR);
-        $insert->bindValue(':img',trim(htmlspecialchars($img)), PDO::PARAM_STR);
         $insert->bindValue(':descript',trim(htmlspecialchars($descript)), PDO::PARAM_STR);
-        $insert->bindValue(':id',trim(htmlspecialchars($id)), PDO::PARAM_INT);
+        $insert->bindValue(':image',trim(htmlspecialchars($img)), PDO::PARAM_STR);
         $insert->execute();
         $insert_id = $db->lastInsertId();
         return $db->lastInsertId();
@@ -30,18 +37,16 @@ function createShoes ($db, $prenom,  $nom, $prix, $marque, $taille, $genre, $des
     }
 }
 
-function updateShoes ($db, $prenom,  $nom, $prix, $marque, $taille, $genre, $descript, $img, $id) {
+function updateShoes ($db, $nom, $prix, $marque, $taille, $genre, $descript, $id) {
     try {
-        $update = $db->prepare('update shoes SET prenom = :prenom, nom = :nom, prix = :prix, marque = :marque, taille = :taille, genre = :genre, descript = :descript, img = :img where id = :id');
-        $update->bindValue(':prenom',trim(htmlspecialchars($prenom)), PDO::PARAM_STR);
+        $update = $db->prepare('UPDATE shoes SET nom = :nom, prix = :prix, marque = :marque, taille = :taille, genre = :genre, descript = :descript where id = :id');
         $update->bindValue(':nom',trim(htmlspecialchars($nom)), PDO::PARAM_STR);
-        $update->bindValue(':prix',trim(htmlspecialchars($prix)), PDO::PARAM_FLOAT);
+        $update->bindValue(':prix',(float)trim(htmlspecialchars($prix)), PDO::PARAM_STR);
         $update->bindValue(':marque',trim(htmlspecialchars($marque)), PDO::PARAM_STR);
         $update->bindValue(':taille',trim(htmlspecialchars($taille)), PDO::PARAM_INT);
         $update->bindValue(':genre',trim(htmlspecialchars($genre)), PDO::PARAM_STR);
-        $update->bindValue(':img',trim(htmlspecialchars($img)), PDO::PARAM_STR);
         $update->bindValue(':descript',trim(htmlspecialchars($descript)), PDO::PARAM_STR);
-        $update->bindValue(':id',trim(htmlspecialchars($id)), PDO::PARAM_INT);
+        $update->bindValue(':id', trim(htmlspecialchars($id)), PDO::PARAM_INT);
         return $update->execute();
     } catch (PDOException $e) {
         return false;
@@ -70,36 +75,4 @@ function getShoesById($db, $id) {
 }
 
 
-if (!empty($_POST["Enregistrer"]) and !empty($_POST["name"]) > 0) {
-    if(createDepartment($db, $_POST["name"])) {
-        setFlash("Service enregistré avec succès", "success" );
-    } else {
-        setFlash("Une erreur s'est produite, veuillez réessayer", "error");
-    }
-    header("Location: services.php");
-    exit();
-}
 
-if (!empty($_POST["Editer"]) and !empty($_POST["name"]) > 0 and !empty($_POST["id"])) {
-    if(updateDepartment($db, $_POST["id"], $_POST["name"])) {
-        setFlash("Service modifié avec succès", "success" );
-    } else {
-        setFlash("Une erreur s'est produite, veuillez réessayer", "error");
-    }
-    header("Location: services.php");
-    exit();
-}
-
-if (!empty($_GET["id"]) and !empty($_GET["action"]) and $_GET["action"] == "supprimer" and $_GET["id"] > 0) {
-    if(deleteDepartment($db, $_GET["id"])) {
-        setFlash("Service supprimé avec succès", "success" );
-    } else {
-        setFlash("Une erreur s'est produite, veuillez réessayer", "error");
-    }
-    header("Location: services.php");
-    exit();
-} else {
-    $departmentData = null;
-}
-
-$getShoes = getAllShoes($db);
