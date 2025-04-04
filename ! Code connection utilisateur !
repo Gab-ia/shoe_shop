@@ -1,0 +1,83 @@
+<?php
+session_start(); // Démarre la session
+
+// Inclure le fichier de connexion à la base de données
+include "connexion.php";
+
+// Vérifier si l'utilisateur est connecté
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    
+    // Requête SQL pour récupérer l'utilisateur par ID
+    $stmt = $pdo->prepare("SELECT * FROM clients WHERE id = ?");
+    $stmt->execute([$user_id]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    if ($user) {
+        // Afficher le prénom de l'utilisateur pour le message personnalisé
+        $nom_utilisateur = $user['prenom'];
+    } else {
+        // Si l'utilisateur n'est pas trouvé, afficher "Utilisateur"
+        $nom_utilisateur = "Utilisateur";
+    }
+
+    // Requête SQL pour récupérer l'historique des achats de l'utilisateur avec le nom et prix des produits
+    $stmt_commandes = $pdo->prepare("
+        SELECT co.id AS commande_id, s.nom, s.prix, co.statut 
+        FROM commandes co
+        JOIN shoes s ON co.produit_id = s.id
+        WHERE co.client_id = ?
+    ");
+    $stmt_commandes->execute([$user_id]);
+    $commandes = $stmt_commandes->fetchAll(PDO::FETCH_ASSOC);
+} else {
+    // Si l'utilisateur n'est pas connecté, afficher "Visiteur"
+    $nom_utilisateur = "Visiteur";
+}
+?>
+
+
+<?php
+session_start();
+include "connexion.php";
+
+// Initialisation des valeurs par défaut
+$nom_utilisateur = "Utilisateur";
+$commandes = [];
+$shoes = [];
+
+// Vérifier si l'utilisateur est connecté
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+
+    // Récupérer le prénom de l'utilisateur
+    $stmt_user = $pdo->prepare("SELECT prenom FROM clients WHERE id = ?");
+    $stmt_user->execute([$user_id]);
+    $user = $stmt_user->fetch(PDO::FETCH_ASSOC);
+    
+    if ($user) {
+        $nom_utilisateur = htmlspecialchars($user['prenom']);
+    }
+
+    // Récupération de l'historique des commandes
+    $stmt_commandes = $pdo->prepare("
+        SELECT co.id AS commande_id, s.nom, s.prix, co.statut 
+        FROM commandes co
+        JOIN shoes s ON co.produit_id = s.id
+        WHERE co.client_id = ?
+        ORDER BY co.id DESC
+    ");
+    $stmt_commandes->execute([$user_id]);
+    $commandes = $stmt_commandes->fetchAll(PDO::FETCH_ASSOC);
+
+    // Récupération des favoris
+    $stmt_favoris = $pdo->prepare("
+        SELECT s.id, s.nom, s.prix, s.image 
+        FROM shoes s
+        JOIN favoris f ON s.id = f.produit_id
+        WHERE f.client_id = ?
+    ");
+    $stmt_favoris->execute([$user_id]);
+    $shoes = $stmt_favoris->fetchAll(PDO::FETCH_ASSOC);
+}
+?>
