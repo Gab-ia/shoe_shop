@@ -9,41 +9,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($mailOrIdentifiant) || empty($password)) {
         $_SESSION['message'] = "Tous les champs sont requis.";
-        header("Location: connexion_client.php");
+        header("Location: connexion_all.php");
         exit;
     }
 
     try {
-        $sql = "SELECT * FROM clients WHERE mail = :mailOrIdentifiant OR identifiant = :mailOrIdentifiant LIMIT 1";
+        $sql = "SELECT * FROM clients 
+                WHERE mail = :mailOrIdentifiant 
+                   OR identifiant = :mailOrIdentifiant 
+                LIMIT 1";
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':mailOrIdentifiant', $mailOrIdentifiant);
         $stmt->execute();
 
-        if ($stmt->rowCount() == 0) {
-            $_SESSION['message'] = "Identifiant ou mot de passe incorrect.";
-            header("Location: connexion_client.php");
-            exit;
-        }
-
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (password_verify($password, $user['mdp'])) {
+        if ($user && password_verify($password, $user['mdp'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_name'] = $user['prenom'];
             header("Location: /pages/front/accueil.php");
             exit;
         } else {
-            $_SESSION['message'] = "Identifiant ou mot de passe incorrect.";
-            header("Location: connexion_client.php");
-            exit;
+            $sql = "SELECT * FROM employees 
+                    WHERE identifiant = :mailOrIdentifiant 
+                    LIMIT 1";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':mailOrIdentifiant', $mailOrIdentifiant);
+            $stmt->execute();
+
+            $employee = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($employee && password_verify($password, $employee['mdp'])) {
+                $_SESSION['employee_id'] = $employee['id'];
+                $_SESSION['employee_name'] = $employee['prenom'];
+                header("Location: /pages/back/dashboard.php");
+                exit;
+            } else {
+                $_SESSION['message'] = "Identifiant ou mot de passe incorrect.";
+                header("Location: connexion_all.php");
+                exit;
+            }
         }
     } catch (PDOException $e) {
         $_SESSION['message'] = "Erreur lors de la connexion : " . $e->getMessage();
-        header("Location: connexion_client.php");
+        header("Location: connexion_all.php");
         exit;
     }
 } else {
-    header("Location: connexion_client.php");
+    header("Location: connexion_all.php");
     exit;
 }
 ?>
