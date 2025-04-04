@@ -190,6 +190,15 @@ header {
     margin: 0px;
 }
 
+.list_item_filter {
+    background-color: #6eb2b4a8;
+    height: 4em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid var(--couleur-1);
+}
+
 .list_item {
     height: 4em;
     display: flex;
@@ -201,6 +210,27 @@ header {
 .list_info {
     padding: 10px;
     margin: 2px;
+    text-align: center;
+}
+
+.list_info_filter {
+    text-decoration: none;
+    color: var(--couleur-1);
+    padding: 10px;
+    margin: 2px;
+    display: flex;
+    align-items: center;
+}
+
+.list_icon_filter_active {
+    fill: white !important;
+}
+
+.list_icon_filter {
+    fill: var(--couleur-1);
+    width: 15px;
+    margin: 5px;
+    padding: 5px;
 }
 
 .list_item:nth-child(even) {

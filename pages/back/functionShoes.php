@@ -1,8 +1,17 @@
 <?php 
 
-function getAllShoes($db) {
+function getAllShoes($db, $sort = 'nom', $order = 'asc') {
     try {
-        $query = $db->prepare('SELECT * FROM shoes');
+        $validFields = ['nom', 'prix', 'marque', 'taille', 'genre', 'id'];
+        if (!in_array($sort, $validFields)) {
+            $sort = 'id';
+        }
+
+        if ($order !== 'asc' && $order !== 'desc') {
+            $order = 'asc';
+        }
+
+        $query = $db->prepare("SELECT * FROM shoes ORDER BY $sort $order");
         $query->execute();
         return $query->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
@@ -65,5 +74,5 @@ function getShoesById($db, $id) {
     }
 }
 
-$getShoes = getAllShoes($db);
+
 
