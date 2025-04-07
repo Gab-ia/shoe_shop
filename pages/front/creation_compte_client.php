@@ -59,7 +59,7 @@ if (isset($_SESSION['message'])) {
           required>
       </div>
 
-      <p class="connexion_client_creercompte">J'ai déjà un compte, <a href="/">se connecter</a></p>
+      <p class="connexion_client_creercompte">J'ai déjà un compte, <a href="connexion_all.php">se connecter</a></p>
 
       <p>
         En t'inscrivant, tu acceptes les <a href="">conditions d’utilisation</a> et tu confirmes avoir lu la <a

@@ -2,6 +2,23 @@
     include '../../connexion.php';
     include 'functionShoes.php';
     include '../../composants/back/flash.php';
+
+    $nom_utilisateur = "Administrateur";
+
+    if (isset($_SESSION['employee_id'])) {
+        $employee_id = $_SESSION['employee_id'];
+
+        $stmt_admin = $db->prepare("SELECT prenom FROM employees WHERE id = ?");
+        $stmt_admin->execute([$employee_id]);
+        $user = $stmt_admin->fetch(PDO::FETCH_ASSOC);
+        
+        if ($user) {
+            $nom_utilisateur = htmlspecialchars($user['prenom']);
+        }
+
+        echo $employee_id;
+
+    }
     
     if (!empty($_POST["Ajouter"]) and !empty($_POST["nom"]) and !empty($_POST["prix"]) and !empty($_POST["marque"]) and !empty($_POST["taille"]) and !empty($_POST["genre"]) and !empty($_POST["descript"]) and !empty($_FILES['image-nom']["name"]) > 0) {
         
@@ -75,7 +92,7 @@
 </head>
 <body>
     <header>
-        <h1 class="header_title">Bienvenue, /USER </h1>
+        <h1 class="header_title">Bienvenue, <?= $nom_utilisateur ?></h1>
         <svg class="header_logo"version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 300 162" width="300px"
             height="168px" class="size-logo"><path class="couleur-logo" d="M90,85.9l29.2-78.6H99.9L86.5,41.4l3-34.1H69.2L40.1,85.9h18.8l14.3-38.1l-2.5,37.1L90,85.9z M112.7,85.9
             l29.2-78.6h-18.3L93.9,85.9H112.7z M165.6,81l-1-39.5l27.7-32.1L165.6,81z M300,53.3l-93.9,24.2l2.5-7.4h-19.8l6.4-18.8H212L217,37
