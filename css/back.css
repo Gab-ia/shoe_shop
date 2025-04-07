@@ -20,6 +20,7 @@ h1, h2, h3 {
     font-family: var(--font-secondaire);
     color: var(--couleur-1);
 }
+
 main {
     display: flex;
     justify-content: center;
@@ -28,32 +29,37 @@ main {
 /* header */
 
 header {
-    background-color: var(--couleur-1);
+    background-color: #6eb2b4a8;
     display: flex;
     align-items: center;
-    padding:20px 50px;
-    justify-content: space-between;
+    padding:0px 50px;
+    justify-content: space-around;
 }
 
 .header_title {
     font-size: 20px;
-    color: var(--couleur-4);
+    color: var(--couleur-1);
 }
 
 .header_logo {
-    height: 60px;
+    height: 10em;
     text-align: center;
-    fill: var(--couleur-4);
+    color: var(--couleur-4);
 }
 
 .header_connexion {
     display: flex;
     flex-direction: row;
+    color: var(--couleur-1);
+    padding: 0px 110px;
+}
+
+.header_connexion_logo:hover {
+    fill: var(--couleur-4); 
 }
 
 .header_connexion_logo {
-    fill: white;
-    padding-right: 30px;
+    fill: var(--couleur-1);
     width: 20px;
     height: 20px;
 }
@@ -188,6 +194,10 @@ header {
 .list_title {
     color: var(--couleur-1);
     margin: 0px;
+    height: 5em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .list_item_filter {
