@@ -1,8 +1,22 @@
 <?php
-
-function getAllEmployees($db) {
+/**
+ * Récupère la liste de tous les employés.
+ *
+ * @param PDO $db
+ * @return array
+ */
+function getEmployees($db, $sort = 'nom', $order = 'asc') {
     try {
-        $query = $db->prepare('SELECT * FROM employees');
+        $validFields = ['nom', 'prenom', 'identifiant', 'id'];
+        if (!in_array($sort, $validFields)) {
+            $sort = 'id';
+        }
+
+        if ($order !== 'asc' && $order !== 'desc') {
+            $order = 'asc';
+        }
+
+        $query = $db->prepare("SELECT * FROM employees ORDER BY $sort $order");
         $query->execute();
         return $query->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
@@ -10,93 +24,67 @@ function getAllEmployees($db) {
     }
 }
 
-function createEmployees($db, $prenom, $nom, $identifiant, $mdp) {
-    try {
-        $insert = $db->prepare('INSERT INTO employees SET prenom = :prenom, nom = :nom, identifiant = :identifiant, mdp = :mdp');
-        $insert->bindValue(':prenom', trim(htmlspecialchars($prenom)), PDO::PARAM_STR);
-        $insert->bindValue(':nom', trim(htmlspecialchars($nom)), PDO::PARAM_STR);
-        $insert->bindValue(':identifiant', trim(htmlspecialchars($identifiant)), PDO::PARAM_STR);
-        $insert->bindValue(':mdp', trim(htmlspecialchars($mdp)), PDO::PARAM_STR);
-        $insert->execute();
-        return $db->lastInsertId();
-    } catch (PDOException $e) {
-        return false;
-    }
+/**
+ * Ajoute un nouvel employé dans la base de données.
+ * Le mot de passe doit être haché avant d'être passé à cette fonction.
+ *
+ * @param PDO    $db
+ * @param string $nom
+ * @param string $prenom
+ * @param string $identifiant
+ * @param string $mdp (haché)
+ * @return bool
+ */
+function addEmployee($db, $nom, $prenom, $identifiant, $mdp)
+{
+    $stmt = $db->prepare("INSERT INTO employees (nom, prenom, identifiant, mdp) VALUES (?, ?, ?, ?)");
+    return $stmt->execute([$nom, $prenom, $identifiant, $mdp]);
 }
 
-function updateEmployees($db, $prenom, $nom, $identifiant, $mdp, $id) {
-    try {
-        $update = $db->prepare('UPDATE employees SET prenom = :prenom, nom = :nom, identifiant = :identifiant, mdp = :mdp WHERE id = :id');
-        $update->bindValue(':prenom', trim(htmlspecialchars($prenom)), PDO::PARAM_STR);
-        $update->bindValue(':nom', trim(htmlspecialchars($nom)), PDO::PARAM_STR);
-        $update->bindValue(':identifiant', trim(htmlspecialchars($identifiant)), PDO::PARAM_STR);
-        $update->bindValue(':mdp', trim(htmlspecialchars($mdp)), PDO::PARAM_STR);
-        $update->bindValue(':id', trim(htmlspecialchars($id)), PDO::PARAM_INT);
-        return $update->execute();
-    } catch (PDOException $e) {
-        return false;
-    }
+/**
+ * Met à jour les informations d'un employé existant en modifiant le mot de passe.
+ * Le mot de passe doit être haché avant d'être passé à cette fonction.
+ *
+ * @param PDO    $db
+ * @param int    $id
+ * @param string $nom
+ * @param string $prenom
+ * @param string $identifiant
+ * @param string $mdp (haché)
+ * @return bool
+ */
+function updateEmployee($db, $id, $nom, $prenom, $identifiant, $mdp)
+{
+    $stmt = $db->prepare("UPDATE employees SET nom = ?, prenom = ?, identifiant = ?, mdp = ? WHERE id = ?");
+    return $stmt->execute([$nom, $prenom, $identifiant, $mdp, $id]);
 }
 
-function deleteEmployees($db, $id) {
-    try {
-        $delete = $db->prepare('DELETE FROM employees WHERE id = :id');
-        $delete->bindValue(':id', $id, PDO::PARAM_INT);
-        return $delete->execute();
-    } catch (PDOException $e) {
-        return false;
-    }
+/**
+ * Met à jour les informations d'un employé existant sans modifier le mot de passe.
+ *
+ * @param PDO    $db
+ * @param int    $id
+ * @param string $nom
+ * @param string $prenom
+ * @param string $identifiant
+ * @return bool
+ */
+function updateEmployeeWithoutPassword($db, $id, $nom, $prenom, $identifiant)
+{
+    $stmt = $db->prepare("UPDATE employees SET nom = ?, prenom = ?, identifiant = ? WHERE id = ?");
+    return $stmt->execute([$nom, $prenom, $identifiant, $id]);
 }
 
-function getEmployeesById($db, $id) {
-    try {
-        $query = $db->prepare('SELECT * FROM employees WHERE id = :id');
-        $query->bindValue(':id', $id, PDO::PARAM_INT);
-        $query->execute();
-        return $query->fetch(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        return false;
-    }
+/**
+ * Supprime un employé de la base de données.
+ *
+ * @param PDO $db
+ * @param int $id
+ * @return bool
+ */
+function deleteEmployee($db, $id)
+{
+    $stmt = $db->prepare("DELETE FROM employees WHERE id = ?");
+    return $stmt->execute([$id]);
 }
-
-if (!empty($_POST["Enregistrer"]) && !empty($_POST["prenom"]) && !empty($_POST["nom"])) {
-    if (createEmployees($db, $_POST["prenom"], $_POST["nom"], $_POST["identifiant"], $_POST["mdp"])) {
-        setFlash("Employé enregistré avec succès", "success");
-    } else {
-        setFlash("Une erreur s'est produite, veuillez réessayer", "error");
-    }
-    header("Location: employees.php");
-    exit();
-}
-
-if (!empty($_POST["Editer"]) && !empty($_POST["prenom"]) && !empty($_POST["nom"]) && !empty($_POST["id"])) {
-    if (updateEmployees($db, $_POST["prenom"], $_POST["nom"], $_POST["identifiant"], $_POST["mdp"], $_POST["id"])) {
-        setFlash("Employé modifié avec succès", "success");
-    } else {
-        setFlash("Une erreur s'est produite, veuillez réessayer", "error");
-    }
-    header("Location: employees.php");
-    exit();
-}
-
-if (!empty($_GET["id"]) && !empty($_GET["action"]) && $_GET["action"] == "supprimer" && $_GET["id"] > 0) {
-    if (deleteEmployees($db, $_GET["id"])) {
-        setFlash("Employé supprimé avec succès", "success");
-    } else {
-        setFlash("Une erreur s'est produite, veuillez réessayer", "error");
-    }
-    header("Location: employees.php");
-    exit();
-} else {
-    $employeeData = null;
-}
-
-function getEmployees($db) {
-    // Effectuer une requête pour récupérer tous les employés
-    $sql = "SELECT * FROM employees"; // Remplacez "employees" par le nom de votre table d'employés
-    $stmt = $db->query($sql); // Utilisation d'une requête simple pour récupérer les données
-    
-    return $stmt->fetchAll(PDO::FETCH_ASSOC); // Retourner toutes les lignes sous forme de tableau associatif
-}
-
-$getEmployees = getAllEmployees($db);
+?>

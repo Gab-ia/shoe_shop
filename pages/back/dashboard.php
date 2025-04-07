@@ -1,14 +1,13 @@
 <?php 
     include '../../connexion.php';
     include 'functionShoes.php';
+    include '../../composants/back/flash.php';
     
     if (!empty($_POST["Ajouter"]) and !empty($_POST["nom"]) and !empty($_POST["prix"]) and !empty($_POST["marque"]) and !empty($_POST["taille"]) and !empty($_POST["genre"]) and !empty($_POST["descript"]) and !empty($_FILES['image-nom']["name"]) > 0) {
         
         $imageName = $_FILES['image-nom']['name'];
         
         if(createShoes($db, $_POST["nom"], $_POST["prix"], $_POST["marque"], $_POST["taille"], $_POST["genre"], $_POST["descript"], $imageName)) {
-
-            setFlash("Chaussures ajoutées avec succès", "success" );
 
             if (!empty($_FILES['image-nom']['name'])) {
                 $imageName = $_FILES['image-nom']['name'];
@@ -19,51 +18,53 @@
                 imagejpeg($imageTmp, $uploadFile, 90);
                 imagedestroy($imageTmp);
 
-                setFlash("yeah !", "success" );
+                setFlash("Chaussures ajoutées avec succès", "success" );
 
             } else {
-                setFlash("oh no", "error");
+                setFlash("Erreur avec l'image, veuillez réessayer", "error");
             }
 
         } else {
-            setFlash($_POST["descript"], "error");
+            setFlash("Un problème est survenu, veuillez réessayer", "error");
         }
 
         header("Location: dashboard.php");
         exit();
     }
 
-    if (!empty($_POST["Ajouter"]) && !empty($_POST["nom"]) && !empty($_POST["prix"]) && !empty($_POST["marque"]) && !empty($_POST["taille"]) && !empty($_POST["genre"]) && !empty($_POST["descript"]) && !empty($_FILES['image-nom']["name"])) {
-        $imageName = $_FILES['image-nom']['name'];
-        
-        if(createShoes($db, $_POST["nom"], $_POST["prix"], $_POST["marque"], $_POST["taille"], $_POST["genre"], $_POST["descript"], $imageName)) {
-            setFlash("Chaussures ajoutées avec succès", "success");
-    
-            if (!empty($_FILES['image-nom']['name']) && $_FILES['image-nom']['error'] === 0) {
-                $imageTmp = $_FILES['image-nom']['tmp_name'];
-                $imageType = mime_content_type($imageTmp);
-                
-                if ($imageType == 'image/jpeg') {
-                    $imageTmp = imagecreatefromjpeg($imageTmp);
-                    $uploadDir = realpath(__DIR__ . '/../../img/shoes') . '/';
-                    $uploadFile = $uploadDir . $imageName;
-                    imagejpeg($imageTmp, $uploadFile, 90);
-                    imagedestroy($imageTmp);
-                    setFlash("Image téléchargée avec succès", "success");
-                } else {
-                    setFlash("Le fichier n'est pas une image JPEG.", "error");
-                }
-            }
+    if (!empty($_POST["Modifier"]) and !empty($_POST["nom"]) and !empty($_POST["prix"]) and !empty($_POST["marque"]) and !empty($_POST["taille"]) and !empty($_POST["genre"]) and !empty($_POST["descript"]) > 0 and !empty($_POST["id"])) {
+        if(updateShoes($db, $_POST["nom"], $_POST["prix"], $_POST["marque"], $_POST["taille"], $_POST["genre"], $_POST["descript"], $_POST["id"])) {
+            setFlash("Chaussures modifiées avec succès", "success" );
         } else {
-            setFlash("Erreur lors de l'ajout des chaussures.", "error");
+            setFlash("Une erreur s'est produite, veuillez réessayer", "error");
         }
         header("Location: dashboard.php");
         exit();
     }
-    
+
+    if (!empty($_GET["id"]) and !empty($_GET["action"]) and $_GET["action"] == "Supprimer" and $_GET["id"] > 0) {
+        if(deleteShoes($db, $_GET["id"])) {
+            setFlash("Chaussures supprimées avec succès", "success" );
+        } else {
+            setFlash("Une erreur s'est produite, veuillez réessayer", "error");
+        }
+        header("Location: dashboard.php");
+        exit();
+    } else {
+        $departmentData = null;
+    }
+
+    $currentSort = $_GET['sort'] ?? '';
+    $currentOrder = $_GET['order'] ?? 'asc';
+
+    $getShoes = getAllShoes($db, $currentSort, $currentOrder);
+
+    function getSortLink($field, $currentSort, $currentOrder) {
+        $newOrder = ($currentSort === $field && $currentOrder === 'asc') ? 'desc' : 'asc';
+        return "?sort=$field&order=$newOrder";
+    }
 
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -140,24 +141,33 @@
 
                     <label for="stock_genre" class="form_label">Genre</label>
                     <select id="stock_genre" name="genre" class="form_input form_select" value="<?php echo $shoesData['genre'] ?>">
-                        <option value="homme">Homme</option>
-                        <option value="femme">Femme</option>
-                        <option value="enfant">Enfant</option>
+                        <option value="">Choisir une catégorie</option>
+                        <option value="Homme">Homme</option>
+                        <option value="Femme">Femme</option>
+                        <option value="Enfant">Enfant</option>
                     </select>
 
                     <label for="stock_taille" class="form_label">Taille</label>
                     <input type="text" id="stock_taille" name="taille" class="form_input" value="<?php echo $shoesData['taille'] ?>">
 
                     <label for="stock_description" class="form_label">Description</label>
-                    <textarea rows="3" id="stock_description" name="descript" class="form_input" value="<?php echo $shoesData['descript'] ?>"></textarea>
+                    <textarea rows="3" id="stock_description" name="descript" class="form_input" value="<?php echo $shoesData['descript'] ?>"><?php echo $shoesData['descript'] ?></textarea>
 
                     <div class="form_box">
-                        <div>
-                            <label for="stock_image" class="form_label">Image</label>
-                            <input type="file" id="stock_image" name="image-nom" onchange="show_image()" class="form_image_input">
-                            <input type="hidden" name="image-data" class="hidden-image-data" />
-                            <div id="image_visualizer" data-image="data-image" class="image_visualizer"></div>
-                        </div>
+                        <?php 
+                            if (!empty($_GET["action"]) and $_GET["action"] == "Modifier") {
+
+                            } else {
+                                echo'
+                                <div>
+                                    <label for="stock_image" class="form_label">Image</label>
+                                    <input type="file" id="stock_image" name="image-nom" onchange="show_image()" class="form_image_input">
+                                    <input type="hidden" name="image-data" class="hidden-image-data" />
+                                    <div id="image_visualizer" data-image="data-image" class="image_visualizer"></div>
+                                </div>';
+                            }
+                        ?>
+
                         <input type="submit" id="form_validation_stock" class="form_validation_btn" name="<?php echo $titre ?>" value="<?php echo $titre ?>">
                     </div>
 
@@ -176,6 +186,31 @@
             </div>
 
             <div id="list_stock" class="list_main active_list">
+                <div class="list_item_filter">
+                    <?php
+                        $fields = [
+                            'nom' => 'Nom',
+                            'prix' => 'Prix',
+                            'marque' => 'Marque',
+                            'genre' => 'Genre',
+                            'taille' => 'Taille',
+                            'image' => 'Image',
+                            'id' => 'Date d\'arrivage'
+                        ];
+
+                        foreach ($fields as $field => $label) {
+                            $link = getSortLink($field, $currentSort, $currentOrder);
+                            $isActive = ($currentSort === $field) ? 'list_icon_filter_active' : '';
+                            echo '<a class="size8 list_info_filter" href="' . $link . '">';
+                            echo $label;
+                            echo '<svg class="list_icon_filter ' . $isActive . '" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">';
+                            echo '<path d="M137.4 41.4c12.5-12.5 32.8-12.5 45.3 0l128 128c9.2 9.2 11.9 22.9 6.9 34.9s-16.6 19.8-29.6 19.8L32 224c-12.9 0-24.6-7.8-29.6-19.8s-2.2-25.7 6.9-34.9l128-128zm0 429.3l-128-128c-9.2-9.2-11.9-22.9-6.9-34.9s16.6-19.8 29.6-19.8l256 0c12.9 0 24.6 7.8 29.6 19.8s2.2 25.7-6.9 34.9l-128 128c-12.5 12.5-32.8 12.5-45.3 0z"/>';
+                            echo '</svg>';
+                            echo '</a>';
+                        }
+                    ?>
+                </div>
+
                 <?php 
                     foreach($getShoes as $shoes) {
                         echo '<div class="list_item">
@@ -186,41 +221,25 @@
                                 <p class="size8 list_info">'. $shoes['taille'] . '</p>
                                 <p class="size8 list_info">'. $shoes['image'] . '</p>
                                 <a href="dashboard.php?action=Modifier&id=' . $shoes['id'] . '" class=" list_modify_btn"><svg class="list_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160L0 416c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-96c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 64z"/></svg>Modifier</a>
-                                <a href="" class=" list_delete_btn"><svg class="list_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"/></svg>Supprimer</a>
+                                <a  class=" list_delete_btn" onclick="showModal(\'modal-' . $shoes['id'] . '\')"><svg class="list_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"/></svg>Supprimer</a>
+                                                    
+                                <div id="modal-' . $shoes['id'] . '" class="modal" >
+                                    <div class="modal-content">
+                                        <div class="modaltop">
+                                            <span class="close" onclick="closeModal(\'modal-' . $shoes['id'] . '\')">&times;</span>
+                                            <h2>Confirmation</h2>
+                                        </div>
+                                        <p class="modaltxt" id="modalText">Êtes-vous sûr de vouloir supprimer les ' . $shoes["nom"] . '?</p>
+                                        <div class="modalconfirm">
+                                            <a id="" href="dashboard.php?action=Supprimer&id=' . $shoes['id'] . '" class="list_delete_btn">Supprimer</a>&nbsp;
+                                            <a class="list_cancel_btn" onclick="closeModal(\'modal-' . $shoes['id'] . '\')">Annuler</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>'; 
                     }
                 ?>
             </div>
-
-
-<!--
-            
-                <div class="list_item">
-                    <p class="list_info size8">Nike Jordan 1</p>
-                    <p class="size8 list_info">2 563 €</p>
-                    <p class="size8 list_info">Jordan</p>
-                    <p class="size8 list_info">Homme</p>
-                    <p class="size8 list_info">42</p>
-                    <p class="size8 list_info">nike_jordan_1.png</p>
-                    <a href="" class=" list_modify_btn"><svg class="list_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160L0 416c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-96c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 64z"/></svg>Modifier</a>
-                    <a href="" class=" list_delete_btn"><svg class="list_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"/></svg>Supprimer</a>
-                </div>
-            
--->
-
-<!--
-            <div class="modal-content">
-                <div class="modaltop">
-                    <span class="close" onclick="closeModal(\'modal-' . $department['id'] . '\')">&times;</span>
-                    <h2>Confirmation</h2>
-                </div>
-                <p class="modaltxt" id="modalText">Êtes-vous sûr de vouloir supprimer le département ' . $department["name"] . '?</p>
-                <div class="modalconfirm">
-                    <a id="" href="services.php?action=supprimer&id=' . $department['id'] . '" class="btn delete">Supprimer</a>&nbsp;
-                    <a class="btn btn-secondary" onclick="closeModal(\'modal-' . $department['id'] . '\')">Annuler</a>
-                </div>
-            </div>
--->
 
         </section>
     </main>
