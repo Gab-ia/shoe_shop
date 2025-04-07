@@ -1,6 +1,6 @@
 <?php 
     include '../../connexion.php';
-    include 'functionShoes.php';
+    include './composants/functionShoes.php';
     include './composants/flash.php';
     
     if (!empty($_POST["Ajouter"]) and !empty($_POST["nom"]) and !empty($_POST["prix"]) and !empty($_POST["marque"]) and !empty($_POST["taille"]) and !empty($_POST["genre"]) and !empty($_POST["descript"]) and !empty($_FILES['image-nom']["name"]) > 0) {
