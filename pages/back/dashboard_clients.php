@@ -1,6 +1,6 @@
 <?php 
     include '../../connexion.php';
-    include 'functionClients.php';
+    include './composants/functionClients.php';
     include './composants/flash.php';
 
     if (!empty($_GET["id"]) and !empty($_GET["action"]) and $_GET["action"] == "Supprimer" and $_GET["id"] > 0) {

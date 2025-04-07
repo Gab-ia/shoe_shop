@@ -1,6 +1,6 @@
 <?php
     include '../../connexion.php';
-    include 'functionEmployees.php';
+    include './composants/functionEmployees.php';
     include './composants/flash.php';
 
     if (isset($_GET['action']) && $_GET['action'] == 'delete' && !empty($_GET['id'])) {
