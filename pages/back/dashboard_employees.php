@@ -1,50 +1,65 @@
 <?php
-include '../../connexion.php';
-include 'functionEmployees.php';
-include '../../composants/back/flash.php';
+    include '../../connexion.php';
+    include 'functionEmployees.php';
+    include '../../composants/back/flash.php';
 
-if (isset($_GET['action']) && $_GET['action'] == 'delete' && !empty($_GET['id'])) {
-    $id = $_GET['id'];
-    deleteEmployee($db, $id);
-    setFlash("L'employé a été supprimé avec succès", "success");
-    header("Location: dashboard_employees.php");
-    exit();
-}
+    $nom_utilisateur = "Administrateur";
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $employee_id = isset($_POST['employee_id']) ? trim($_POST['employee_id']) : '';
-    $employee_nom = isset($_POST['employee_nom']) ? trim($_POST['employee_nom']) : '';
-    $employee_prenom = isset($_POST['employee_prenom']) ? trim($_POST['employee_prenom']) : '';
-    $employee_identifiant = isset($_POST['employee_identifiant']) ? trim($_POST['employee_identifiant']) : '';
-    $employee_mdp = isset($_POST['employee_mdp']) ? trim($_POST['employee_mdp']) : '';
+    if (isset($_SESSION['employee_id'])) {
+        $employee_id = $_SESSION['employee_id'];
 
-    if (!empty($employee_id)) {
-        if ($employee_mdp === "") {
-            updateEmployeeWithoutPassword($db, $employee_id, $employee_nom, $employee_prenom, $employee_identifiant);
-            setFlash("L'employé a été modifié avec succès (mot de passe inchangé)", "success");
+        $stmt_admin = $db->prepare("SELECT prenom FROM employees WHERE id = ?");
+        $stmt_admin->execute([$employee_id]);
+        $user = $stmt_admin->fetch(PDO::FETCH_ASSOC);
+        
+        if ($user) {
+            $nom_utilisateur = htmlspecialchars($user['prenom']);
+        }
+
+    }
+
+    if (isset($_GET['action']) && $_GET['action'] == 'delete' && !empty($_GET['id'])) {
+        $id = $_GET['id'];
+        deleteEmployee($db, $id);
+        setFlash("L'employé a été supprimé avec succès", "success");
+        header("Location: dashboard_employees.php");
+        exit();
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $employee_id = isset($_POST['employee_id']) ? trim($_POST['employee_id']) : '';
+        $employee_nom = isset($_POST['employee_nom']) ? trim($_POST['employee_nom']) : '';
+        $employee_prenom = isset($_POST['employee_prenom']) ? trim($_POST['employee_prenom']) : '';
+        $employee_identifiant = isset($_POST['employee_identifiant']) ? trim($_POST['employee_identifiant']) : '';
+        $employee_mdp = isset($_POST['employee_mdp']) ? trim($_POST['employee_mdp']) : '';
+
+        if (!empty($employee_id)) {
+            if ($employee_mdp === "") {
+                updateEmployeeWithoutPassword($db, $employee_id, $employee_nom, $employee_prenom, $employee_identifiant);
+                setFlash("L'employé a été modifié avec succès (mot de passe inchangé)", "success");
+            } else {
+                $hashedPassword = password_hash($employee_mdp, PASSWORD_DEFAULT);
+                updateEmployee($db, $employee_id, $employee_nom, $employee_prenom, $employee_identifiant, $hashedPassword);
+                setFlash("L'employé a été modifié avec succès", "success");
+            }
         } else {
             $hashedPassword = password_hash($employee_mdp, PASSWORD_DEFAULT);
-            updateEmployee($db, $employee_id, $employee_nom, $employee_prenom, $employee_identifiant, $hashedPassword);
-            setFlash("L'employé a été modifié avec succès", "success");
+            addEmployee($db, $employee_nom, $employee_prenom, $employee_identifiant, $hashedPassword);
+            setFlash("L'employé a été ajouté avec succès", "success");
         }
-    } else {
-        $hashedPassword = password_hash($employee_mdp, PASSWORD_DEFAULT);
-        addEmployee($db, $employee_nom, $employee_prenom, $employee_identifiant, $hashedPassword);
-        setFlash("L'employé a été ajouté avec succès", "success");
+        header("Location: dashboard_employees.php");
+        exit();
     }
-    header("Location: dashboard_employees.php");
-    exit();
-}
 
-$currentSort = $_GET['sort'] ?? '';
-$currentOrder = $_GET['order'] ?? 'asc';
+    $currentSort = $_GET['sort'] ?? '';
+    $currentOrder = $_GET['order'] ?? 'asc';
 
-$getEmployees = getEmployees($db, $currentSort, $currentOrder);
+    $getEmployees = getEmployees($db, $currentSort, $currentOrder);
 
-function getSortLink($field, $currentSort, $currentOrder) {
-    $newOrder = ($currentSort === $field && $currentOrder === 'asc') ? 'desc' : 'asc';
-    return "?sort=$field&order=$newOrder";
-}
+    function getSortLink($field, $currentSort, $currentOrder) {
+        $newOrder = ($currentSort === $field && $currentOrder === 'asc') ? 'desc' : 'asc';
+        return "?sort=$field&order=$newOrder";
+    }
 
 ?>
 <!DOCTYPE html>
@@ -59,7 +74,7 @@ function getSortLink($field, $currentSort, $currentOrder) {
 
 <body>
     <header>
-        <h1 class="header_title">Bienvenue, /USER</h1>
+        <h1 class="header_title">Bienvenue, <?= $nom_utilisateur ?></h1>
         <svg class="header_logo" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 162" width="300px"
             height="168px">
             <path class="couleur-logo"
