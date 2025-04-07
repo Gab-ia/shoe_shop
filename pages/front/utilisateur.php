@@ -59,7 +59,7 @@ if (isset($_SESSION['user_id'])) {
 
   <header>
     <div class="logo">
-      <!-- Remplacer le logo SVG par une image -->
+    
       <img src="/img/logo-shoe.png" alt="Logo Shoe" class="size-logo">
     </div>
 
@@ -119,27 +119,27 @@ if (isset($_SESSION['user_id'])) {
   <section class="avantages-membres">
     <div class="avantages-wrapper">
       <div class="avantage-item">
-        <i class="fas fa-gift"></i> <!-- Icône cadeau -->
+        <i class="fas fa-gift"></i> 
         <p>Produits réservés</p>
       </div>
       <div class="avantage-item">
-        <i class="fas fa-truck"></i> <!-- Icône de camion de livraison -->
+        <i class="fas fa-truck"></i> 
         <p>Livraison gratuite</p>
       </div>
       <div class="avantage-item">
-        <i class="fas fa-star"></i> <!-- Icône d'étoile -->
+        <i class="fas fa-star"></i> 
         <p>Offres exclusives</p>
       </div>
       <div class="avantage-item">
-        <i class="fas fa-calendar"></i> <!-- Icône calendrier -->
+        <i class="fas fa-calendar"></i> 
         <p>Accès anticipé aux ventes</p>
       </div>
       <div class="avantage-item">
-        <i class="fa-solid fa-crown"></i> <!-- Icône couronne -->
+        <i class="fa-solid fa-crown"></i> 
         <p>Vente privée</p>
       </div>
       <div class="avantage-item">
-        <i class="fa-solid fa-gift"></i> <!-- Icône cadeau -->
+        <i class="fa-solid fa-gift"></i> 
         <p>Précommande</p>
       </div>
     </div>
@@ -150,7 +150,7 @@ if (isset($_SESSION['user_id'])) {
 <div class="copyright">
 
 <div class="logo">
-      <!-- Remplacer le logo SVG par une image -->
+      
       <img src="/img/logo-shoe.png" alt="Logo Shoe" class="size-logo">
     </div>
     <p> <svg xmlns="http://www.w3.org/2000/svg" width="12px" height="12px" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License 
