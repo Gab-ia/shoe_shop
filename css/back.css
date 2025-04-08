@@ -166,11 +166,13 @@ header {
     border-radius: 5px;
     padding: 5px 10px;
     transition: 0.5s ease;
+    border: none;
 }
 
 .form_validation_btn:hover {
     background-color: #6eb2b4a8;
     color: black;
+    border: none;
 }
 
 /* Listing */
@@ -244,11 +246,11 @@ header {
 }
 
 .list_item:nth-child(even) {
-    background-color: #ffffff;
+    background-color: var(--couleur-4);
 }
 
 .list_item:nth-child(odd) {
-    background-color: #d8d8d8;
+    background-color: #e0e0e0;
 }
 
 .list_item:hover {
@@ -272,7 +274,7 @@ header {
     padding: 5px;
     display: flex;
     align-items: center;
-    background-color: #1f609f;
+    background-color: #417ab3;
 }
 
 .list_delete_btn {
@@ -284,7 +286,7 @@ header {
     padding: 5px;
     display: flex;
     align-items: center;
-    background-color: #b31231;
+    background-color: #aa2b44;
     cursor: pointer;
 }
 
@@ -301,24 +303,24 @@ header {
 
 .list_modify_btn:hover {
     background-color: white;
-    color: #1f609f;
-    border:1px solid #1f609f;
+    color: #417ab3;
+    border:1px solid #417ab3;
     transition: 0.5s ease;
 }
 
 .list_delete_btn:hover {
     background-color: white;
-    color: #b31231;
-    border: 1px solid #b31231;
+    color: #aa2b44;
+    border: 1px solid #aa2b44;
     transition: 0.5s ease;
 }
 
 .list_modify_btn:hover .list_icon{
-    fill: #1f609f;
+    fill: #417ab3;
 }
 
 .list_delete_btn:hover .list_icon{
-    fill: #b31231;
+    fill: #aa2b44;
 }
 
 .size8 {
