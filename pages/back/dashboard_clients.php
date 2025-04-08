@@ -32,10 +32,13 @@
         <section class="gestionnaire">
 
             <div class="gestionnaire_head">
+
                 <h2 class="section_title">Gestionnaire</h2>
+
                 <a href="dashboard.php" class="gestionnaire_btn">Stock</a>
                 <a href="dashboard_employees.php" class="gestionnaire_btn">Employés</a>
                 <a href="dashboard_clients.php" class="gestionnaire_btn active_gestionnnaire_btn">Clients</a>
+            
             </div>
 
         </section>
@@ -96,7 +99,6 @@
             </div>
         </section>
     </main>
-
-    <script src="/js/dashboard.js"></script>
+<script src="/js/dashboard.js"></script>
 </body>
 </html>

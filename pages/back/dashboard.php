@@ -69,15 +69,17 @@
 <?php include './composants/head.php'; ?>
 
     <main>
-        <!-- Interface de gestion -->
 
         <section class="gestionnaire">
 
             <div class="gestionnaire_head">
+
                 <h2 class="section_title">Gestionnaire</h2>
+                
                 <a href="dashboard.php" class="gestionnaire_btn active_gestionnnaire_btn">Stock</a>
                 <a href="dashboard_employees.php" class="gestionnaire_btn">Employés</a>
                 <a href="dashboard_clients.php" class="gestionnaire_btn">Clients</a>
+            
             </div>
 
             <div class="gestionnaire_main">
@@ -151,12 +153,12 @@
 
         </section>
 
-        <!-- Interface liste -->
         <section class="list">
 
             <h2 class="list_title">Liste du stock</h2>
 
             <div class="list_main active_list">
+
                 <div class="list_item_filter">
                     <?php
                         $fields = [
@@ -211,10 +213,8 @@
                     }
                 ?>
             </div>
-
         </section>
     </main>
-
-    <script src="/js/dashboard.js"></script>
+<script src="/js/dashboard.js"></script>
 </body>
 </html>
