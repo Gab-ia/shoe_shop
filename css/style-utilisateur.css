@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@600&display=swap');
 
+/* ========================
+   Variables
+======================== */
 :root {
   --couleur-1: #50514F;
   --couleur-2: #56A3A6;
@@ -10,21 +13,25 @@
   --font-secondaire: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
+/* ========================
+   Base
+======================== */
 body {
   font-family: var(--font-principale);
   color: var(--couleur-1);
+  background-color: var(--couleur-4);
   margin: 0;
   padding: 0;
-  background-color: var(--couleur-4);
 }
 
-h1,
-h2,
-h3 {
+h1, h2, h3 {
   font-family: var(--font-secondaire);
   color: var(--couleur-1);
 }
 
+/* ========================
+   Connexion Client
+======================== */
 .connexion_client_section {
   max-width: 400px;
   margin: 50px auto;
@@ -33,7 +40,6 @@ h3 {
 
 .connexion_client_section img {
   width: 60px;
-  color: var(--couleur-1);
 }
 
 .connexion_client_section h1 {
@@ -46,14 +52,14 @@ h3 {
   margin-bottom: 15px;
 }
 
+.connexion_client_form .connexion_client_button {
+  float: right;
+}
+
 .connexion_client_creercompte {
   font-size: 13px;
   text-align: end;
   margin: 5px;
-}
-
-.connexion_client_form .connexion_client_button {
-  float: right;
 }
 
 input[type="email"],
@@ -90,10 +96,36 @@ input[type="id"],
   margin-top: 10px;
 }
 
+/* ========================
+   User Account Section
+======================== */
 .user_account_section {
+  text-align: center;
+  padding-bottom: 100px; /* pour ne pas cacher par le footer */
+}
+
+.user_account_section ul {
+  display: inline-block;
+  margin-right: 40px;
+}
+
+.welcome_message,
+.welcome-message {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--couleur-1);
+  margin-top: 10px;
   text-align: center;
 }
 
+.welcome-message {
+  font-size: 48px;
+  color: #333;
+}
+
+/* ========================
+   Navigation Utilisateur
+======================== */
 .user_nav ul {
   list-style: none;
   padding: 0;
@@ -113,16 +145,9 @@ input[type="id"],
   padding: 10px 15px;
 }
 
-.welcome_message {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: var(--couleur-1);
-  margin-top: 10px;
-}
-
-/* header */
-
-/* Ajout de Flexbox pour le header */
+/* ========================
+   Header
+======================== */
 header {
   display: flex;
   flex-direction: column;
@@ -132,11 +157,11 @@ header {
   background-color: var(--couleur-3);
 }
 
-header .logo img {
+header .logo img,
+footer .logo img {
   width: 100%;
-  height: auto;
   max-width: 125px;
-  /* Logo limité à cette taille */
+  height: auto;
 }
 
 header ul {
@@ -148,8 +173,7 @@ header ul {
 }
 
 header ul li {
-  margin-right: 20px;
-  margin-left: 20px;
+  margin: 0 20px;
 }
 
 header .icones {
@@ -158,68 +182,14 @@ header .icones {
 }
 
 .logo {
+  display: inline-block;
   width: auto;
   height: auto;
-  display: inline-block;
 }
 
-/* Media Queries */
-
-/* Pour les grands écrans (PC) */
-@media (min-width: 1024px) {
-  .connexion_client_section {
-    max-width: 500px;
-  }
-
-  .user_account_section {
-    max-width: 80%;
-    margin: auto;
-  }
-}
-
-
-
-/* Pour les téléphones (moins de 790px) */
-@media (max-width: 790px) {
-  header {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .logo img {
-    max-width: 100px;
-  }
-
-  .user_nav ul {
-    flex-direction: column;
-    padding: 0;
-  }
-
-  .user_nav ul li {
-    margin: 10px 0;
-    font-size: 14px;
-  }
-
-  .user_account_section {
-    padding: 15px;
-  }
-
-  .purchase_history li,
-  .favorite_list li {
-    padding: 12px;
-    font-size: 14px;
-  }
-
-  button {
-    font-size: 14px;
-  }
-}
-
-.user_account_section ul {
-  display: inline-block;
-  margin-right: 40px;
-}
-
+/* ========================
+   Avantages Membres
+======================== */
 .avantages-membres {
   background-color: var(--couleur-4);
   padding: 20px 0;
@@ -254,46 +224,28 @@ header .icones {
   font-weight: bold;
 }
 
-/* Animation pour faire défiler les éléments */
+.titre-avantages {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Animation défilement */
 @keyframes scroll-left {
   0% {
     transform: translateX(120%);
   }
-
   100% {
     transform: translateX(-120%);
   }
 }
 
-/* Media Queries pour adapter à différents écrans */
-@media (max-width: 1024px) {
-  .avantage-item {
-    font-size: 14px;
-  }
-
-  .avantage-item i {
-    font-size: 25px;
-  }
-}
-
-@media (max-width: 790px) {
-  .avantage-item {
-    font-size: 12px;
-    margin: 0 15px;
-  }
-
-  .avantage-item i {
-    font-size: 20px;
-  }
-
-  .avantages-membres {
-    padding-bottom: 200px; /* ou plus selon la hauteur de ton footer */
-  }
-}
-
-
+/* ========================
+   Footer
+======================== */
 footer {
-  position: relative;
+  position: fixed;
   background-color: var(--couleur-3);
   width: 100%;
   height: 15%;
@@ -304,28 +256,70 @@ footer {
   padding: 20px 0;
 }
 
-footer .logo img {
-  width: 100%;
-  height: auto;
-  max-width: 125px;
+/* ========================
+   Media Queries
+======================== */
+/* Écrans larges */
+@media (min-width: 1024px) {
+  .connexion_client_section {
+    max-width: 500px;
+  }
+
+  .user_account_section {
+    max-width: 80%;
+    margin: auto;
+  }
+
+  .avantage-item {
+    font-size: 14px;
+  }
+
+  .avantage-item i {
+    font-size: 25px;
+  }
 }
 
-.welcome-message {
-  font-size: 48px; 
-  font-weight: bold;
-  text-align: center;
-  margin-top: 20px;
-  color: #333; 
-}
+/* Écrans mobiles */
+@media (max-width: 790px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+  }
 
+  .logo img {
+    max-width: 100px;
+  }
 
-.user_account_section {
-  padding-bottom: 100px; /* Ajuste selon la hauteur de ton footer */
-}
+  .user_nav ul {
+    flex-direction: column;
+    padding: 0;
+  }
 
-.titre-avantages {
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #333;
+  .user_nav ul li {
+    margin: 10px 0;
+    font-size: 14px;
+  }
+
+  .user_account_section {
+    padding: 15px;
+  }
+
+  .purchase_history li,
+  .favorite_list li,
+  button {
+    font-size: 14px;
+  }
+
+  .avantage-item {
+    font-size: 12px;
+    margin: 0 15px;
+  }
+
+  .avantage-item i {
+    font-size: 20px;
+  }
+
+  .avantages-membres {
+    padding-bottom: 200px;
+  }
 }

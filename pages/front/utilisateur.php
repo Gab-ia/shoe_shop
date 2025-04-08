@@ -65,7 +65,7 @@ if (isset($_SESSION['user_id'])) {
       <nav class="user_nav">
         <ul>
           <li><a href="/pages/front/accueil.php">Accueil</a></li>
-          <li><a href="#membres">Avantages Membres</a></li>
+          <li><a href="#membres">Devenir Membres</a></li>
           <li><a href="/logout.php">Déconnexion</a></li>
         </ul>
       </nav>
