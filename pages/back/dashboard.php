@@ -63,7 +63,7 @@
         $newOrder = ($currentSort === $field && $currentOrder === 'asc') ? 'desc' : 'asc';
         return "?sort=$field&order=$newOrder";
     }
-
+    
 ?>
 
 <?php include './composants/head.php'; ?>

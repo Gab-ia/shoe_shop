@@ -39,19 +39,3 @@ function closeModal(modalId) {
         modal.style.display = "none";
     }
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-    const modifyButtons = document.querySelectorAll('.list_modify_btn');
-    modifyButtons.forEach(function (button) {
-        button.addEventListener('click', function (e) {
-            e.preventDefault();
-            const listItem = this.closest('.list_item');
-            document.getElementById('employee_id').value = listItem.getAttribute('data-id');
-            document.getElementById('employee_nom').value = listItem.getAttribute('data-nom');
-            document.getElementById('employee_prenom').value = listItem.getAttribute('data-prenom');
-            document.getElementById('employee_identifiant').value = listItem.getAttribute('data-identifiant');
-            document.getElementById('employee_mdp').value = "";
-            document.getElementById('form_validation_employee').value = 'Modifier';
-        });
-    });
-});
