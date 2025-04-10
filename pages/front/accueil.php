@@ -187,7 +187,106 @@ while ($row = $stmt->fetch()){
 
 
 
+$genre_by = "genre";
+$gd = "ASC";
+
+
+if (isset($_GET["genre_by"]) && ($_GET["genre_by"] == "genre") ){
+
+    $genre_by = $_GET["genre_by"];
+
+    }
+
+
+    if (isset($_GET["gd"]) && ($_GET["gd"] == "ASC" || $_GET["gd"] == "DESC")){
+
+        $gd = $_GET["gd"];
+
+        $sql = "SELECT * FROM shoes WHERE $genre_by LIKE 'Homme%' ORDER BY taille $gd ";
     
+    } 
+
+
+
+
+
+
+$size_by = "taille";
+$sm = "ASC";
+
+
+
+if (isset($_GET["size_by"]) && ($_GET["size_by"] == "taille") ){
+
+    $size_by = $_GET["size_by"];
+
+    }
+
+
+    if (isset($_GET["sm"]) && ($_GET["sm"] == "ASC" || $_GET["sm"] == "DESC")){
+
+        $sm = $_GET["sm"];
+
+        $sql = "SELECT * FROM shoes WHERE $size_by BETWEEN 32 AND 36 ORDER BY $size_by $sm";
+    
+    } 
+
+    
+    
+    
+    
+  
+    
+$date_by = "id";
+$new = "ASC";
+
+
+if (isset($_GET["date_by"]) && ($_GET["date_by"] == "id") ){
+
+    $date_by = $_GET["date_by"];
+
+    }
+
+
+    if (isset($_GET["new"]) && ($_GET["new"] == "ASC" || $_GET["new"] == "DESC")){
+
+        $new = $_GET["new"];
+
+        $sql = "SELECT * FROM shoes ORDER BY shoes.$date_by $new";
+    
+    } 
+
+    
+
+
+
+$sort_by = "prix";
+$order = "ASC";
+    
+    
+if (isset($_GET["sort_by"]) && ($_GET["sort_by"] == "prix") ){
+    
+    
+        $sort_by = $_GET["sort_by"];
+    
+    
+     }
+    
+    
+     if (isset($_GET["order"]) && ($_GET["order"] == "ASC" || $_GET["order"] == "DESC")){
+    
+        $order = $_GET["order"];
+      
+        $sql = "SELECT * FROM shoes WHERE $sort_by ORDER BY $order";
+    
+    
+    } 
+    
+   
+    
+
+    
+     
 
 
 ?>
@@ -240,7 +339,7 @@ while ($row = $stmt->fetch()){
 
 <ul>
 
-<li>  <a href="" style ="text-decoration:none; color:var(--couleur-4); "> Croissant </a></li>
+<li>  <a href="?sort_by=prix&order=<?= $sort_by == 'prix' && $order == 'ASC' ? 'DESC' : 'ASC'?>" style ="text-decoration:none; color:var(--couleur-4); "> Croissant </a></li>
 <li>  <a href="" style ="text-decoration:none; color:var(--couleur-4);"> Décroissant </a> </li>
 
 
