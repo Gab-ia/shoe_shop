@@ -14,7 +14,7 @@ body {
   
   font-family: var(--font-principale);
 
-
+background-color: var(--couleur-4);
   color: var(--couleur-4);
   margin: 0;
   padding: 0;
@@ -25,7 +25,7 @@ body {
 
 header {
 
-background-color: var(--couleur-4);
+background-color: white;
 border-bottom: solid 4px var(--couleur-2);
 width: 100%;
 height: 30%;
@@ -38,9 +38,7 @@ padding: 10px 0;
 
 header ul li {
 
-font-size:35px;
-
-
+font-size:30px;
 
 }
 
@@ -48,7 +46,7 @@ font-size:35px;
 footer {
   border-top: solid 3px var(--couleur-2);
 
-  background-color: var(--couleur-4);
+  background-color: white;
   width: 100%;
   height: 15%;
   bottom: 0;
@@ -164,7 +162,7 @@ color: var(--couleur-3);
 
 
 
-nav {
+#menu {
   
   
   margin: 0;
@@ -172,8 +170,9 @@ nav {
   background: var(--couleur-1);
   list-style-type: none;
   border: 0;
-  width: 16%;
-
+  width: 15%;
+  position: sticky;
+  top: 0;
   display: flex;
   flex-direction: column;
   
@@ -181,7 +180,7 @@ nav {
 
   }
    
- nav ul {
+ #menu ul {
 
   display: flex;
   flex-direction: column;
@@ -189,7 +188,7 @@ nav {
 
  }
 
- nav ul li {
+ #menu ul li {
 
 color: var(--couleur-4);
 font-size: 20px;
@@ -243,7 +242,7 @@ margin: 20px 120px;
 
 
 background-image: url(/img/wall.jpg);
-padding: 50px 0;
+padding: 115px 0;
 
 
 }
@@ -251,9 +250,12 @@ padding: 50px 0;
 
 .slide {
 
-  margin-left: 300px;
-width: 600px;
-height: 600px;
+margin-left: 300px;
+margin-bottom: 50px;
+width: 650px;
+height: 450px;
+background-color: white;
+padding: 50px 0;
 
 }
 
@@ -265,6 +267,8 @@ display: flex;
 justify-content: center;
 background-size: cover;
 margin-right: 400px;
+
+
 
 }
 
@@ -301,5 +305,48 @@ background: repeating-linear-gradient(-45deg ,var(--couleur-4) 10% , var(--coule
 aside {
 
 margin-top:100px;
+
+}
+
+.autresproduits {
+
+
+width: 100%;
+
+
+background-color: yellow;
+
+
+}
+
+
+.autresproduits p {
+
+font-size: 30px;
+font-style: italic;
+color: #50514F;
+text-align: center;
+padding: 10px 0;
+
+
+
+}
+
+.fa-solid {
+
+
+color:#50514F;
+display: flex;
+flex-direction: row;
+
+
+}
+
+.fa-euro-sign {
+
+
+font-size: 16px;
+
+
 
 }
