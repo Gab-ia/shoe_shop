@@ -151,7 +151,7 @@ while ($row = $stmt->fetch()){
     <strong style="font-style: italic;"> '. $row['marque'] .' </strong> '. $row['nom'] .' &nbsp; 
     <strong style= "color: var(--couleur-1); float: right;"> '. $row['taille'] .' </strong> <br> <br>
     <img id = "img" src="/img/shoes/'. $row['image'] .'" style= "width: 420px; height: 260px; margin: 40px -70px;" id ="img" alt=""/> 
-    <br> <p id ="savoir" style= "position: absolute; margin: 50% auto; color: black;"> En savoir plus </p> <p id= "prix" style= "color: var(--couleur-1); margin: -35px 0; background-color: yellow; padding: 10px 10px; width: 110px; 
+    <br>  <p id= "prix" style= "color: var(--couleur-1); margin: -35px 0; background-color: yellow; padding: 10px 10px; width: 110px; 
     font-size: 30px;"> '. $row['prix'] .' <i id ="euro" class="fa-solid fa-euro-sign"></i> </p>
     </li> </br>
     
