@@ -73,6 +73,3 @@ function getShoesById($db, $id) {
         return false;
     }
 }
-
-
-

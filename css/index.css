@@ -1,0 +1,136 @@
+:root {
+    --couleur-1: #383838;
+    --couleur-2: #56A3A6;
+    --couleur-3: #FF785A;
+    --couleur-4: #f7f7f7;
+    --couleur-5: #6eb2b4a8;
+  
+    --font-principale: 'Poppins', sans-serif;
+    --font-secondaire: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+  
+body {
+    font-family: var(--font-principale);
+    background-color: var(--couleur-4);
+    color: var(--couleur-1);
+    margin: 0;
+    padding: 0;
+}
+  
+h1, h2, h3 {
+    font-family: var(--font-secondaire);
+    color: var(--couleur-1);
+}
+
+main {
+    display: flex;
+    justify-content: center;
+}
+
+/* header */
+
+header {
+    background-color: #6eb2b4a8;
+    display: flex;
+    align-items: center;
+    padding:0px 50px;
+    justify-content: space-between;
+}
+
+.header_logo {
+    height: 10em;
+    text-align: center;
+    color: var(--couleur-4);
+    margin: 0 4em;
+}
+
+.index_logo {
+    width: 2em;
+    fill: var(--couleur-1);
+}
+
+.index_header_item {
+    width: 2em;
+    fill: var(--couleur-1);
+    margin: 0 5em;
+
+}
+
+.index_nav {
+    display: flex;
+
+}
+
+/* separators */
+
+.separator {
+    background-color: var(--couleur-5);
+    
+}
+
+.separator_title {
+    color: var(--couleur-4);
+    padding: 1em;
+    font-size: 4em;
+    text-align: center;
+    margin: 0;
+}
+
+/* New shoes */
+
+.index_new {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.index_new_shoes {
+    background-color: var(--couleur-4);
+    border: 1em solid var(--couleur-1);
+    border-right: none;
+    font-size: 1.5em;
+    width: 50%;
+}
+
+.index_new_img {
+    width: 100%;
+}
+
+.index_new_text {
+    border: 1em solid var(--couleur-4);
+    border-left: none;
+    background-color: var(--couleur-1);
+    padding: 1.5em;
+    width: 50%;
+    color: #FFFCFF;
+    font-size: 1.5em;
+}
+
+.index_new_text_title {
+color: var(--couleur-2);
+}
+
+/* SideBar filter and search */
+
+.index_sidebar {
+    background-color: var(--couleur-1);
+    display: flex;
+    flex-direction: column;
+    left: 0;
+    position: absolute;
+    width: 10%;
+}
+
+.index_filter {
+    text-decoration: none;
+    color: var(--couleur-4);
+}
+
+.index_box_filter {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter_btn {
+
+}
