@@ -32,7 +32,7 @@
         exit();
     }
 
-    if (!empty($_POST["Modifier"]) and !empty($_POST["nom"]) and !empty($_POST["prix"]) and !empty($_POST["marque"]) and !empty($_POST["taille"]) and !empty($_POST["genre"]) and !empty($_POST["descript"]) > 0 and !empty($_POST["id"])) {
+    if (!empty($_POST["Modifier"]) and !empty($_POST["nom"]) and !empty($_POST["prix"]) and !empty($_POST["marque"]) and !empty($_POST["taille"]) and !empty($_POST["genre"]) and !empty($_POST["descript"]) and !empty($_POST["id"])) {
         if(updateShoes($db, $_POST["nom"], $_POST["prix"], $_POST["marque"], $_POST["taille"], $_POST["genre"], $_POST["descript"], $_POST["id"])) {
             setFlash("Chaussures modifiées avec succès", "success" );
         } else {
@@ -106,27 +106,27 @@
                     <input type="hidden" name="id" value="<?php echo $shoesData['id'] ?>">
 
                     <label for="stock_nom" class="form_label">Nom</label>
-                    <input type="text" id="stock_nom" name="nom" class="form_input" value="<?php echo $shoesData['nom'] ?>">    
+                    <input type="text" name="nom" class="form_input" value="<?php echo $shoesData['nom'] ?>">    
 
                     <label for="stock_prix" class="form_label">Prix</label>
-                    <input type="text" id="stock_prix" name="prix" class="form_input" value="<?php echo $shoesData['prix'] ?>">
+                    <input type="text" name="prix" class="form_input" value="<?php echo $shoesData['prix'] ?>">
 
                     <label for="stock_marque" class="form_label">Marque</label>
-                    <input type="text" id="stock_marque" name="marque" class="form_input form_select" value="<?php echo $shoesData['marque'] ?>">
+                    <input type="text" name="marque" class="form_input form_select" value="<?php echo $shoesData['marque'] ?>">
 
                     <label for="stock_genre" class="form_label">Genre</label>
-                    <select id="stock_genre" name="genre" class="form_input form_select" value="<?php echo $shoesData['genre'] ?>">
+                    <select name="genre" class="form_input form_select" value="<?php echo $shoesData['genre'] ?>">
                         <option value="">Choisir une catégorie</option>
-                        <option value="Homme">Homme</option>
-                        <option value="Femme">Femme</option>
-                        <option value="Enfant">Enfant</option>
+                        <option value="Homme" <?= $shoesData['genre'] == 'Homme' ? 'selected' : '' ?> >Homme</option>
+                        <option value="Femme" <?= $shoesData['genre'] == 'Femme' ? 'selected' : '' ?> >Femme</option>
+                        <option value="Enfant" <?= $shoesData['genre'] == 'Enfant' ? 'selected' : '' ?> >Enfant</option>
                     </select>
 
                     <label for="stock_taille" class="form_label">Taille</label>
-                    <input type="text" id="stock_taille" name="taille" class="form_input" value="<?php echo $shoesData['taille'] ?>">
+                    <input type="text" name="taille" class="form_input" value="<?php echo $shoesData['taille'] ?>">
 
                     <label for="stock_description" class="form_label">Description</label>
-                    <textarea rows="3" id="stock_description" name="descript" class="form_input" value="<?php echo $shoesData['descript'] ?>"><?php echo $shoesData['descript'] ?></textarea>
+                    <textarea rows="3" name="descript" class="form_input" value="<?php echo $shoesData['descript'] ?>"><?php echo $shoesData['descript'] ?></textarea>
 
                     <div class="form_box">
                         <?php 
@@ -143,7 +143,7 @@
                             }
                         ?>
 
-                        <input type="submit" id="form_validation_stock" class="form_validation_btn" name="<?php echo $titre ?>" value="<?php echo $titre ?>">
+                        <input type="submit" class="form_validation_btn" name="<?php echo $titre ?>" value="<?php echo $titre ?>">
                     </div>
 
                 </form>
