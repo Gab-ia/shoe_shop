@@ -1,6 +1,23 @@
-<?php include 'connexion.php'; ?>
+<?php 
 
+$host = 'localhost';    
+$dbname = 'shoe_shop';
+$username = 'samir2';
+$password = 'Samb89';
 
+try {
+    
+    $db = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+
+   
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    echo "Connexion réussie à la base de données.";
+} catch (PDOException $e) {
+    echo "Erreur de connexion : " . $e->getMessage();
+}
+
+?>
 
 
 
@@ -8,6 +25,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>shoe_shop</title>
@@ -15,21 +33,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <script type= "text/javascript" src= 'accueil.js'> </script>
 
-<?php 
-
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
-$serveur = "localhost";
-$utilisateur = "samir2";  
-$motdepasse = "Samb89";       
-$base = "shoe_shop"; 
-
-
-
-
-
-?>
     
 </head>
 
@@ -57,9 +60,9 @@ $base = "shoe_shop";
  
 <ul>
 
-<li><a href="" class="lien" style="text-decoration:none; color:var(--couleur-1);" onclick="afficheMenu()">HOMME</a></li>
-<li><a href="" class="lien" style="text-decoration:none; color:var(--couleur-1);" onclick="afficheMenu()">FEMME</a></li>
-<li><a href="" class="lien" style="text-decoration:none; color:var(--couleur-1);" onclick="afficheMenu()">ENFANT</a></li>
+<li><a href="" class="lien" style="text-decoration:none; color:var(--couleur-1);">HOMME</a></li>
+<li><a href="" class="lien" style="text-decoration:none; color:var(--couleur-1);">FEMME</a></li>
+<li><a href="" class="lien" style="text-decoration:none; color:var(--couleur-1);">ENFANT</a></li>
 
 
  </ul>
@@ -70,7 +73,7 @@ $base = "shoe_shop";
         <div class="icones">
 
 <a href=""> <i class="fa-regular fa-heart icone"></i> </a>
-<a href=""> <i class="fa-solid fa-user icone"></i> </a>
+<a href=""> <i class="fa-regular fa-user icone"></i> </a>
 </div>
 
 
@@ -83,23 +86,16 @@ $base = "shoe_shop";
 
 
 
-
-
-
-
-
-
-
-
 <div class ="desc">
 
 <img class ="slide" src="/img/shoes/jordan-1.webp" alt="">
 
-<div style=" background: linear-gradient(45deg, var(--couleur-1)85%, yellow 15%); padding: 0 60px;"> 
-<p style =" font-size: 30px; position: absolute; top: 210px; right: 385px; color: var(--couleur-1); transform: rotate(45deg); font-style: bold;"> NOUVEAUTE </p>
+<div style=" background: linear-gradient(45deg, var(--couleur-1)85%, yellow 15%); padding: 0 60px; margin-bottom: 50px;"> 
+
 
 <p style ="float: left;">
-<h2>JORDAN 1</h2>
+
+<h1 style = "color: var(--couleur-4);">JORDAN 1</h1>
 
 The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from 
 "de Finibus Bonorum et Malorum" by Cicero are also reproduced 
@@ -115,12 +111,6 @@ in their exact original form, accompanied by English versions from the 1914 tran
 </div>
 
 
-
-
-
-
-
-
 </div>
 
 
@@ -133,7 +123,7 @@ in their exact original form, accompanied by English versions from the 1914 tran
 
 <aside>
 
-
+<div class ="autresproduits">  <p> <i class="fa-solid fa-caret-down"></i> &nbsp; AUTRES PRODUITS &nbsp; <i class="fa-solid fa-caret-down"></i> </p>  </div>
 
 
 <div class="chaussures">
@@ -142,52 +132,42 @@ in their exact original form, accompanied by English versions from the 1914 tran
 
 
 
-<?php  
-                        
-                        
-                        $connect = new mysqli($serveur, $utilisateur, $motdepasse, $base);
-
-                         $sql = "SELECT * FROM shoes ";
-                         $result = $connect -> query($sql); 
-                             
-                             
-                         if ($result->num_rows > 0) {
-
-                           
-                            while ($ligne = $result->fetch_assoc()) {
-                                 
-                                 echo '
-                                
-                                 <ul>
-                                
-                            
-                                <li style ="color: var(--couleur-4);  background: linear-gradient(0deg, white 85%, var(--couleur-3) 15% );  
-                                padding-top: 10px; padding-bottom: 10px; box-shadow: 5px 5px 5px black;">
-                               '. $ligne['nom'] .' <br> <br>
-                                <img src="/img/shoes/jordan-1.webp" style= "width: 280px; height: 280px;" alt=""/> 
-                                <br> <p style= "color: var(--couleur-1); "> '. $ligne['prix'] .' </p>
-                                </li> </br>
-                                
+<?php
 
 
-                                 </ul>
-                               
-                                 
-                                 ';
 
-                         
-                             }
+$sql = "SELECT * FROM shoes";
+$stmt = $db->query($sql);
+
+while ($row = $stmt->fetch()){
 
 
-                         } else {
-                                 
-                             echo "Aucun résultat trouvé.";
-                             
-                         };
-                     
+    echo '
+            
+    <ul>
+    
+    <li id ="chaussure" style ="color: var(--couleur-4);  background: linear-gradient(0deg, white 85%, var(--couleur-3) 15% );  
+    padding-top: 10px; padding-bottom: 10px; box-shadow: 5px 5px 5px black; width: 300px; height:450px; font-size:21px;">
+    <strong style="font-style: italic;"> '. $row['marque'] .' </strong> '. $row['nom'] .' &nbsp; 
+    <strong style= "color: var(--couleur-1); float: right;"> '. $row['taille'] .' </strong> <br> <br>
+    <img id = "img" src="/img/shoes/'. $row['image'] .'" style= "width: 420px; height: 260px; margin: 40px -70px;" id ="img" alt=""/> 
+    <br>  <p id= "prix" style= "color: var(--couleur-1); margin: -35px 0; background-color: yellow; padding: 10px 10px; width: 110px; 
+    font-size: 30px;"> '. $row['prix'] .' <i id ="euro" class="fa-solid fa-euro-sign"></i> </p>
+    </li> </br>
+    
+    </ul> ';
 
 
-                 ?>
+
+}
+   
+
+
+?>
+
+
+
+
 
 
 
@@ -202,15 +182,38 @@ in their exact original form, accompanied by English versions from the 1914 tran
 
 
 <nav id ="menu">
-<form action="accueil.php" method="post">
+
+<?php 
+
+
+
+    
+   
+    
+
+    
+     
+
+
+?>
+
+
+<form action="accueil.php" method="GET">
+
+
+
 
 <h1> &nbsp; Genre <hr> </h1>
 
+
+
+
+
         <ul>
 
-            <li> <input type="checkbox" name="" id=""> Homme </li>
-            <li> <input type="checkbox" name="" id=""> Femme </li>
-            <li> <input type="checkbox" name="" id=""> Enfant </li>
+            <li> <a href="" style ="text-decoration:none; color: var(--couleur-4);">  Homme </a> </li>
+            <li> <a href="" style ="text-decoration:none; color: var(--couleur-4);">  Femme </a> </li>
+            <li>  <a href="" style ="text-decoration:none; color: var(--couleur-4);">  Enfant </a> </li>
 
         </ul>
 
@@ -219,9 +222,9 @@ in their exact original form, accompanied by English versions from the 1914 tran
         </h1>
 
         <ul>
-            <li> <input type="checkbox" name="" id=""> 38-40 </li>
-            <li> <input type="checkbox" name="" id=""> 40-42</li>
-            <li> <input type="checkbox" name="" id=""> 42-45</li>
+            <li> <a href="" style ="text-decoration:none; color:var(--couleur-4);" id=""> 32-36 </a> </li>
+            <li> <a href="" style ="text-decoration:none; color:var(--couleur-4);" id=""> 38-43 </a> </li>
+            <li> <a href="" style ="text-decoration:none; color:var(--couleur-4);" id=""> 44-48 </a> </li>
 
         </ul>
 
@@ -229,9 +232,11 @@ in their exact original form, accompanied by English versions from the 1914 tran
             <hr>
         </h1>
 
+        
+        
         <ul>
-            <li> <input type="checkbox" name="" id=""> Récent </li>
-            <li> <input type="checkbox" name="" id=""> Ancien </li>
+            <li> <a href="" style ="text-decoration:none; color:var(--couleur-4);" id=""> Récent </a> </li>
+            <li> <a href="" style ="text-decoration:none; color:var(--couleur-4);" id=""> Ancien </a> </li>
         </ul>
 
         <h1> &nbsp; Prix
@@ -240,42 +245,16 @@ in their exact original form, accompanied by English versions from the 1914 tran
 
 <ul>
 
-<li> <input type="checkbox" name="asc"> Croissant </li>
-<li> <input type="checkbox" name="des"> Décroissant </li>
+<li>  <a href="?sort_by=prix&order=<?= $sort_by == 'prix' && $order == 'ASC' ? 'DESC' : 'ASC'?>" style ="text-decoration:none; color:var(--couleur-4); "> Croissant </a></li>
+<li>  <a href="" style ="text-decoration:none; color:var(--couleur-4);"> Décroissant </a> </li>
 
 
 </ul>
 
-<input type="submit" name="submit" value="soumettre">
 
-
+                        
 
 </form>
-
-<?php 
-
-if(isset($_POST['submit'])) {
-
-
-
-if(isset($_POST['asc'])){
-
-
-
-
-
-
-}
-
-
-
-}
-
-
-
-
-
-?>
 
 
 
