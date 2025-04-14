@@ -47,9 +47,9 @@ function getSortLink($field, $currentSort, $currentOrder) {
         </div>
 
         <div class="index_new_text">
-            <h1 class="index_new_text_title">Découvrez les <?php echo $newShoes['nom'] ?></h1>
+            <h1 class="index_new_text_title">Découvrez la <?php echo $newShoes['marque'], ' ', $newShoes['nom'] ?></h1>
             <p><?php echo $newShoes['descript']?></p>
-            <p> Disponibles en taille <?php echo $newShoes['taille']?> dans la catégorie <?php echo $newShoes['genre']?>. </p>
+            <p> Disponible en taille <?php echo $newShoes['taille']?> dans la catégorie <?php echo $newShoes['genre']?>. </p>
         </div>
 
     </section>
