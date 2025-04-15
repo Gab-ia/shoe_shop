@@ -1,6 +1,6 @@
 <?php 
 include 'connexion.php';
-include 'pages/front/composants/functionsHome.php';
+include 'pages/front/composants/functionsIndex.php';
 
 $currentSort = $_GET['sort'] ?? '';
 $currentOrder = $_GET['order'] ?? 'asc';
@@ -68,17 +68,17 @@ function getSortLink($field, $currentSort, $currentOrder) {
 
             </div>
 
-            <button class="filter_btn">Taille</button>
-            <div class="index_box_filter">
-            <?php
-                foreach($sizes as $size) {
-                    echo'<a class="index_filter" href="">' . $size['taille'] . ' </a>';
-                }
-            ?>
+            <button id="size" onclick="showFilter(id, 'grid')" class="filter_btn">Taille</button>
+            <div class="index_box_filter filter_size">
+                <?php
+                    foreach($sizes as $size) {
+                        echo'<a class="index_filter" href="">' . $size['taille'] . ' </a>';
+                    }
+                ?>
             </div>
 
-            <button class="filter_btn">Genre</button>
-            <div class="index_box_filter">
+            <button id="genre" onclick="showFilter(id, 'flex')" class="filter_btn">Genre</button>
+            <div class="index_box_filter filter_genre">
                 <?php
                     foreach($genres as $genre) {
                         echo'<a class="index_filter" href="">' . $genre['genre'] . ' </a>';
@@ -86,14 +86,14 @@ function getSortLink($field, $currentSort, $currentOrder) {
                 ?>
             </div>
 
-            <button class="filter_btn">Prix</button>
-            <div class="index_box_filter">
+            <button id="price" onclick="showFilter(id, 'flex')" class="filter_btn">Prix</button>
+            <div class="index_box_filter filter_price">
                 <a class="index_filter" href="">Prix croissants</a>
                 <a class="index_filter" href="">Prix décroissants</a>
             </div>
 
-            <button class="filter_btn">Marque</button>
-            <div class="index_box_filter">
+            <button id="brand" onclick="showFilter(id, 'flex')" class="filter_btn">Marque</button>
+            <div class="index_box_filter filter_brand">
                 <?php
                     foreach($brands as $brand) {
                         echo'<a class="index_filter" href="">' . $brand['marque'] . ' </a>';
@@ -101,8 +101,8 @@ function getSortLink($field, $currentSort, $currentOrder) {
                 ?>
             </div>
 
-            <button class="filter_btn">Nouveauté</button>
-            <div class="index_box_filter">
+            <button id="new" onclick="showFilter(id, 'flex')" class="filter_btn">Nouveauté</button>
+            <div class="index_box_filter filter_new">
                 <a class="index_filter" href="">Les plus récentes</a>
                 <a class="index_filter" href="">Les plus anciennes</a>
             </div>
@@ -110,10 +110,14 @@ function getSortLink($field, $currentSort, $currentOrder) {
         </section>
 
         <section class="index_shoes">
-
+            <?php
+                
+            ?>
         </section>
 
     </main>
+
+    <script src="/js/index.js"></script>
 
 </body>
 </html>

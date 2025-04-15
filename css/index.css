@@ -123,26 +123,46 @@ color: var(--couleur-2);
     flex-direction: column;
     left: 0;
     position: absolute;
-    width: 10%;
+    width: 15%;
     padding-bottom: 10px;
+    padding-left: 10px;
 }
 
 .index_filter {
     text-decoration: none;
     color: var(--couleur-4);
     padding: 10px 10px 0 10px;
+    transition: 2s ease-in-out;
 }
 
 .index_box_filter {
-    display: flex;
+    display: none;
     flex-direction: column;
+    transition: 2s ease-in-out;
+}
+
+.filter_size {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
 }
 
 .filter_btn {
     background: none;
     border: none;
     color: var(--couleur-4);
-    width: auto;
+    width: fit-content;
     font-size: 1.5em;
     padding: 10px;
+    cursor: pointer;
+    margin: auto;
+}
+
+.flex {
+    display: flex;
+    transition: 2s ease-in-out;
+}
+
+.grid {
+    display: grid;
+    transition: 2s ease-in-out;
 }
